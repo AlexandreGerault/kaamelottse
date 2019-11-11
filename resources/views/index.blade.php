@@ -24,75 +24,23 @@
       </p>
     </div>
     <div class="row">
-      <div class="card-columns">
-        <div class="card carre">
-          <img src="images/affiche.jpg" class="card-img-top" alt="affiche">
-          <div class="card-body">
-            <h5 class="card-title">La Liste Kaamelot'Tse</h5>
-            <p class="card-text">
-            Avec la congrégation des saints chevaliers, vous aurez accès aux banquets avec potion de toute puissance à volonté, fruit du pécher, tournois chevalresques ou danse de la promise !<br/>
-            Partez à la quête du Sainté Graal et vous avez la certitude de fêtes réussies</p>
-          </div>
-          <div class="card-body">
-            <a href="table_ronde.html" class="card-link">Découvrir La Table ronde</a>
-          </div>
+        <div class="card-columns">
+            @foreach ($articles as $article)
+                <div class="card carre">
+                    @if ($article->image)
+                        <img src="{{ $article->image }}" class="card-img-top" alt="logo">
+                    @endif
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $article->titre }}</h5>
+                      <p class="card-text">{{ $article->contenu }}</p>
+                    </div>
+                    @if ($article->nom_lien)
+                        <div class="card-body">
+                          <a href="{{ $article->adresse_lien }}" class="card-link">{{ $article->nom_lien }}</a>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
         </div>
-        <div class="card carre">
-          <div class="card-body">
-            <h5 class="card-title">Une soirée effroyable</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Vendredi 29 novembre</h6>
-            <p class="card-text">Une nuit de pleine lune, un quartier désert, un chien qui hurle au loin … Mais qui peut bien frapper à la porte ?
-            </p>
-          </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Je suis intéressé</a>
-          </div>
-        </div>
-        <div class="card carre">
-          <div class="card-body">
-            <h5 class="card-title">Soirée détente</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Lundi 7 décembre</h6>
-            <p class="card-text">Les cours se succèdent, les projets avancent... Autant de bonnes raisons de marquer une pause pour prendre le temps d’un moment convivial<br/>
-            Nous vous attendons nombreux !
-            </p>
-          </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Je suis intéressé</a>
-          </div>
-        </div>
-        <div class="card carre">
-          <div class="card-body">
-            <h5 class="card-title">Nouveau canapé à tester</h5>
-            <h6 class="card-subtitle mb-2 text-muted">jeudi 9 décembre</h6>
-            <p class="card-text">Lâché seul dans la ville, enfin la belle vie
-            Apéros, soirées, et refaire le monde entre barbares
-            Pour tester le nouveau canapé
-            Portes-ouvertes et pizzas à volonté !
-            </p>
-          </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Je suis intéressé</a>
-          </div>
-        </div>
-        <div class="card carre">
-          <div class="card-body">
-            <h5 class="card-title">Barathon</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Participer</a>
-          </div>
-        </div>
-        <div class="card carre">
-          <div class="card-body">
-            <h5 class="card-title">Soirée Poker</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-          <div class="card-body">
-            <a href="#" class="card-link">Plus d'infos</a>
-            <a href="#" class="card-link">Réserver</a>
-          </div>
-        </div>
-      </div>
     </div>
 @endsection

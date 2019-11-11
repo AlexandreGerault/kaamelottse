@@ -73,6 +73,31 @@
                         </div>
 
                         <div class="form-group">
+							<div class="row">
+								<div class="col-7">
+									<label for="nom_lien" >Label lien (fac.)</label>
+									<input id="nom_lien" type="text" class="form-control @error('nom_lien') is-invalid @enderror" name="nom_lien" value="{{ old('nom_lien',$article->nom_lien) }}">
+
+									@error('nom_lien')
+										<span class="invalid-feedback" role="alert">
+											<strong>{{ $message }}</strong>
+										</span>
+									@enderror
+								</div>
+								<div class="col-5">
+									<label for="adresse_lien" >Adresse lien (fac.)</label>
+									<input id="adresse_lien" type="url" class="form-control @error('adresse_lien') is-invalid @enderror" name="adresse_lien" value="{{ old('adresse_lien',$article->adresse_lien) }}">
+
+									@error('adresse_lien')
+										<span class="invalid-feedback" role="alert">
+											<strong>{{ $message }}</strong>
+										</span>
+									@enderror
+								</div>
+							</div>
+                        </div>
+
+                        <div class="form-group">
 							<div class="form-check">
 								<input id="visible" name="visible" class="form-check-input" type="checkbox" @if(old('visible', $article->visible)==1) checked @endif id="defaultCheck1">
 								<label for="visible" >Rendre l'article visible</label>
@@ -86,16 +111,26 @@
 						</div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-8 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>
                                 <a href="/article" class="btn btn-secondary">
                                     {{ __('Annuler') }}
                                 </a>
+								@if(isset($id) && Auth::user()["role"]>1)
+									<a class="btn btn-danger" href="{{ route('article.destroy',$id) }}" onclick="event.preventDefault();
+														 document.getElementById('destroy-form').submit();">Supprimer</a>
+								@endif
                             </div>
                         </div>
                     </form>
+					@if(isset($id) && Auth::user()["role"]>1)
+						<form id="destroy-form" action="{{ route('article.destroy', $id) }}" method="POST" style="display: none;">
+							@method('DELETE')
+							@csrf
+						</form>
+					@endif
                 </div>
             </div>
         </div>

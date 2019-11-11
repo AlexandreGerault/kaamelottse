@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\ArticleRequest;
@@ -11,7 +12,11 @@ use App\Article;
 
 class articleController extends Controller
 {
-        
+    //Accès réservé aux seuls éditeurs
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -52,6 +57,7 @@ class articleController extends Controller
         }
         $article = new Article($data);
         $article->user_creator=Auth::id();
+        
         if ($article->save()){
             return $this->index();
         }
@@ -84,9 +90,10 @@ class articleController extends Controller
             return view('gest/article',[
                 'article'=>$article,
                 'action'=>route('article.update', $id),
-                'method' => 'PUT']);
+                'method' => 'PUT',
+                'id' => $id]);
         }
-        return "edi: Non trouvé";
+        return redirect()->back()->with('error', ['Article non trouvé']);  
     }
 
     /**
@@ -112,9 +119,10 @@ class articleController extends Controller
             return view('gest/article',[
                 'article'=>$article,
                 'action'=>route('article.update', $id),
-                'method' => 'PUT']);
+                'method' => 'PUT',
+                'id' => $id]);
         }
-        return "upd: Non trouvé";
+        return redirect()->back()->with('error', ['Article non trouvé']);
     }
 
     /**
@@ -125,9 +133,18 @@ class articleController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->article->find($id)){
-            return $this->article->destroy();            
+        //Supperssion réservée aux membres autorisés
+        $user = Auth::user();
+        if ($user["role"]<2){
+            abort(404);
         }
-        return "sup: Non trouvé";
+        
+        if ($article = Article::find($id)){
+            if($article->delete()){
+                return redirect()->route('article.index')->with('success', ['Article supprimé']);  
+            }
+            return redirect()->back()->with('error', ['Erreur de suppression']);  
+        }
+        return redirect()->back()->with('error', ['Article non trouvé']);  
     }
 }

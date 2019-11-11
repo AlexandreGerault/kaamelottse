@@ -10,7 +10,7 @@ class Article extends Model
 	use SoftDeletes;
 	
 	protected $fillable =[
-        'titre', 'sous_titre', 'image', 'contenu', 'priorite', 'visible'
+        'titre', 'sous_titre', 'image', 'contenu', 'priorite', 'visible', 'nom_lien', 'adresse_lien'
     ];
 	
 	//Defauls values

@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Article;
+
 class indexController extends Controller
 {
     
     public function index(){
-        return view('index');
+        $articles = Article::where('visible', 1)
+               ->orderBy('priorite', 'desc')
+               ->get();
+        return view('index', ['articles' => $articles]);
     }
     
     public function contact(){

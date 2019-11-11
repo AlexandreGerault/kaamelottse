@@ -26,4 +26,4 @@ Auth::routes();
 Route::get('/tdb', 'HomeController@index')->name('tdb');
 Route::get('/commander', 'commandeController@index');
 
-Route::resource('article', 'articleController');
+Route::resource('article', 'articleController')->middleware('checkRole:1');

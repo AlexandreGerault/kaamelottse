@@ -21,6 +21,8 @@ class CreateArticlesTable extends Migration
 			$table->text('contenu')->nullable();
 			$table->integer('priorite')->default(0);
 			$table->boolean('visible')->default(0);
+			$table->string('nom_lien')->nullable();
+			$table->string('adresse_lien')->nullable();
 			$table->integer('user_creator');
 			
 			$table->softDeletes();
