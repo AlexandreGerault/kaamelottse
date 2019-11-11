@@ -118,14 +118,14 @@
                                 <a href="/article" class="btn btn-secondary">
                                     {{ __('Annuler') }}
                                 </a>
-								@if(isset($id) && Auth::user()["role"]>1)
+								@if(isset($id) && Auth::user()["role"]>2)
 									<a class="btn btn-danger" href="{{ route('article.destroy',$id) }}" onclick="event.preventDefault();
 														 document.getElementById('destroy-form').submit();">Supprimer</a>
 								@endif
                             </div>
                         </div>
                     </form>
-					@if(isset($id) && Auth::user()["role"]>1)
+					@if(isset($id) && Auth::user()["role"]>2)
 						<form id="destroy-form" action="{{ route('article.destroy', $id) }}" method="POST" style="display: none;">
 							@method('DELETE')
 							@csrf

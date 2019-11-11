@@ -27,3 +27,4 @@ Route::get('/tdb', 'HomeController@index')->name('tdb');
 Route::get('/commander', 'commandeController@index');
 
 Route::resource('article', 'articleController')->middleware('checkRole:1');
+Route::resource('citation', 'citationsController')->middleware('checkRole:1');

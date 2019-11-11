@@ -9,11 +9,7 @@
         </h2>
     </div>
     <div class="row carre">
-        <p class="m-0 p-2 citation">
-            - Et va falloir vous y faire parce qu’à partir de maintenant, on va s’appeler « Les Chevaliers de la Table Ronde » !<br/>
-            - Ben heureusement qu’on s’est pas fait construire un buffet à vaisselle !
-            <span>Arthur et Léodagan</span>
-        </p>
+        @include('layouts.citation')
     </div>
     <div class="row carre p-4">
         <form method="post" action="" style="width: 100%">

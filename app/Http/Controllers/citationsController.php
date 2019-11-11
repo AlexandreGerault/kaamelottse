@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\CitationRequest;
 
-use App\Article;
+use App\Citation;
 
-class articleController extends Controller
+class CitationsController extends Controller
 {
     //Accès réservé aux seuls éditeurs
     public function __construct(){
@@ -24,9 +23,11 @@ class articleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('updated_at', 'desc')->get();
+        $citations = Citation::where('user_creator', Auth::id())
+                ->orderBy('updated_at', 'desc')
+                ->get();
         
-        return view('gest/articles',['articles'=>$articles]);
+        return view('gest/citations',['citations'=>$citations]);
     }
 
     /**
@@ -36,10 +37,10 @@ class articleController extends Controller
      */
     public function create()
     {
-        $article = new Article();
-        return view('gest/article',[
-            'article'=>$article,
-            'action'=>route('article.store')]);
+        $citation = new Citation();
+        return view('gest/citation',[
+            'citation'=>$citation,
+            'action'=>route('citation.store')]);
     }
 
     /**
@@ -48,16 +49,13 @@ class articleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request)  //La validation est déléguée à articleRequest
+    public function store(CitationRequest $request)
     {
         $data = $request->validated();
-        if (isset($data["visible"])){
-            $data["visible"]=1;
-        }
-        $article = new Article($data);
-        $article->user_creator=Auth::id();
+        $citation = new Citation($data);
+        $citation->user_creator=Auth::id();
         
-        if ($article->save()){
+        if ($citation->save()){
             return $this->index();
         }
         else{
@@ -84,15 +82,15 @@ class articleController extends Controller
      */
     public function edit($id)
     {
-        if($article = Article::find($id)){
+        if($citation = Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
             
-            return view('gest/article',[
-                'article'=>$article,
-                'action'=>route('article.update', $id),
+            return view('gest/citation',[
+                'citation'=>$citation,
+                'action'=>route('citation.update', $id),
                 'method' => 'PUT',
                 'id' => $id]);
         }
-        return redirect()->back()->with('error', ['Article non trouvé']);  
+        return redirect()->back()->with('error', ['Citation non trouvé']);  
     }
 
     /**
@@ -102,26 +100,20 @@ class articleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(CitationRequest $request, $id)
     {
-        if ($article = Article::find($id)){
+        if (Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
             $data = $request->validated();
-            if (isset($data["visible"])){
-                $data["visible"]=1;
-            }
-            else{
-                $data["visible"]=0;                
-            }
-            $article->update($data);
-            $article->save();
+            $citation->update($data);
+            $citation->save();
             
-            return view('gest/article',[
-                'article'=>$article,
-                'action'=>route('article.update', $id),
+            return view('gest/citation',[
+                'citation'=>$citation,
+                'action'=>route('citation.update', $id),
                 'method' => 'PUT',
                 'id' => $id]);
         }
-        return redirect()->back()->with('error', ['Article non trouvé']);
+        return redirect()->back()->with('error', ['Citation non trouvé']);
     }
 
     /**
@@ -132,18 +124,13 @@ class articleController extends Controller
      */
     public function destroy($id)
     {
-        //Supperssion réservée aux membres autorisés
-        $user = Auth::user();
-        if ($user["role"]<3){
-            abort(404);
-        }
         
-        if ($article = Article::find($id)){
-            if($article->delete()){
-                return redirect()->route('article.index')->with('success', ['Article supprimé']);  
+        if ($citation = Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
+            if($citation->delete()){
+                return redirect()->route('citation.index')->with('success', ['Citation supprimé']);  
             }
             return redirect()->back()->with('error', ['Erreur de suppression']);  
         }
-        return redirect()->back()->with('error', ['Article non trouvé']);  
+        return redirect()->back()->with('error', ['Citation non trouvé']);  
     }
 }

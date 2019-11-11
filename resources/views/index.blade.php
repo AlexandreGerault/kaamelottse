@@ -16,13 +16,9 @@
         </div>              
       </div>
     </div>
-    <div class="row carre">
-      <p class="m-0 p-2 citation">
-          - Et va falloir vous y faire parce qu’à partir de maintenant, on va s’appeler « Les Chevaliers de la Table Ronde » !<br/>
-          - Ben heureusement qu’on s’est pas fait construire un buffet à vaisselle !
-          <span>Arthur et Léodagan</span>
-      </p>
-    </div>
+	<div class="row carre">
+		@include('layouts.citation')
+	</div>
     <div class="row">
         <div class="card-columns">
             @foreach ($articles as $article)
@@ -32,7 +28,7 @@
                     @endif
                     <div class="card-body">
                       <h5 class="card-title">{{ $article->titre }}</h5>
-                      <p class="card-text">{{ $article->contenu }}</p>
+                      <p class="card-text">{!! nl2br(e($article->contenu)) !!}</p>
                     </div>
                     @if ($article->nom_lien)
                         <div class="card-body">

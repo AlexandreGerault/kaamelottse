@@ -9,11 +9,7 @@
         </h2>
     </div>
     <div class="row carre">
-        <p class="m-0 p-2 citation">
-            - Et va falloir vous y faire parce qu’à partir de maintenant, on va s’appeler « Les Chevaliers de la Table Ronde » !<br/>
-            - Ben heureusement qu’on s’est pas fait construire un buffet à vaisselle !
-            <span>Arthur et Léodagan</span>
-        </p>
+        @include('layouts.citation')
     </div>
     <div class="row carre p-4">
         <form method="post" action="" style="width: 100%">
@@ -21,12 +17,12 @@
             <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Votre demande concerne:</label>
             <div class="col-sm-8">
                 <select class="form-control" id="FormCategorie">
-                <option>Une demande d'information sur un évènement</option>
-                <option>Une demande concernant une commande / un service</option>
-                <option>Les paroles de Martins Marteau</option>
-                <option>Un problème technique avec le site</option>
-                <option>Une demande de confidencialité</option>
-              </select>
+                    <option>Une demande d'information sur un évènement</option>
+                    <option>Une demande concernant une commande / un service</option>
+                    <option>Les paroles de Martins Marteau</option>
+                    <option>Un problème technique avec le site</option>
+                    <option>Une demande de confidencialité</option>
+                </select>
             </div>
           </div>
           <div class="form-group row">

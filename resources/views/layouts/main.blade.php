@@ -50,11 +50,12 @@
                         <a class="dropdown-item" href="/commander">Commander</a>
                         <div class="dropdown-divider"></div>
                         @if(Auth::user()["role"]>0)
-                            <a class="dropdown-item" href="/article">Edition Articles</a>
                             <a class="dropdown-item" href="#">Gestion Commandes</a>
+                            <a class="dropdown-item" href="/article">Edition Articles</a>
+                            <a class="dropdown-item" href="/citation">Edition Citations</a>
                             <div class="dropdown-divider"></div>
                         @endif
-                        @if(Auth::user()["role"]>2)
+                        @if(Auth::user()["role"]>3)
                             <a class="dropdown-item" href="#">Utilisateurs</a>
                             <a class="dropdown-item" href="#">Statistiques</a>
                             <div class="dropdown-divider"></div>
