@@ -13,38 +13,57 @@
     </div>
     <div class="row carre p-4">
         <form method="post" action="" style="width: 100%">
-          <div class="form-group row">
-            <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Votre demande concerne:</label>
-            <div class="col-sm-8">
-                <select class="form-control" id="FormCategorie">
-                    <option>Une demande d'information sur un évènement</option>
-                    <option>Une demande concernant une commande / un service</option>
-                    <option>Les paroles de Martins Marteau</option>
-                    <option>Un problème technique avec le site</option>
-                    <option>Une demande de confidencialité</option>
-                </select>
+            @csrf
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Votre demande concerne:</label>
+                <div class="col-sm-8">
+                    <select class="form-control @error('categorie') is-invalid @enderror" id="categorie" name="categorie">
+                        @foreach ($categories_messages as $categorieId => $categorieNom)
+                            <option value="{{ $categorieId }}" @if($categorieId==old('categorie')) selected @endif >{{ $categorieNom }}</option>
+                        @endforeach
+                    </select>
+                    @error('categorie')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
-            <div class="col-sm-8">
-              <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Email">
-              <small id="emailHelp" class="form-text text-muted">Inscrivez votre adresse email pour que l'on vous recontacte.</small>
-            </div>           
-          </div>
-          <div class="form-group row">
-            <label for="inputSujet" class="col-sm-3 col-form-label">Sujet</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="inputSubject" aria-describedby="emailHelp" placeholder="Sujet">
+            <div class="form-group row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Email" value="{{ old('email') }}">
+                   @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <small id="email" class="form-text text-muted">Inscrivez votre adresse email pour que l'on vous recontacte.</small>
+                </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="formMessage" class="col-sm-3 col-form-label">Description de la demande</label>
-            <div class="col-sm-8">
-              <textarea class="form-control" id="formMessage" rows="3"></textarea>
-              <button type="submit" class="btn btn-dark mt-4">Envoyer la demande</button>
+            <div class="form-group row">
+                <label for="inputSujet" class="col-sm-3 col-form-label">Sujet</label>
+                <div class="col-sm-8">
+                    <input type="text" name="sujet" class="form-control @error('sujet') is-invalid @enderror" id="sujet" placeholder="Sujet" value="{{ old('sujet') }}">
+                    @error('sujet')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
-          </div>
+            <div class="form-group row">
+              <label for="contenu" class="col-sm-3 col-form-label">Description de la demande</label>
+              <div class="col-sm-8">
+                <textarea class="form-control @error('contenu') is-invalid @enderror" id="contenu" rows="3" name="contenu">{{ old('contenu') }}</textarea>
+                @error('contenu')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <button type="submit" class="btn btn-dark mt-4">Envoyer la demande</button>
+              </div>
+            </div>
         </form>
     </div>
 @endsection

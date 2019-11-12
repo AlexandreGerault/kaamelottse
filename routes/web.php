@@ -18,7 +18,8 @@ Route::get('/laravel', function () {
 
 Route::get('/', 'indexController@index');
 Route::get('/index', 'indexController@index');
-Route::get('/contact', 'indexController@contact');
+Route::get('/contact', 'indexController@get_contact');
+Route::post('/contact', 'indexController@post_contact');
 Route::get('/tableRonde', 'indexController@tableRonde');
 
 Auth::routes();
@@ -27,4 +28,5 @@ Route::get('/tdb', 'HomeController@index')->name('tdb');
 Route::get('/commander', 'commandeController@index');
 
 Route::resource('article', 'articleController')->middleware('checkRole:1');
+Route::resource('message', 'messagesController')->middleware('checkRole:1');
 Route::resource('citation', 'citationsController')->middleware('checkRole:1');

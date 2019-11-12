@@ -92,6 +92,10 @@ q{
 #social .tw{
     background-image: url("images/Twitter.svg");
 }
+
+.commandes .card{
+    margin-right: 5px;
+}
     
 @media (min-width: 1200px){
     #social{

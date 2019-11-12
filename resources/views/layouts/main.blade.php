@@ -51,6 +51,7 @@
                         <div class="dropdown-divider"></div>
                         @if(Auth::user()["role"]>0)
                             <a class="dropdown-item" href="#">Gestion Commandes</a>
+                            <a class="dropdown-item" href="/message">Messagerie</a>
                             <a class="dropdown-item" href="/article">Edition Articles</a>
                             <a class="dropdown-item" href="/citation">Edition Citations</a>
                             <div class="dropdown-divider"></div>
@@ -78,6 +79,16 @@
         </div>
       </nav>
       <div class="container page">
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <strong>Erreur</strong> {{session('error')}}
+            </div>
+        @endif
+        @if(session('sucess'))
+            <div class="alert alert-success">
+                {{ session('sucess') }}
+            </div>
+        @endif
         @yield('content')
       </div>
       <div id="social">
