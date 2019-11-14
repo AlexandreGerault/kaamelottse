@@ -1,0 +1,28 @@
+body{
+    background: none;
+}
+.navbar{
+    background: none repeat;
+	background-color: brown;
+}
+.navbar a{
+    color: lime;    
+}
+.navbar-brand{
+	display: none;
+}
+.ml-auto {
+    margin: auto;
+}
+
+.carre{
+    background: none;
+	background-color: pink;
+}
+
+.carre.card {
+    margin: 0;
+}
+p{
+	color: red;
+}
