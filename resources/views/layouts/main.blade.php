@@ -32,7 +32,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Banquets</a>
+                <a class="nav-link" href="/banquet">Banquets</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/tableRonde">Table ronde</a>

@@ -18,6 +18,7 @@ Route::get('/laravel', function () {
 
 Route::get('/', 'indexController@index');
 Route::get('/index', 'indexController@index');
+Route::get('/banquet', 'produitController@index');
 Route::get('/contact', 'indexController@get_contact');
 Route::post('/contact', 'indexController@post_contact');
 Route::get('/tableRonde', 'indexController@tableRonde');
@@ -30,3 +31,4 @@ Route::get('/commander', 'commandeController@index');
 Route::resource('article', 'articleController')->middleware('checkRole:1');
 Route::resource('message', 'messagesController')->middleware('checkRole:1');
 Route::resource('citation', 'citationsController')->middleware('checkRole:1');
+Route::resource('produit', 'produitController')->middleware('checkRole:1');
