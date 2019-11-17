@@ -15,10 +15,14 @@ class CreateCitationsTable extends Migration
     {
         Schema::create('citations', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->text('contenu');
-			$table->string('auteur')->nullable();
-			$table->integer('user_creator');
+			$table->text('content');
+			$table->string('author')->nullable();
+			$table->unsignedBigInteger('creator_id');
             $table->timestamps();
+        });
+
+        Schema::table('citations', function (Blueprint $table) {
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 

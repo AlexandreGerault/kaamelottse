@@ -15,19 +15,22 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->string('titre');
-			$table->string('sous_titre')->nullable();
+			$table->string('title');
+			$table->string('subtitle')->nullable();
 			$table->string('image')->nullable();
-			$table->text('contenu')->nullable();
-			$table->integer('priorite')->default(0);
+			$table->text('content')->nullable();
+			$table->integer('priority')->default(0);
 			$table->boolean('visible')->default(0);
-			$table->string('nom_lien')->nullable();
-			$table->string('adresse_lien')->nullable();
-			$table->integer('user_creator');
+			$table->string('slug')->nullable();
+			$table->string('link')->nullable();
+			$table->unsignedBigInteger('author_id');
 			
 			$table->softDeletes();
             $table->timestamps();
-			$table->foreign('user_creator')->references('id')->on('users');
+        });
+
+        Schema::table('articles', function (Blueprint $table) {
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

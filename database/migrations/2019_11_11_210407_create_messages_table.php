@@ -15,12 +15,12 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-			$table->integer('categorie');
+			$table->unsignedBigInteger('category');
             $table->string('email');
-            $table->string('sujet');
+            $table->string('subject');
             $table->string('sender_ip');
-			$table->boolean('repondu')->default(0);
-			$table->text('contenu');
+			$table->boolean('responded')->default(0);
+			$table->text('content');
             $table->timestamps();
         });
     }
