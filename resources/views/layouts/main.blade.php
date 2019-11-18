@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
     @if(!Auth::user())
         <link rel="stylesheet" href="/style-fake.css">
@@ -23,7 +26,13 @@
             <a class="navbar-brand" href="#">Kaamelo'TSE</a>
           </div>
           
-          <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler navbar-dark"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarResponsive"
+                  aria-controls="navbarResponsive"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -45,11 +54,16 @@
                 @if(Auth::user())
                 <li class="nav-item dropdown">
                   
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="navbarDropdown"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()["name"]}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/tdb">Tableau de Bord</a>
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">Tableau de Bord</a>
                         <a class="dropdown-item" href="/commander">Commander</a>
                         <div class="dropdown-divider"></div>
                         @if(Auth::user()["role"]>0)
@@ -65,7 +79,9 @@
                             <div class="dropdown-divider"></div>
                         @endif
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">Déconnexion</a>
+                                                     document.getElementById('logout-form').submit();">
+                            Déconnexion
+                        </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -84,7 +100,8 @@
       <div class="container page">
         @if(session('error'))
             <div class="alert alert-danger">
-                <strong>Erreur</strong> {{session('error')}}
+                <strong>Erreur</strong>
+                {{ session('error') }}
             </div>
         @endif
         @if(session('sucess'))

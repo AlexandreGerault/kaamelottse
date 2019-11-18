@@ -5,20 +5,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Articles (nouvelles et évènements)</div>
+                <div class="card-header">
+					Articles (nouvelles et évènements)
+				</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ $action }}">
                         @csrf
-						@if(isset($method))
-							@method($method)
-						@endif
+						@if(isset($method)) @method($method) @endif
 
                         <div class="form-group">
-                            <label for="titre">Titre</label>
-							<input id="titre" type="text" class="form-control @error('titre') is-invalid @enderror" name="titre" value="{{ old('titre', $article->titre) }}" required autocomplete="name" maxlength="150" autofocus>
+                            <label for="title">Titre</label>
+							<input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $article->title) }}" required autocomplete="name" maxlength="150" autofocus>
 
-							@error('titre')
+							@error('title')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -26,10 +26,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="sous_titre">Indication pratique - ex: Le 24/11/2019 au Clapier</label>
-							<input id="sous_titre" type="text" class="form-control @error('sous_titre') is-invalid @enderror" name="sous_titre" value="{{ old('sous_titre', $article->sous_titre) }}">
+                            <label for="subtitle">Indication pratique - ex: Le 24/11/2019 au Clapier</label>
+							<input id="subtitle" type="text" class="form-control @error('subtitle') is-invalid @enderror" name="subtitle" value="{{ old('subtitle', $article->subtitle) }}">
 
-							@error('sous_titre')
+							@error('subtitle')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -37,10 +37,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="contenu" >Contenu article</label>
-							<textarea class="form-control" id="contenu" name="contenu" rows="5" maxlength="5000">{{ old('contenu', $article->contenu) }}</textarea>
+                            <label for="content" >Contenu article</label>
+							<textarea class="form-control" id="content" name="content" rows="5" maxlength="5000">{{ old('content', $article->content) }}</textarea>
 							
-							@error('contenu')
+							@error('content')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -60,10 +60,10 @@
 									@enderror
 								</div>
 								<div class="col-4">
-									<label for="priorite">Priorité d'affichage</label>
-									<input id="priorite" type="number" class="form-control @error('image') is-invalid @enderror" name="priorite" value="{{ old('priorite', $article->priorite) }}">
+									<label for="priority">Priorité d'affichage</label>
+									<input id="priority" type="number" class="form-control @error('priority') is-invalid @enderror" name="priority" value="{{ old('priority', $article->priority) }}">
 
-									@error('priorite')
+									@error('priority')
 										<span class="invalid-feedback" role="alert">
 											<strong>{{ $message }}</strong>
 										</span>
@@ -75,20 +75,20 @@
                         <div class="form-group">
 							<div class="row">
 								<div class="col-7">
-									<label for="nom_lien" >Label lien (fac.)</label>
-									<input id="nom_lien" type="text" class="form-control @error('nom_lien') is-invalid @enderror" name="nom_lien" value="{{ old('nom_lien',$article->nom_lien) }}">
+									<label for="slug" >Label lien (fac.)</label>
+									<input id="slug" type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{ old('slug', $article->slug) }}">
 
-									@error('nom_lien')
+									@error('slug')
 										<span class="invalid-feedback" role="alert">
 											<strong>{{ $message }}</strong>
 										</span>
 									@enderror
 								</div>
 								<div class="col-5">
-									<label for="adresse_lien" >Adresse lien (fac.)</label>
-									<input id="adresse_lien" type="url" class="form-control @error('adresse_lien') is-invalid @enderror" name="adresse_lien" value="{{ old('adresse_lien',$article->adresse_lien) }}">
+									<label for="link" >Adresse lien (fac.)</label>
+									<input id="link" type="url" class="form-control @error('link') is-invalid @enderror" name="link" value="{{ old('link', $article->link) }}">
 
-									@error('adresse_lien')
+									@error('link')
 										<span class="invalid-feedback" role="alert">
 											<strong>{{ $message }}</strong>
 										</span>
@@ -99,11 +99,11 @@
 
                         <div class="form-group">
 							<div class="form-check">
-								<input id="visible" name="visible" class="form-check-input" type="checkbox" @if(old('visible', $article->visible)==1) checked @endif id="defaultCheck1">
-								<label for="visible" >Rendre l'article visible</label>
+								<input id="published" name="published" class="form-check-input" type="checkbox" @if(old('published', $article->published)) checked @endif id="defaultCheck1">
+								<label for="published" >Rendre l'article visible</label>
 								
 							</div>
-							@error('visible')
+							@error('published')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -119,14 +119,14 @@
                                     {{ __('Annuler') }}
                                 </a>
 								@if(isset($id) && Auth::user()["role"]>2)
-									<a class="btn btn-danger" href="{{ route('article.destroy',$id) }}" onclick="event.preventDefault();
+									<a class="btn btn-danger" href="{{ route('article.destroy', $article) }}" onclick="event.preventDefault();
 														 document.getElementById('destroy-form').submit();">Supprimer</a>
 								@endif
                             </div>
                         </div>
                     </form>
-					@if(isset($id) && Auth::user()["role"]>2)
-						<form id="destroy-form" action="{{ route('article.destroy', $id) }}" method="POST" style="display: none;">
+					@if(isset($id) && true)
+						<form id="destroy-form" action="{{ route('article.destroy', $article) }}" method="POST" style="display: none;">
 							@method('DELETE')
 							@csrf
 						</form>

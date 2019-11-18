@@ -23,18 +23,14 @@
 						<tr>
 							<td>{{ $article->id }}</td>
 							<td class="text-primary"><a href="{{ route('article.edit',$article->id) }}">
-								@if($article->visible)
-									<strong>{{ $article->titre }}</strong>
+								@if($article->published)
+									<strong>{{ $article->title }}</strong>
 								@else
-									{{ $article->titre }}									
+									{{ $article->title }}
 								@endif
 							</a></td>
-							<td>{{ $article->priorite }}</td>
-							@if ($article->user)
+							<td>{{ $article->priority }}</td>
 								<td>{{ $article->user->name }}</td>
-							@else
-								<td>{{ $article->user }}</td>
-							@endif
 							<td><pre>{{ $article->created_at }}</pre></td>
 						</tr>
 						@endforeach

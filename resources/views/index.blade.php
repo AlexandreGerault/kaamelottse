@@ -27,12 +27,12 @@
                         <img src="{{ $article->image }}" class="card-img-top" alt="logo">
                     @endif
                     <div class="card-body">
-                      <h5 class="card-title">{{ $article->titre }}</h5>
-                      <p class="card-text">{!! nl2br(e($article->contenu)) !!}</p>
+                      <h5 class="card-title">{{ $article->title }}</h5>
+                      <p class="card-text">{!! nl2br(e($article->content)) !!}</p>
                     </div>
-                    @if ($article->nom_lien)
+                    @if ($article->slug)
                         <div class="card-body">
-                          <a href="{{ $article->adresse_lien }}" class="card-link">{{ $article->nom_lien }}</a>
+                          <a href="{{ $article->link }}" class="card-link">{{ $article->link }}</a>
                         </div>
                     @endif
                 </div>

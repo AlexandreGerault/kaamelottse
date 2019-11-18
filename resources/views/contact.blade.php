@@ -12,17 +12,17 @@
         @include('layouts.citation')
     </div>
     <div class="row carre p-4">
-        <form method="post" action="" style="width: 100%">
+        <form method="post" action="{{ route('message.store') }}" style="width: 100%">
             @csrf
             <div class="form-group row">
                 <label for="exampleFormControlSelect1" class="col-sm-3 col-form-label">Votre demande concerne:</label>
                 <div class="col-sm-8">
-                    <select class="form-control @error('categorie') is-invalid @enderror" id="categorie" name="categorie">
+                    <select class="form-control @error('category') is-invalid @enderror" id="category" name="category">
                         @foreach ($categories_messages as $categorieId => $categorieNom)
-                            <option value="{{ $categorieId }}" @if($categorieId==old('categorie')) selected @endif >{{ $categorieNom }}</option>
+                            <option value="{{ $categorieId }}" @if($categorieId==old('category')) selected @endif >{{ $categorieNom }}</option>
                         @endforeach
                     </select>
-                    @error('categorie')
+                    @error('category')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -38,14 +38,14 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                    <small id="email" class="form-text text-muted">Inscrivez votre adresse email pour que l'on vous recontacte.</small>
+                    <small id="email" class="form-text text-muted">Inscrivez votre adresse email pour que l'on vous réponde.</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="inputSujet" class="col-sm-3 col-form-label">Sujet</label>
                 <div class="col-sm-8">
-                    <input type="text" name="sujet" class="form-control @error('sujet') is-invalid @enderror" id="sujet" placeholder="Sujet" value="{{ old('sujet') }}">
-                    @error('sujet')
+                    <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror" id="subject" placeholder="Sujet" value="{{ old('subject') }}">
+                    @error('subject')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -53,10 +53,10 @@
                 </div>
             </div>
             <div class="form-group row">
-              <label for="contenu" class="col-sm-3 col-form-label">Description de la demande</label>
+              <label for="content" class="col-sm-3 col-form-label">Description de la demande</label>
               <div class="col-sm-8">
-                <textarea class="form-control @error('contenu') is-invalid @enderror" id="contenu" rows="3" name="contenu">{{ old('contenu') }}</textarea>
-                @error('contenu')
+                <textarea class="form-control @error('content') is-invalid @enderror" id="content" rows="3" name="content">{{ old('content') }}</textarea>
+                @error('content')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
