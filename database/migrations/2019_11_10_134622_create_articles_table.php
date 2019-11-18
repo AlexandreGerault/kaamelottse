@@ -20,7 +20,7 @@ class CreateArticlesTable extends Migration
 			$table->string('image')->nullable();
 			$table->text('content')->nullable();
 			$table->integer('priority')->default(0);
-			$table->boolean('visible')->default(0);
+			$table->boolean('published')->default(0);
 			$table->string('slug')->nullable();
 			$table->string('link')->nullable();
 			$table->unsignedBigInteger('author_id');
