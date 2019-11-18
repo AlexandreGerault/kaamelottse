@@ -33,7 +33,6 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'product.delete'],
             ['name' => 'product.forcedelete'],
             ['name' => 'product.restore'],
-            ['name' => 'product.respond'],
         ]);
     }
 }
