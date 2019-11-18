@@ -11,22 +11,24 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/laravel', function () {
     return view('welcome');
 });
 
 
-Route::get('/', 'indexController@index');
-Route::get('/index', 'indexController@index');
-Route::get('/contact', 'indexController@get_contact');
-Route::post('/contact', 'indexController@post_contact');
-Route::get('/tableRonde', 'indexController@tableRonde');
+Route::get('/', 'IndexController@index');
+Route::get('/index', 'IndexController@index');
+Route::get('/contact', 'IndexController@get_contact');
+Route::post('/contact', 'IndexController@post_contact');
+Route::get('/tableRonde', 'IndexController@tableRonde');
 
-Auth::routes();
+Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard');
+Route::get('/commander', 'CommandeController@index');
 
-Route::get('/tdb', 'HomeController@index')->name('tdb');
-Route::get('/commander', 'commandeController@index');
-
-Route::resource('article', 'articleController')->middleware('checkRole:1');
-Route::resource('message', 'messagesController')->middleware('checkRole:1');
-Route::resource('citation', 'citationsController')->middleware('checkRole:1');
+Route::resource('article', 'ArticleController')->middleware('checkRole:1');
+Route::resource('message', 'MessagesController')->middleware('checkRole:1');
+Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
+Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
+Route::resource('citation', 'CitationsController')->middleware('checkRole:1');
