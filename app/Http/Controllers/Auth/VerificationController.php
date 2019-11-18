@@ -25,7 +25,10 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/tdb';
+    protected function redirectTo()
+    {
+        route('index');
+    }
 
     /**
      * Create a new controller instance.

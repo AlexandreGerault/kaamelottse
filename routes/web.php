@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/laravel', function () {
     return view('welcome');
