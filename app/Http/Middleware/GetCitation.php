@@ -6,7 +6,7 @@ use Closure;
 
 use App\Citation;
 
-class getCitation
+class GetCitation
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class getCitation
      */
     public function handle($request, Closure $next)
     {
-        if (true or !$request->session()->get('citation')){
+        /*if (!$request->session()->get('citation')){
             $citation = Citation::all()->random(1)->first();
             $request->session()->put('citation', [ 'contenu' => $citation->contenu, 'auteur' => $citation->auteur ]);
-        }
+        }*/
         return $next($request);
     }
 }

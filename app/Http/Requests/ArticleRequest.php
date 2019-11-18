@@ -25,14 +25,14 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'titre' => 'required|string|max:150',
-            'sous_titre' => 'nullable|string|max:100',
-            'contenu' => 'string|max:5000',
+            'title' => 'required|string|max:150',
+            'subtitle' => 'nullable|string|max:100',
+            'content' => 'string|max:5000',
             'image' => 'nullable|url|max:255',
-            'priorite' => 'nullable|numeric',
-            'visible' => 'nullable',
-            'nom_lien' => 'string|nullable|max:100',
-            'adresse_lien' => 'string|nullable|max:256',
+            'priority' => 'nullable|numeric',
+            'published' => 'nullable',
+            'slug' => 'string|nullable|max:100',
+            'link' => 'string|nullable|max:256',
         ];
     }
 }

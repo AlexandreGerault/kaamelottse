@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\MessageRequest;
 
-use App\Article;
-use App\Message;
+use App\Models\Article;
+use App\Models\Message;
 
-class indexController extends Controller
+class IndexController extends Controller
 {
     public $categories_messages = [
         1 => "Une demande d'information sur un évènement",
@@ -19,11 +19,13 @@ class indexController extends Controller
         5 => "Une demande de confidencialité"
     ];
     
-    public function index(){
-        $articles = Article::where('visible', 1)
-               ->orderBy('priorite', 'desc')
-               ->get();
-        return view('index', ['articles' => $articles]);
+    public function index()
+    {
+        $articles = Article::published()
+            ->orderBy('priority', 'desc')
+            ->get();
+
+        return view('index')->with('articles', $articles);
     }
     
     public function get_contact(){
