@@ -48,7 +48,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(ProductRequest $request)  //La validation est déléguée à ProductRequest
+    public function store(ProductRequest $request)
     {
         $this->authorize('create', Product::class);
 
@@ -84,14 +84,11 @@ class ProductController extends Controller
     {
         $this->authorize('update', $product);
 
-        if($product) {
-            return view('gest.product', [
-                'product' => $product,
-                'action' => route('product.update', $product),
-                'method' => 'PUT'
-            ]);
-        }
-        return redirect()->back()->with('error', 'produit non trouvé');  
+        return view('gest.product', [
+            'product' => $product,
+            'action' => route('product.update', $product),
+            'method' => 'PUT'
+        ]);
     }
 
     /**
