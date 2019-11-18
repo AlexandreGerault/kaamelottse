@@ -29,6 +29,8 @@ class CreatePermissionRoleTable extends Migration
                 ->references('id')
                 ->on('permissions')
                 ->onDelete('cascade');
+
+            $table->unique(['role_id', 'permission_id']);
         });
     }
 
@@ -42,6 +44,7 @@ class CreatePermissionRoleTable extends Migration
         Schema::table('permission_role', function (Blueprint $table) {
             $table->dropForeign('permission_role_role_id_foreign');
             $table->dropForeign('permission_role_permission_id_foreign');
+            $table->dropUnique('permission_role_role_id_permission_id_unique');
         });
         Schema::dropIfExists('permission_role');
     }

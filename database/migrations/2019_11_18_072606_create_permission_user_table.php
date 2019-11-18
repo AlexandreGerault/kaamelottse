@@ -29,6 +29,8 @@ class CreatePermissionUserTable extends Migration
                 ->references('id')
                 ->on('permissions')
                 ->onDelete('cascade');
+
+            $table->unique(['user_id', 'permission_id']);
         });
     }
 
@@ -42,6 +44,7 @@ class CreatePermissionUserTable extends Migration
         Schema::table('permission_user', function (Blueprint $table) {
             $table->dropForeign('permission_user_user_id_foreign');
             $table->dropForeign('permission_user_permission_id_foreign');
+            $table->dropUnique('permission_user_user_id_permission_id_unique');
         });
         Schema::dropIfExists('permission_user');
     }
