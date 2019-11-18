@@ -24,10 +24,10 @@ class MessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'categorie' => 'required|numeric|max:10',
+            'category' => 'required|numeric|max:10',
             'email' => 'required|email|max:100',
-            'contenu' => 'required|string|max:5000',
-            'sujet' => 'required|string|max:200',			
+            'content' => 'required|string|max:5000',
+            'subject' => 'required|string|max:200',
         ];
     }
 }

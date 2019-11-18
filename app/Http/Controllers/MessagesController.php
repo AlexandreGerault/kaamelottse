@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
+use App\Mail\ContactConfirmation;
+use App\Mail\ContactResponse;
+use App\Models\Message;
 use Illuminate\Http\Request;
+use Mail;
 
-use App\Message;
-
-class messagesController extends Controller
+class MessagesController extends Controller
 {
     public $categories_messages = [
         1 => "Event",
@@ -28,9 +31,12 @@ class messagesController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('repondu','0')->orderBy('updated_at')->get();
+        $messages = Message::notResponded()->orderBy('updated_at')->get();
         
-        return view('gest/messages',['messages'=>$messages, 'categories_messages' => $this->categories_messages]);
+        return view('gest.messages.index', [
+            'messages' => $messages,
+            'categories_messages' => $this->categories_messages
+        ]);
     }
 
     /**
@@ -40,29 +46,35 @@ class messagesController extends Controller
      */
     public function create()
     {
-        return error(404);
+        return abort(404);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param MessageRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MessageRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['sender_ip'] = $request->ip();
+        $message = Message::create($data);
+        $message->save();
+        Mail::to($message->email)
+            ->send(new ContactConfirmation($data));
+        return redirect()->back()->with('messages', 'Votre demande a bien été prise en compte');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Message $message
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Message $message)
     {
-        //
+        return view('gest.messages.show')->with('message', $message);
     }
 
     /**
@@ -73,7 +85,7 @@ class messagesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -85,7 +97,7 @@ class messagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -96,6 +108,32 @@ class messagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return abort(404);
+    }
+
+    /**
+     * @param Message $message
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function respond(Message $message)
+    {
+        return view('gest.messages.respond')->with('message', $message);
+    }
+
+    public function postRespond(Request $request, Message $message)
+    {
+        $validatedData = $request->validate([
+            'answerContent' => 'required|string|max:5000',
+            'answerSubject' => 'required|string|max:200',
+        ]);
+
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactResponse($validatedData));
+
+        if (!Mail::failures()) {
+            $message->responded = true;
+            $message->save();
+        }
+
+        return redirect('message.index');
     }
 }
