@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
 			$table->string('image')->nullable();
 			$table->integer('priority')->default(0);
 			$table->integer('stock')->default(0);
-			$table->integer('price')->default(0);
+			$table->float('price')->default(0);
 			$table->integer('points')->default(0);
 			$table->boolean('available')->default(false);
 			$table->softDeletes();

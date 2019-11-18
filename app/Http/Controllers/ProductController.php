@@ -28,9 +28,12 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $product = new Product();
         return view('gest.product', [
             'product' => $product,
@@ -41,21 +44,21 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(ProductRequest $request)  //La validation est déléguée à ProductRequest
     {
+        $this->authorize('create', Product::class);
+
         $data = $request->validated();
-        $data['avalaible'] = (int) isset($data['avalaible']);
+        $data['available'] = isset($data['available']);
+
         $product = new Product($data);
-        
-        if ($product->save()) {
-            return $this->index();
-        }
-        else{
-            return $this->create();
-        }
+        $product->save();
+
+        return $this->index();
     }
 
     /**
@@ -63,6 +66,7 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Product $product)
     {
@@ -74,11 +78,14 @@ class ProductController extends Controller
      *
      * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
+
         if($product) {
-            return view('gest/product', [
+            return view('gest.product', [
                 'product' => $product,
                 'action' => route('product.update', $product),
                 'method' => 'PUT'
@@ -93,25 +100,24 @@ class ProductController extends Controller
      * @param ProductRequest $request
      * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(ProductRequest $request, Product $product)
     {
-        if ($product){
-            $data = $request->validated();
-            $data['disponible'] = (int) isset($data['disponible']);
-            $product->update($data);
-            
-            if( $product->save()){
-                return view('gest/product',[
-                    'product' => $product,
-                    'action' => route('product.update', $product),
-                    'method' => 'PUT'
-                ])->with('sucess', 'Modification enregistrée');
-            }
-            else {
-                echo "et non :( )";
-            }
+        $this->authorize('update', $product);
+
+        $data = $request->validated();
+        $data['available'] = isset($data['available']);
+        $product->update($data);
+
+        if($product->save()) {
+            return view('gest.product', [
+                'product' => $product,
+                'action' => route('product.update', $product),
+                'method' => 'PUT'
+            ])->with('sucess', 'Modification enregistrée');
         }
+
         return redirect()->back()->with('error', 'Echec d\'enregistrement');
     }
 
@@ -124,13 +130,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $this->authorize('destroy', $product);
-        
-        if ($product){
-            if($product->delete()){
-                return redirect()->route('product.index')->with('success', ['produit supprimé']);
-            }
-            return redirect()->back()->with('error', ['Erreur de suppression']);  
-        }
+        $this->authorize('delete', $product);
+        $product->delete();
+        return redirect()->route('product.index')->with('success', ['produit supprimé']);
     }
 }

@@ -11,6 +11,7 @@ class CommandeController extends Controller
     {
         $products = Product::orderBy('updated_at', 'desc')->get();
         
-        return view('banquet', ['products' => $products, 'modif' => false]);
+        return view('banquet')
+            ->with('products', $products);
     }
 }

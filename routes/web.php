@@ -23,7 +23,7 @@ Route::get('/index', 'IndexController@index');
 Route::get('/contact', 'IndexController@get_contact');
 Route::post('/contact', 'IndexController@post_contact');
 Route::get('/tableRonde', 'IndexController@tableRonde');
-Route::get('/banquet', 'commandeController@index');
+Route::get('/banquet', 'CommandeController@index');
 
 Auth::routes();
 

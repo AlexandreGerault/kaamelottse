@@ -23,5 +23,17 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'message.restore'],
             ['name' => 'message.respond'],
         ]);
+        DB::table('permissions')->insert([
+            ['name' => 'product'],
+            ['name' => 'product.index'],
+            ['name' => 'product.view'],
+            ['name' => 'product.viewany'],
+            ['name' => 'product.edit'],
+            ['name' => 'product.update'],
+            ['name' => 'product.delete'],
+            ['name' => 'product.forcedelete'],
+            ['name' => 'product.restore'],
+            ['name' => 'product.respond'],
+        ]);
     }
 }

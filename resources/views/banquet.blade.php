@@ -16,13 +16,13 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">{{ $product->description }}</p>
-                                    @if(!$modif)
+                                    @cannot('update', $product)
                                         <div class="def-number-input number-input safari_only mb-1">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(1); return false" class="minus"></button>
                                             <input class="quantity" min="0" name="{{ $product->id }}" value="0" type="number">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(1); return false" class="plus"></button>
                                         </div>
-                                    @endif
+                                    @endcannot
                                     <p class="card-text" style="text-align: right">
                                         <small class="text-muted">{{ $product->price }} €</small>
                                         <span class="badge badge-warning ml-2">{{ $product->points }}
@@ -36,19 +36,19 @@
                                             <span class="badge badge-danger">Non disponible</span>
                                         @endif
                                     </p>
-                                    @if($modif)
-                                        <a href="{{ route('product.update', $product->id) }}" class="">Editer</a>
-                                    @endif
+                                    @can('update', $product)
+                                        <a href="{{ route('product.edit', $product) }}" class="">Editer</a>
+                                    @endcan
                                 </div>
                             </div>
                         @endforeach
                     </div>
                     <div class="mt-2">
-                        @if($modif)
+                        @can('create', App\Models\Product::class)
                             <a class="btn btn-success" href="{{ route('product.create') }}">Ajouter un produit<a>
                         @else
                             <input class="btn btn-info" type="submit" value="Commander"/>
-                        @endif
+                        @endcan
                     </div>                    
                 </form>
 			</div>
