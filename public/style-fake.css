@@ -1,6 +1,9 @@
 body{
     background: none;
 }
+nav, .navbar{
+	display: none;
+}
 .navbar{
     background: none repeat;
 	background-color: brown;
@@ -14,7 +17,9 @@ body{
 .ml-auto {
     margin: auto;
 }
-
+.card-img-top{
+	display: none;
+}
 .carre{
     background: none;
 	background-color: pink;
@@ -26,3 +31,6 @@ body{
 p{
 	color: red;
 }
+
+footer{
+	display: none;

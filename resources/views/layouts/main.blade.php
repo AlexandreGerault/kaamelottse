@@ -11,10 +11,10 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
-    @if(!Auth::user())
-        <link rel="stylesheet" href="/style-fake.css">
-    @endif
-    <title>@yield('title')</title>
+	<link rel="stylesheet" href="/style-fake.css">
+    
+    <!--<title>@yield('title')</title>-->
+    <title>Blog camembert</title>
     
   </head>
   <body>
@@ -23,7 +23,7 @@
         <div class="container">
           <div class="navbar-brand">
             <img src="/images/blason-min.png" alt="logo">
-            <a class="navbar-brand" href="#">Kaamelo'TSE</a>
+            <a class="navbar-brand" href="#">web Dev website</a>
           </div>
           
           <button class="navbar-toggler navbar-dark"
@@ -43,7 +43,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Banquets</a>
+                <a class="nav-link" href="/banquet">Banquets</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/tableRonde">Table ronde</a>

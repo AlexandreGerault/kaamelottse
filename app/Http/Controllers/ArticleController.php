@@ -11,11 +11,10 @@ use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
-    //Accès réservé aux seuls éditeurs
     public function __construct(){
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +23,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('updated_at', 'desc')->get();
-        
+
         return view('gest.articles')->with('articles', $articles);
     }
 
@@ -46,14 +45,14 @@ class ArticleController extends Controller
      * @param ArticleRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request)  //La validation est déléguée à articleRequest
+    public function store(ArticleRequest $request)  //La validation est dÃ©lÃ©guÃ©e Ã  articleRequest
     {
         $data = $request->validated();
         $data['published'] = isset($data['published']);
 
         $article = new Article($data);
         $article->user()->associate(auth()->user());
-        
+
         if ($article->save()){
             return $this->index();
         }
@@ -101,14 +100,14 @@ class ArticleController extends Controller
             $data['published'] = isset($data['published']);
             $article->update($data);
             $article->save();
-            
+
             return view('gest.article')
                 ->with('article', $article)
                 ->with('action', route('article.update', $article))
                 ->with('method', 'PUT');
         }
 
-        return redirect()->back()->with('error', 'Article non trouvé');
+        return redirect()->back()->with('error', 'Article non trouvÃ©');
     }
 
     /**
@@ -120,18 +119,17 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //Supperssion réservée aux membres autorisés
         $user = Auth::user();
-        if ($user["role"]<3) {
+        if (! $user->hasPermission('article.destroy')) {
             abort(404);
         }
-        
+
         if ($article) {
             if($article->delete()) {
-                return redirect()->route('article.index')->with('success', ['Article supprimé']);  
+                return redirect()->route('article.index')->with('success', ['Article supprimÃ©']);
             }
-            return redirect()->back()->with('error', ['Erreur de suppression']);  
+            return redirect()->back()->with('error', ['Erreur de suppression']);
         }
-        return redirect()->back()->with('error', ['Article non trouvé']);  
+        return redirect()->back()->with('error', ['Article non trouvÃ©']);
     }
 }

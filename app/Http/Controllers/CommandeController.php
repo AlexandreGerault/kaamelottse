@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class CommandeController extends Controller
 {
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
-    }
-    
-    public function index(){
-        return view('users/commander');
+        $products = Product::orderBy('updated_at', 'desc')->get();
+        
+        return view('banquet',['products' => $products, 'modif' => false]);
     }
 }
