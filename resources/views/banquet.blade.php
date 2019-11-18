@@ -16,6 +16,13 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $produit->nom }}</h5>
                                     <p class="card-text">{{ $produit->description }}</p>
+                                    @if(!$modif)
+                                        <div class="def-number-input number-input safari_only mb-1">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(1); return false" class="minus"></button>
+                                            <input class="quantity" min="0" name="{{ $produit->id }}" value="0" type="number">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(1); return false" class="plus"></button>
+                                        </div>
+                                    @endif
                                     <p class="card-text" style="text-align: right">
                                         <small class="text-muted">{{ $produit->prix }} €</small>
                                         <span class="badge badge-warning ml-2">{{ $produit->points }} 
@@ -29,12 +36,7 @@
                                             <span class="badge badge-danger">Non disponible</span>
                                         @endif
                                     </p>
-                                    <div class="def-number-input number-input safari_only">
-                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(1); return false" class="minus"></button>
-                                        <input class="quantity" min="0" name="{{ $produit->id }}" value="0" type="number">
-                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(1); return false" class="plus"></button>
-                                    </div>
-                                    @if(Auth::user() && Auth::user()["role"]>0)
+                                    @if($modif)
                                         <a href="{{ route('produit.update', $produit->id) }}" class="">Editer</a>
                                     @endif
                                 </div>
@@ -42,9 +44,10 @@
                         @endforeach
                     </div>
                     <div class="mt-2">
-                        <input class="btn btn-info" type="submit" value="Commander">
-                        @if(Auth::user() && Auth::user()["role"]>0)
+                        @if($modif)
                             <a class="btn btn-success" href="{{ route('produit.create') }}">Ajouter un produit<a>
+                        @else
+                            <input class="btn btn-info" type="submit" value="Commander"/>
                         @endif
                     </div>                    
                 </form>

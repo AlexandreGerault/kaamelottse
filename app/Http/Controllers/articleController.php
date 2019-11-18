@@ -50,12 +50,9 @@ class articleController extends Controller
      */
     public function store(ArticleRequest $request)  //La validation est déléguée à articleRequest
     {
-        $data = $request->validated();
-        if (isset($data["visible"])){
-            $data["visible"]=1;
-        }
-        $article = new Article($data);
+        $article = new Article($request->validated());
         $article->user_creator=Auth::id();
+        $article->visible=(int) isset($data["visible"]);
         
         if ($article->save()){
             return $this->index();
@@ -92,7 +89,6 @@ class articleController extends Controller
                 'method' => 'PUT',
                 'id' => $id]);
         }
-        return "error !";
         return redirect()->back()->with('error', ['Article non trouvé']);  
     }
 
@@ -106,14 +102,8 @@ class articleController extends Controller
     public function update(ArticleRequest $request, $id)
     {
         if ($article = Article::find($id)){
-            $data = $request->validated();
-            if (isset($data["visible"])){
-                $data["visible"]=1;
-            }
-            else{
-                $data["visible"]=0;                
-            }
-            $article->update($data);
+            $article->update($request->validated());
+            $article->visible = (int) isset($data["visible"]);
             $article->save();
             
             return view('gest/article',[

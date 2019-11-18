@@ -18,7 +18,7 @@ Route::get('/laravel', function () {
 
 Route::get('/', 'indexController@index');
 Route::get('/index', 'indexController@index');
-Route::get('/banquet', 'produitController@index');
+Route::get('/banquet', 'commandeController@index');
 Route::get('/contact', 'indexController@get_contact');
 Route::post('/contact', 'indexController@post_contact');
 Route::get('/tableRonde', 'indexController@tableRonde');

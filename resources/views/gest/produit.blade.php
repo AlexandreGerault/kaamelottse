@@ -104,12 +104,12 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-3">
+                                <a href="/produit" class="btn btn-secondary">
+                                    {{ __('Retour') }}
+                                </a>
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>
-                                <a href="/banquet" class="btn btn-secondary">
-                                    {{ __('Annuler') }}
-                                </a>
 								@if(isset($id))
 									<a class="btn btn-danger" href="{{ route('produit.destroy',$id) }}" onclick="event.preventDefault();
 															 document.getElementById('destroy-form').submit();">Supprimer</a>

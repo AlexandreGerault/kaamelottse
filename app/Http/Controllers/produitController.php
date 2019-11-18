@@ -20,10 +20,9 @@ class produitController extends Controller
      */
     public function index()
     {
-        $produits = produit::orderBy('updated_at', 'desc')->get();
-        $pannier = [];
+        $produits = Produit::orderBy('updated_at', 'desc')->get();
         
-        return view('banquet',['produits'=>$produits, 'pannier' => $pannier]);
+        return view('banquet',['produits'=>$produits, 'modif' => true]);
     }
 
     /**
@@ -33,7 +32,7 @@ class produitController extends Controller
      */
     public function create()
     {
-        $produit = new produit();
+        $produit = new Produit();
         return view('gest/produit',[
             'produit'=>$produit,
             'action'=>route('produit.store')]);
@@ -78,7 +77,7 @@ class produitController extends Controller
      */
     public function edit($id)
     {
-        if($produit = produit::find($id)){
+        if($produit = Produit::find($id)){
             return view('gest/produit',[
                 'produit'=>$produit,
                 'action'=>route('produit.update', $id),
@@ -97,7 +96,7 @@ class produitController extends Controller
      */
     public function update(ProduitRequest $request, $id)
     {
-        if ($produit = produit::find($id)){
+        if ($produit = Produit::find($id)){
             $data = $request->validated();
             $data['disponible'] = (int) isset($data['disponible']);
             $produit->update($data);
@@ -130,7 +129,7 @@ class produitController extends Controller
             abort(404);
         }
         
-        if ($produit = produit::find($id)){
+        if ($produit = Produit::find($id)){
             if($produit->delete()){
                 return redirect()->route('produit.index')->with('success', ['produit supprimé']);  
             }
