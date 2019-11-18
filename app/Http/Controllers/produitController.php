@@ -21,8 +21,9 @@ class produitController extends Controller
     public function index()
     {
         $produits = produit::orderBy('updated_at', 'desc')->get();
+        $pannier = [];
         
-        return view('banquet',['produits'=>$produits]);
+        return view('banquet',['produits'=>$produits, 'pannier' => $pannier]);
     }
 
     /**
@@ -33,7 +34,7 @@ class produitController extends Controller
     public function create()
     {
         $produit = new produit();
-        return view('banquet',[
+        return view('gest/produit',[
             'produit'=>$produit,
             'action'=>route('produit.store')]);
     }
@@ -47,6 +48,7 @@ class produitController extends Controller
     public function store(ProduitRequest $request)  //La validation est déléguée à produitRequest
     {
         $data = $request->validated();
+        $data['disponible'] = (int) isset($data['disponible']);
         $produit = new produit($data);
         
         if ($produit->save()){
@@ -77,14 +79,13 @@ class produitController extends Controller
     public function edit($id)
     {
         if($produit = produit::find($id)){
-            
             return view('gest/produit',[
                 'produit'=>$produit,
                 'action'=>route('produit.update', $id),
                 'method' => 'PUT',
                 'id' => $id]);
         }
-        return redirect()->back()->with('error', ['produit non trouvé']);  
+        return redirect()->back()->with('error', 'produit non trouvé');  
     }
 
     /**
@@ -97,22 +98,22 @@ class produitController extends Controller
     public function update(ProduitRequest $request, $id)
     {
         if ($produit = produit::find($id)){
-            $produit->update($request->validated());
+            $data = $request->validated();
+            $data['disponible'] = (int) isset($data['disponible']);
+            $produit->update($data);
+            
             if( $produit->save()){
-                echo "ça marche !";
+                return view('gest/produit',[
+                    'produit'=>$produit,
+                    'action'=>route('produit.update', $id),
+                    'method' => 'PUT',
+                    'id' => $id])->with('sucess', 'Modification enregistrée');
             }
             else{
                 echo "et non :( )";
             }
-            
-            return view('gest/produit',[
-                'produit'=>$produit,
-                'action'=>route('produit.update', $id),
-                'method' => 'PUT',
-                'id' => $id]);
         }
-        return;
-        //return redirect()->back()->with('error', ['produit non trouvé']);
+        return redirect()->back()->with('error', 'Echec d\'enregistrement');
     }
 
     /**

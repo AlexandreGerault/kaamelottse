@@ -22,7 +22,7 @@ class CreateProduitsTable extends Migration
 			$table->integer('stock')->default(0);
 			$table->integer('prix')->default(0);
 			$table->integer('points')->default(0);
-			$table->boolean('visible')->default(0);
+			$table->boolean('disponible')->default(0);
 			$table->softDeletes();
             $table->timestamps();
         });

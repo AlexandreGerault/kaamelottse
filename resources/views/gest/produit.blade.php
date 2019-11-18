@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="form-group col-md-5">
                                 <label for="nom">Prix</label>
-                                <input id="prix" type="number" class="form-control @error('prix') is-invalid @enderror" name="prix" value="{{ old('prix', $produit->prix) }}" min="0" step="0.01">
+                                <input id="prix" type="number" class="form-control @error('prix') is-invalid @enderror" name="prix" value="{{ old('prix', $produit->prix) }}" min="0" step="0.1">
     
                                 @error('prix')
                                     <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
     
                             <div class="form-group col-md-4">
                                 <label for="nom">Points</label>
-                                <input id="points" type="text" class="form-control @error('points') is-invalid @enderror" name="points" value="{{ old('points', $produit->points) }}" min="0" max="5000">
+                                <input id="points" type="number" class="form-control @error('points') is-invalid @enderror" name="points" value="{{ old('points', $produit->points) }}" min="0" max="5000">
     
                                 @error('points')
                                     <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
     
                             <div class="form-group col-md-3">
                                 <label for="nom">Priorité</label>
-                                <input id="priorite" type="text" class="form-control @error('priorite') is-invalid @enderror" name="priorite" value="{{ old('priorite', $produit->priorite) }}" min="-5000" max="5000">
+                                <input id="priorite" type="number" class="form-control @error('priorite') is-invalid @enderror" name="priorite" value="{{ old('priorite', $produit->priorite) }}" min="-5000" max="5000">
     
                                 @error('priorite')
                                     <span class="invalid-feedback" role="alert">
@@ -89,12 +89,25 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+							<div class="form-check">
+								<input id="disponible" name="disponible" class="form-check-input" type="checkbox" @if(old('disponible', $produit->disponible)==1) checked @endif id="disponible">
+								<label for="disponible" >Rendre le produit disponible à l'achat</label>
+								
+							</div>
+							@error('visible')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+							@enderror
+						</div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-3">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>
-                                <a href="/produit" class="btn btn-secondary">
+                                <a href="/banquet" class="btn btn-secondary">
                                     {{ __('Annuler') }}
                                 </a>
 								@if(isset($id))

@@ -92,6 +92,7 @@ class articleController extends Controller
                 'method' => 'PUT',
                 'id' => $id]);
         }
+        return "error !";
         return redirect()->back()->with('error', ['Article non trouvé']);  
     }
 

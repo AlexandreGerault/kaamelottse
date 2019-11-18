@@ -25,11 +25,11 @@ class ProduitRequest extends FormRequest
     public function rules()
     {
         return [
-            'titre' => 'required|string|max:150',
+            'nom' => 'required|string|max:150',
             'description' => 'string|max:2000',
             'image' => 'nullable|url|max:255',
-            'priorite' => 'nullable|numeric',
-            'visible' => 'nullable',
+            'priorite' => 'numeric',
+            'disponible' => 'nullable',
             'prix' => 'numeric',
             'points' => 'numeric',
         ];

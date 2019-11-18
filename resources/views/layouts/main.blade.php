@@ -8,8 +8,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/style.css">
+	<link rel="stylesheet" href="/style-fake.css">
     
-    <title>@yield('title')</title>
+    <!--<title>@yield('title')</title>-->
+    <title>Blog camembert</title>
     
   </head>
   <body>
@@ -18,7 +20,7 @@
         <div class="container">
           <div class="navbar-brand">
             <img src="/images/blason-min.png" alt="logo">
-            <a class="navbar-brand" href="#">Kaamelo'TSE</a>
+            <a class="navbar-brand" href="#">web Dev website</a>
           </div>
           
           <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
