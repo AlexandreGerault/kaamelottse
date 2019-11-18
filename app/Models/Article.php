@@ -53,7 +53,7 @@ class Article extends Model
 	use SoftDeletes;
 
 	protected $fillable =[
-        'title', 'subtitle', 'image', 'content', 'priority', 'published', 'slug', 'link'
+        'title', 'subtitle', 'image', 'content', 'priority', 'published', 'slug', 'link', 'author_id'
     ];
 
 	//Defauls values

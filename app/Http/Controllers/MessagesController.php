@@ -31,6 +31,8 @@ class MessagesController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewany', Message::class);
+
         $messages = Message::notResponded()->orderBy('updated_at')->get();
         
         return view('gest.messages.index', [
@@ -117,11 +119,15 @@ class MessagesController extends Controller
      */
     public function respond(Message $message)
     {
+        $this->authorize('respond', $message);
+
         return view('gest.messages.respond')->with('message', $message);
     }
 
     public function postRespond(Request $request, Message $message)
     {
+        $this->authorize('respond', $message);
+
         $validatedData = $request->validate([
             'answerContent' => 'required|string|max:5000',
             'answerSubject' => 'required|string|max:200',
