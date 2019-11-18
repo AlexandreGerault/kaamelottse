@@ -27,7 +27,8 @@ class CitationsController extends Controller
                 ->orderBy('updated_at', 'desc')
                 ->get();
         
-        return view('gest/citations',['citations'=>$citations]);
+        return view('gest.citations')
+            ->with('citations', $citations);
     }
 
     /**
@@ -38,7 +39,7 @@ class CitationsController extends Controller
     public function create()
     {
         $citation = new Citation();
-        return view('gest/citation',[
+        return view('gest.citation',[
             'citation'=>$citation,
             'action'=>route('citation.store')]);
     }

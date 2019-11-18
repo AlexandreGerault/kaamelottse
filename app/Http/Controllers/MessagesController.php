@@ -23,11 +23,12 @@ class MessagesController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -116,6 +117,7 @@ class MessagesController extends Controller
     /**
      * @param Message $message
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function respond(Message $message)
     {
