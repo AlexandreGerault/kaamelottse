@@ -113,7 +113,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Article $article
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */

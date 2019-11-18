@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('updated_at', 'desc')->get();
         
-        return view('banquet', ['products' => $products, 'modif' => true]);
+        return view('banquet', ['products' => $products]);
     }
 
     /**
@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function create()
     {
         $product = new Product();
-        return view('gest/product',[
+        return view('gest.product', [
             'product' => $product,
             'action' => route('product.store')
         ]);
@@ -50,7 +50,7 @@ class ProductController extends Controller
         $data['avalaible'] = (int) isset($data['avalaible']);
         $product = new Product($data);
         
-        if ($product->save()){
+        if ($product->save()) {
             return $this->index();
         }
         else{
@@ -61,28 +61,27 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return $this->edit($id);
+        return $this->edit($product);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        if($product = Product::find($id)){
-            return view('gest/product',[
+        if($product) {
+            return view('gest/product', [
                 'product' => $product,
-                'action' => route('product.update', $id),
-                'method' => 'PUT',
-                'id' => $id
+                'action' => route('product.update', $product),
+                'method' => 'PUT'
             ]);
         }
         return redirect()->back()->with('error', 'produit non trouvé');  
@@ -91,23 +90,22 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ProductRequest $request
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        if ($product = Product::find($id)){
+        if ($product){
             $data = $request->validated();
             $data['disponible'] = (int) isset($data['disponible']);
             $product->update($data);
             
             if( $product->save()){
                 return view('gest/product',[
-                    'product'=>$product,
-                    'action'=>route('product.update', $id),
-                    'method' => 'PUT',
-                    'id' => $id
+                    'product' => $product,
+                    'action' => route('product.update', $product),
+                    'method' => 'PUT'
                 ])->with('sucess', 'Modification enregistrée');
             }
             else {
@@ -120,8 +118,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Product $product)
     {
