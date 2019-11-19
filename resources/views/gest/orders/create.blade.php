@@ -5,12 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-12 bg-light p-4">
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel-heading mb-5">
                     <h3 class="panel-title">Créer une commande manuellement</h3>
                 </div>
+                <form class="form-inline">
+                    <div class="form-row">
+                        <input class="autocomplete form-control col-auto mr-2" type="text" placeholder="Utilisateur" />
+                        <input type="submit" class="btn btn-primary col-auto"/>
+                    </div>
+                </form>
 
                 <form method="post" action="{{ route('order.store') }}">
                     @csrf
+                    <input type="number" hidden />
                     <div class="card-deck d-flex flex-wrap">
                         @foreach (App\Models\Product::all() as $product)
                             <div class="card mr-2 @if(!$product->available) bg-light @endif my-3"
@@ -82,4 +89,24 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    //var path = "{ route('order.username_autocomplete') }";
+
+    $('input.typeahead').typeahead({
+
+        source:  function (query, process) {
+
+            return $.get(path, { query: query }, function (data) {
+
+                return process(data);
+
+            });
+
+        }
+
+    });
+
+</script>
 @endsection

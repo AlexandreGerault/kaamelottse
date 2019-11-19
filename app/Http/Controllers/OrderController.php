@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Order;
+use App\User;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -11,7 +12,9 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('updated_at', 'desc')->with('customer')->with('items')->paginate(5);
+        $orders = Order::with(['customer', 'deliveryDriver'])
+            ->orderBy('updated_at', 'desc')
+            ->paginate(5);
 
         return view('gest.orders.index')
             ->with('orders', $orders);
@@ -19,9 +22,7 @@ class OrderController extends Controller
 
     public function create()
     {
-        $products = Product::orderBy('updated_at', 'desc')->get();
-
-        return view('banquet')->with('products', $products);
+        return view('gest.orders.create');
     }
 
     public function show(Order $order)
@@ -38,5 +39,12 @@ class OrderController extends Controller
             echo '<b>' . $product->name . ' :</b> ' . $quantity . '</br>';
         }
         dd($request->all());
+    }
+
+    public function usernameAutocomplete(Request $request)
+    {
+        $users = User::noPendingOrder()->get();
+
+        return response()->json($users, 200);
     }
 }
