@@ -21,10 +21,17 @@ class OrdersTableSeeder extends Seeder
                 'delivery_driver_id' => User::all()->random()->id,
             ])
             ->each(function ($order) {
+                $order->customer_id = User::all()->random()->id;
+                $order->delivery_driver_id = User::all()->random()->id;
+                $order->save();
+
                 factory(OrderItem::class, 3)->create([
                     'order_id' => $order->id,
-                    'product_id' => Product::all()->random()->id
-                ]);
+                    'product_id' => 1,
+                ])->each(function ($orderItem) {
+                    $orderItem->product_id = Product::all()->random()->id;
+                    $orderItem->save();
+                });
             });
     }
 }

@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(OrderItem::class, function (Faker $faker) {
     return [
-        'quantity' => $faker->randomNumber()
+        'quantity' => $faker->numberBetween(0, 100),
     ];
 });
