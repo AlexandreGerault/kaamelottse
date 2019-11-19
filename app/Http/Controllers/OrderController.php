@@ -17,6 +17,18 @@ class OrderController extends Controller
             ->with('orders', $orders);
     }
 
+    public function create()
+    {
+        $products = Product::orderBy('updated_at', 'desc')->get();
+
+        return view('banquet')->with('products', $products);
+    }
+
+    public function show(Order $order)
+    {
+        return view('gest.orders.show')->with('order', $order);
+    }
+
     public function store(OrderRequest $request)
     {
         $order = new Order();

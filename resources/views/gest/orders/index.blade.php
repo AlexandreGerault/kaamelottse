@@ -29,9 +29,9 @@
                                     {{ $order->status }}
                                 </td>
                                 <td>
-                                    {{ $order->total_price }}
+                                    {{ $order->total_price }} €
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{ $order->total_points }}
                                 </td>
                                 <td>

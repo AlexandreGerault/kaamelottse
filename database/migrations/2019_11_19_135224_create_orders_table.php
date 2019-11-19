@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('status')->default(0);
             $table->float('total_price');
             $table->string('shipping_address');
+            $table->string('method_payment');
             $table->integer('total_points');
             $table->string('phone');
             $table->integer('delivery_rating');
