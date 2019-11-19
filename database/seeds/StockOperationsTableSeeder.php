@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class StockOperationsFactory extends Seeder
+class StockOperationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
