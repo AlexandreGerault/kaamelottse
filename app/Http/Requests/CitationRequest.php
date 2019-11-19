@@ -24,8 +24,8 @@ class citationRequest extends FormRequest
     public function rules()
     {
         return [
-            'contenu' => 'string|max:2000',
-            'auteur' => 'string|max:100|nullable'
+            'content' => 'string|max:2000',
+            'author' => 'string|max:100|nullable'
         ];
     }
 }

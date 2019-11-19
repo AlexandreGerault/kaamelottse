@@ -15,10 +15,10 @@
 						@endif
 
                         <div class="form-group">
-                            <label for="contenu" >Contenu</label>
-							<textarea class="form-control" id="contenu" name="contenu" rows="5" maxlength="5000" required>{{ old('contenu', $citation->contenu) }}</textarea>
+                            <label for="content" >Contenu</label>
+							<textarea class="form-control" id="content" name="content" rows="5" maxlength="5000" required>{{ old('content', $citation->content) }}</textarea>
 							
-							@error('contenu')
+							@error('content')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -26,10 +26,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="auteur">Auteur(s)</label>
-							<input id="auteur" type="text" class="form-control @error('auteur') is-invalid @enderror" name="auteur" value="{{ old('auteur', $citation->auteur) }}" autocomplete="name" maxlength="150" autofocus>
+                            <label for="author">Auteur(s)</label>
+							<input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="{{ old('author', $citation->author) }}" autocomplete="name" maxlength="150" autofocus>
 
-							@error('auteur')
+							@error('author')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>

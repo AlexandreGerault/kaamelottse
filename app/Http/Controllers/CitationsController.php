@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests\CitationRequest;
 
-use App\Citation;
+use App\Models\Citation;
 
 class CitationsController extends Controller
 {
@@ -23,7 +23,7 @@ class CitationsController extends Controller
      */
     public function index()
     {
-        $citations = Citation::where('user_creator', Auth::id())
+        $citations = Citation::where('creator_id', Auth::id())
                 ->orderBy('updated_at', 'desc')
                 ->get();
         
@@ -54,7 +54,7 @@ class CitationsController extends Controller
     {
         $data = $request->validated();
         $citation = new Citation($data);
-        $citation->user_creator=Auth::id();
+        $citation->creator_id=Auth::id();
         
         if ($citation->save()){
             return $this->index();
@@ -83,7 +83,7 @@ class CitationsController extends Controller
      */
     public function edit($id)
     {
-        if($citation = Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
+        if($citation = Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
             
             return view('gest/citation',[
                 'citation'=>$citation,
@@ -103,7 +103,7 @@ class CitationsController extends Controller
      */
     public function update(CitationRequest $request, $id)
     {
-        if (Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
+        if (Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
             $data = $request->validated();
             $citation->update($data);
             $citation->save();
@@ -126,7 +126,7 @@ class CitationsController extends Controller
     public function destroy($id)
     {
         
-        if ($citation = Citation::where(['id' => $id, 'user_creator' => Auth::id()])->first()){
+        if ($citation = Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
             if($citation->delete()){
                 return redirect()->route('citation.index')->with('success', ['Citation supprimé']);  
             }
