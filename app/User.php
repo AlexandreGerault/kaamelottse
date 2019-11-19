@@ -101,8 +101,8 @@ class User extends Authenticatable
 
     public function scopeNoPendingOrder(Builder $query)
     {
-        return $query->whereHas(Order::class, function (Builder $query) {
-            return ! $query->whereIn('status', [0, 1]);
+        return $query->doesntHave(Order::class, function (Builder $query) {
+            return $query->whereIn('status', [0, 1]);
         });
     }
 }
