@@ -31,6 +31,10 @@ Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard');
 Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
 Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
 
+//Delivery
+Route::get('/deliver', 'DeliveryController@index');
+Route::get('/deliver/{id}', 'DeliveryController@delivery')->name('deliver.delivery');
+
 Route::resource('order', 'OrderController');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
