@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('updated_at', 'desc')->get();
+        $products = Product::orderBy('available', 'desc')->get();
         
         return view('banquet', ['products' => $products]);
     }
