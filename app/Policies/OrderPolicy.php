@@ -5,10 +5,16 @@ namespace App\Policies;
 use App\Models\Order;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\Builder;
 
 class OrderPolicy
 {
     use HandlesAuthorization;
+
+    public function before(User $user, $string)
+    {
+        return $user->hasPermission('order');
+    }
 
     /**
      * Determine whether the user can view any orders.
@@ -41,7 +47,9 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        //
+        return ! Order::whereCustomerId($user->id)->where(function (Builder $query) {
+            return $query->where('status', 0)->orWhere('status', 1);
+        })->exists();
     }
 
     /**
@@ -53,7 +61,7 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        //
+        return $user->hasPermission('order.update');
     }
 
     /**
@@ -65,7 +73,7 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order)
     {
-        //
+        return $user->hasPermission('order.delete');
     }
 
     /**
@@ -77,7 +85,7 @@ class OrderPolicy
      */
     public function restore(User $user, Order $order)
     {
-        //
+        return $user->hasPermission('order.restore');
     }
 
     /**
@@ -89,6 +97,6 @@ class OrderPolicy
      */
     public function forceDelete(User $user, Order $order)
     {
-        //
+        return $user->hasPermission('order.forcedelete');
     }
 }
