@@ -16,15 +16,15 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->float('total_price');
             $table->string('shipping_address');
             $table->integer('total_points');
             $table->string('phone');
             $table->integer('delivery_rating');
             $table->unsignedBigInteger('delivery_driver_id');
-            $table->dateTime('paid_at');
-            $table->dateTime('shipped_at');
+            $table->dateTime('paid_at')->nullable()->default(null);
+            $table->dateTime('shipped_at')->nullable()->default(null);
             $table->timestamps();
         });
     }
