@@ -34,5 +34,16 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'product.forcedelete'],
             ['name' => 'product.restore'],
         ]);
+        DB::table('permissions')->insert([
+            ['name' => 'order'],
+            ['name' => 'order.index'],
+            ['name' => 'order.view'],
+            ['name' => 'order.viewany'],
+            ['name' => 'order.edit'],
+            ['name' => 'order.update'],
+            ['name' => 'order.delete'],
+            ['name' => 'order.forcedelete'],
+            ['name' => 'order.restore'],
+        ]);
     }
 }
