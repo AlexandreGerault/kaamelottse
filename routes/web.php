@@ -34,6 +34,8 @@ Route::post('message/respond/{message}', 'MessagesController@postRespond')->name
 //Delivery
 Route::get('/deliver', 'DeliveryController@index');
 Route::get('/deliver/{id}', 'DeliveryController@delivery')->name('deliver.delivery');
+Route::get('/deliver/{id}/takeCharge', 'DeliveryController@takeCharge')->name('deliver.takeCharge');
+Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.cancel');
 
 Route::resource('order', 'OrderController');
 Route::resource('article', 'ArticleController');
