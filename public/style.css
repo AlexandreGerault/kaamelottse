@@ -128,7 +128,13 @@ q{
 .number-input input[type="number"] {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
-  appearance: textfield;
+  appearance: none;
+}
+
+.no-spins-button {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: none;
 }
 
 .number-input input[type=number]::-webkit-inner-spin-button,
