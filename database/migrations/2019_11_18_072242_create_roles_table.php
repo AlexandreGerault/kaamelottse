@@ -15,7 +15,7 @@ class CreateRolesTable extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name')->unique('name','nameu');
             $table->timestamps();
         });
     }
@@ -28,7 +28,7 @@ class CreateRolesTable extends Migration
     public function down()
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropUnique('roles_name_unique');
+            $table->dropUnique('nameu');
         });
         Schema::dropIfExists('roles');
     }
