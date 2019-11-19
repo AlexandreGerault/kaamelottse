@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Order;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -40,6 +41,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read int|null $roles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User noPendingOrder()
  */
 class User extends Authenticatable
 {
@@ -95,5 +97,12 @@ class User extends Authenticatable
                 ->reject(function ($role) use ($permission) {
                     return ! $role->permissions()->named($permission)->exists();
                 })->count() > 0;
+    }
+
+    public function scopeNoPendingOrder(Builder $query)
+    {
+        return $query->whereHas(Order::class, function (Builder $query) {
+            return ! $query->whereIn('status', [0, 1]);
+        });
     }
 }
