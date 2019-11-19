@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Message;
 use App\Models\Product;
 use App\Policies\MessagePolicy;
+use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -22,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
         Message::class => MessagePolicy::class,
         Product::class => ProductPolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
