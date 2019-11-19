@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::orderBy('updated_at', 'desc')->with('customer')->with('items')->paginate(5);
-        
+
         return view('gest.orders.index')
             ->with('orders', $orders);
     }
