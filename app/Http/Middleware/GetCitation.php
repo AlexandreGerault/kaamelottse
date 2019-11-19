@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Citation;
+use App\Models\Citation;
+use Illuminate\Support\Facades\Log;
 
 class GetCitation
 {
@@ -17,10 +18,10 @@ class GetCitation
      */
     public function handle($request, Closure $next)
     {
-        /*if (!$request->session()->get('citation')){
+        if (true or !$request->session()->get('citation')){	//Pour forcer la citation à changer à chaque fois
             $citation = Citation::all()->random(1)->first();
-            $request->session()->put('citation', [ 'contenu' => $citation->contenu, 'auteur' => $citation->auteur ]);
-        }*/
+            $request->session()->put('citation', [ 'content' => $citation->content, 'author' => $citation->author ]);
+        }
         return $next($request);
     }
 }
