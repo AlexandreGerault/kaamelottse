@@ -18,8 +18,8 @@ class GetCitation
      */
     public function handle($request, Closure $next)
     {
-        if (true or !$request->session()->get('citation')){	//Pour forcer la citation à changer à chaque fois
-            $citation = Citation::all()->random(1)->first();
+        if (!$request->session()->get('citation') && Citation::all()->count() > 0) {	//Pour forcer la citation à changer à chaque fois
+            $citation = Citation::all()->random()->first();
             $request->session()->put('citation', [ 'content' => $citation->content, 'author' => $citation->author ]);
         }
         return $next($request);
