@@ -19,9 +19,9 @@ class CreateOrdersTable extends Migration
             $table->integer('status')->default(0);
             $table->float('total_price');
             $table->string('shipping_address');
-            $table->string('method_payment');
+            $table->string('method_payment')->nullable()->default(null);
             $table->integer('total_points');
-            $table->string('phone');
+            $table->string('phone')->nullable()->default(null);
             $table->integer('delivery_rating');
             $table->unsignedBigInteger('delivery_driver_id');
             $table->dateTime('paid_at')->nullable()->default(null);
