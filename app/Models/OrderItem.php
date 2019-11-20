@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,5 +43,12 @@ class OrderItem extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function scopeByProduct(Builder $query, Product $product)
+    {
+        return $query->whereHas('product', function (Builder $query) use($product) {
+            return $query->where('id', $product->id);
+        });
     }
 }
