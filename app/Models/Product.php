@@ -54,6 +54,10 @@ class Product extends Model
         'name', 'description', 'image', 'priority', 'available', 'price', 'points'
     ];
 
+    protected $casts = [
+        'available' => 'boolean'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
