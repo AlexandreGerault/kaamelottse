@@ -13,6 +13,8 @@ class OrderController extends Controller
 {
     public function index()
     {
+        $this->authorize('index', Order::class);
+
         $orders = Order::with(['customer', 'deliveryDriver'])
             ->orderBy('updated_at', 'desc')
             ->paginate(5);
@@ -23,6 +25,8 @@ class OrderController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Order::class);
+
         return view('gest.orders.create')
             ->with('action', route('order.store'));
     }
@@ -37,6 +41,8 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
+        $this->authorize('viewAny', Order::class);
+
         return view('gest.orders.show')->with('order', $order);
     }
 
@@ -150,6 +156,8 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        $this->authorize('destroy', Order::class);
+
         Order::destroy($order->id);
 
         return $this->index()->with('success', 'Commande supprimée avec succès');

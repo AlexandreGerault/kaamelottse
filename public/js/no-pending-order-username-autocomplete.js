@@ -110,14 +110,14 @@ autocomplete({
   }(function (text, update) {
     text = text.toLowerCase(); // you can also use AJAX requests instead of preloaded data
 
-    var suggestions = fetch('/username_autocomplete?name=' + text).then(function (r) {
+    var suggestions = fetch('/username_autocomplete?email=' + text).then(function (r) {
       return r.json();
     }).then(function (data) {
       update(data);
     });
   }),
   onSelect: function onSelect(item) {
-    input.value = item.name;
+    input.value = item.email;
   },
   render: function render(item, currentValue) {
     var itemElement = document.createElement('div');
@@ -125,7 +125,7 @@ autocomplete({
     var link = document.createElement('a');
     link.setAttribute('href', '#');
     link.classList.add('autocomplete-item');
-    link.textContent = item.name;
+    link.textContent = item.email;
     link.addEventListener('click', function (e) {
       e.preventDefault();
     });
