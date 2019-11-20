@@ -30,4 +30,30 @@ class DeliveryController extends Controller
             return view('gest.deliveries.current_order', ['order' => $order]);
         }
     }
+
+    public function takeCharge($id){
+        if ($order = Order::where('id', $id)->first()){
+            if (empty($order->delivery_driver_id) && $order->status!=2){
+                $order->delivery_driver_id = Auth::id();
+                $order->status = 1;
+                $order->save();
+                return redirect()->back()->with('sucess', 'Commande prise en charge !');
+            }
+            return redirect()->back()->with('error', 'Commande déjà prise en charge !');
+        }
+        return redirect()->back()->with('error', 'Commande introuvable !');
+    }
+
+    public function cancel($id){
+        if ($order = Order::where(['id' => $id, 'delivery_driver_id' => Auth::id()])->first()){
+            if ($order->status==1){
+                $order->delivery_driver_id = NULL;
+                $order->status = 3;
+                $order->save();
+                return redirect()->back()->with('sucess', 'Commande annulée avec sucess !');
+            }
+            return redirect()->back()->with('error', 'Annulation impossible !');
+        }
+        return redirect()->back()->with('error', 'Annulation impossible !');
+    }
 }

@@ -2,49 +2,86 @@
 
 @section('content')
     <div class="container">
-        <div class="row bg-light justify-content-center mb-2">
+        <div class="row @if(Auth::id() == $order->delivery_driver_id) bg-warning @else bg-light @endif justify-content-center mb-2">
             <h3 class="panel-title">Commande N°{{ $order->id }}</h3>
         </div>
         <div class="row bg-light mb-2 p-2">
-            <div>
+            <p class="m-0">
+                @if($order->status == 0)
+                    <span class="badge badge-primary">En Attente</span>
+                @elseif($order->status ==1)
+                    <span class="badge badge-warning">En Cours</span>
+                @elseif($order->status ==2)
+                    <span class="badge badge-success">Livré</span>
+                @else
+                    <span class="badge badge-danger">Commande Annulée</span>
+                @endif
+                <br>
                 <strong>Nom </strong>{{ $order->customer->name }}
-            </div>
-            <div class="text-primary">
-                <strong>Adresse </strong><em>{{ $order->shipping_address }}</em>
-            </div>
-            <div>
+                <br>
+                <span class="text-danger">
+                    <strong>Adresse </strong><span>{{ $order->shipping_address }}</span>
+                </span>
+                <br>
                 <strong>Tel </strong><a href="phone:{{ $order->phone }}" class="text-muted">{{ $order->phone }}</a>
-            </div>
-            <div>
+                <br>
                 <strong>Email </strong><a href="mail:{{ $order->customer->email }}" class="text-muted">{{ $order->customer->email }}</a>
-            </div>
-            <div>
+                <br>
                 <strong>Date Commande </strong>{{ $order->created_at }}
-            </div>
+                @if($order->shipped_at)
+                    <br>
+                    <strong>Livré </strong>{{ $order->shipped_at }}
+                @endif
+            </p>
         </div>
         <div class="row bg-white mb-2">
             <ul class="col p-2 list-group" style="width: 100%;">
                 @foreach ($order->items as $orderItem)
-                    <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">{{ $orderItem->product->name }} ({{ $orderItem->quantity }} à {{ $orderItem->product->price }}€)</li>
+                    <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif"><span class="badge badge-primary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }} ({{ $orderItem->product->price }}€ unité)</li>
                 @endforeach
             </ul>
         </div>
         <div class="row bg-light mb-2 p-2">
             <div>
-                <strong>Total </strong>{{ $order->total_price }} €
+                <strong>Total </strong>{{ $order->total_price }} € <span class="badge badge-warning">{{ $order->total_points }} points</span>
             </div>
         </div>
         <div class="row bg-light mb-2 p-2">
-            @if(Auth::id() == $order->delivery_driver_id)
-                <form method="post" action="">
-                    <div class="form-group">
-                        <label for="message">Envoyer un message</label>
-                        <textarea id="message" class="form-control"></textarea>
-                    </div>
-                </form>
-            @else
-                <a href="" class="btn btn-primary btn-lg bt-block">Livrer cette commande</a>
-            @endif
+            <form method="post" action="" style="width: 100%">
+                <div class="form-group">
+                    <label for="message">Envoyer un message</label>
+                    <textarea id="message" class="form-control"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
+            </form>
         </div>
+        @if(Auth::id() == $order->delivery_driver_id)
+            <div class="row bg-light mb-2 p-2">
+                <form method="post" action="" style="width: 100%">
+                    <div class="form-group">
+                        <label for="message">Methode Paiement</label>
+                        <select id="message" class="form-control">
+                            <option value="pumkin">Pumkin</option>
+                            <option value="espece">Espèce</option>
+                            <option value="cheque">Chèque</option>
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Valider la commande">
+                    <a href="{{ route('deliver.cancel', $order->id) }}" class="btn btn-danger  btn-sm">
+                        Annuler la commande
+                    </a>
+                </form>
+            </div>
+        @elseif(empty($order->delivery_driver_id))
+            <div class="row bg-light mb-2 p-2">
+                <a href="{{ route('deliver.takeCharge', $order->id) }}" class="btn btn-primary btn-lg bt-block">Prendre en charge cette commande</a>
+            </div>
+        @else
+            <div class="row bg-light mb-2 p-2">
+                <div>
+                    <strong>Livreur </strong>{{ $order->deliveryDriver->name }}
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
