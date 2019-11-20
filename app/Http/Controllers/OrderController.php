@@ -75,23 +75,18 @@ class OrderController extends Controller
         /*
          * On commence par créer la commande avec des informations de bases
          */
-        $order = new Order;
+        $order = new Order(array_merge($request->only(['status', 'shipping_address', 'phone']),
+            ['total_points' => $totalPoints, 'total_price' => $totalPrice]));
         $order->customer()->associate(User::where('email', $request->customer_email)->first());
-        $order->status = $request->get('status');
-        $order->shipping_address = $request->get('shipping_address');
-        $order->phone = $request->get('customer_phone');
-        $order->total_points = $totalPoints;
-        $order->total_price = $totalPrice;
         $order->save();
 
         /*
          * On ajoute tout les produits commandés à la commande
          */
         foreach ($products as $product) {
-            $orderItem = new OrderItem();
+            $orderItem = new OrderItem(['quantity' => $request->get($product->id)]);
             $orderItem->order()->associate($order);
             $orderItem->product()->associate($product);
-            $orderItem->quantity = $request->get($product->id);
             $orderItem->save();
         }
 
@@ -103,6 +98,7 @@ class OrderController extends Controller
         $this->authorize('update', $order);
 
         $products = array();
+        $orderItems = array();
         $totalPrice = 0;
         $totalPoints = 0;
 
@@ -127,12 +123,9 @@ class OrderController extends Controller
         /*
          * On commence par créer la commande avec des informations de bases
          */
+        $order->update(array_merge($request->only(['status', 'shipping_address', 'phone']),
+            ['total_points' => $totalPoints, 'total_price' => $totalPrice]));
         $order->customer()->associate(User::where('email', $request->customer_email)->first());
-        $order->status = $request->get('status');
-        $order->shipping_address = $request->get('shipping_address');
-        $order->phone = $request->get('customer_phone');
-        $order->total_points = $totalPoints;
-        $order->total_price = $totalPrice;
         $order->save();
 
         /*

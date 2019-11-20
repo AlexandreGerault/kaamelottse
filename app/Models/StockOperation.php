@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\HasProduct;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,11 +27,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class StockOperation extends Model
 {
+    use HasProduct;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function scopeByProduct(Builder $query, Product $product)
+    {
+        return $query->whereHas('product', function (Builder $query) use($product) {
+            return $query->where('id', $product->id);
+        });
     }
 }

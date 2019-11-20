@@ -47,6 +47,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
+
+    protected $fillable = ['status', 'total_price', 'shipping_address', 'method_payment', 'phone', 'total_points'];
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);

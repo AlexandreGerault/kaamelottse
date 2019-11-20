@@ -78,12 +78,12 @@
 
                     <div class="form-group">
                         <label>N° de téléphone pour la livraison :</label>
-                        <input id="customer_phone"
+                        <input id="phone"
                                class="form-control col mr-2"
-                               name="customer_phone"
+                               name="phone"
                                type="tel"
                                placeholder="N° de téléphone pour la livraison"
-                               value="@if(isset($order) && $order->phone != null) {{ $order->phone }} @else {{ old('customer_phone') }} @endif"
+                               value="@if(isset($order) && $order->phone != null) {{ $order->phone }} @else {{ old('phone') }} @endif"
                                required />
                     </div>
 
