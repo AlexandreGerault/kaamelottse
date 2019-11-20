@@ -47,10 +47,11 @@
             </div>
         </div>
         <div class="row bg-light mb-2 p-2">
-            <form method="post" action="" style="width: 100%">
+            <form method="post" action="{{ route('deliver.message', $order->id) }}" style="width: 100%">
+                @csrf
                 <div class="form-group">
                     <label for="message">Envoyer un message</label>
-                    <textarea id="message" class="form-control"></textarea>
+                    <textarea id="message" class="form-control" name="content"></textarea>
                 </div>
                 <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
             </form>

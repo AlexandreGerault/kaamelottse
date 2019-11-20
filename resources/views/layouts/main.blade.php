@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,11 +12,11 @@
           crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
     <link rel="stylesheet" href="/style.css">
-	<!-- <link rel="stylesheet" href="/style-fake.css"> -->
-    
+	<link rel="stylesheet" href="/style-fake.css">
+
     <!--<title>@yield('title')</title>-->
     <title>Blog camembert</title>
-    
+
   </head>
   <body>
     <main>
@@ -26,7 +26,7 @@
             <img src="/images/blason-min.png" alt="logo">
             <a class="navbar-brand" href="#">web Dev website</a>
           </div>
-          
+
           <button class="navbar-toggler navbar-dark"
                   type="button"
                   data-toggle="collapse"
@@ -54,7 +54,7 @@
               </li>
                 @if(Auth::user())
                 <li class="nav-item dropdown">
-                  
+
                     <a class="nav-link dropdown-toggle"
                        href="#"
                        id="navbarDropdown"
@@ -89,7 +89,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Connexion</a>
                 </li>
-                @endif 
+                @endif
             </ul>
           </div>
         </div>
@@ -115,7 +115,7 @@
             <li><a href="#" class="tw"></a></li>
         </ul>
       </div>
-      
+
       <footer class="">
         <div class="container">
           <p class="m-0 text-center">Copyright &copy; Kaamelot'TSE 2019</p>

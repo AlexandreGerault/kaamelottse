@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\MessageDelivery;
 
 /*
  *Permet de gérer la commande pour le livreur (prise en charge, paiement)
@@ -25,12 +26,18 @@ class DeliveryController extends Controller
         return view('gest.deliveries.availlable_orders', ['currentOrders' => $currentOrders, 'availlableOrders' => $availlableOrders]);
     }
 
+    /*
+     *  Affiche une livraion
+     */
     public function delivery($id){
         if ($order = Order::where('id', $id)->first()){
             return view('gest.deliveries.current_order', ['order' => $order]);
         }
     }
 
+    /*
+     *  Pour prendre en charge une livraison
+     */
     public function takeCharge($id){
         if ($order = Order::where('id', $id)->first()){
             if (empty($order->delivery_driver_id) && $order->status!=2){
@@ -44,6 +51,9 @@ class DeliveryController extends Controller
         return redirect()->back()->with('error', 'Commande introuvable !');
     }
 
+    /*
+     *  Pour annuler une commande qui pose problème
+     */
     public function cancel($id){
         if ($order = Order::where(['id' => $id, 'delivery_driver_id' => Auth::id()])->first()){
             if ($order->status==1){
@@ -55,5 +65,22 @@ class DeliveryController extends Controller
             return redirect()->back()->with('error', 'Annulation impossible !');
         }
         return redirect()->back()->with('error', 'Annulation impossible !');
+    }
+
+    /*
+     *  Pour envoyer un message associé à la livraison (demande précision, pb ou autre)
+     */
+    public function sendMessage(Request $request, $id){
+        $messageDelivery = new MessageDelivery();
+        $messageDelivery->content = $request->validate([
+            'content' => 'required|max:1000',
+        ]);
+        $messageDelivery->user_sender_id = Auth::id();
+        $messageDelivery->order_id = $id;
+
+        if ($messageDelivery->save()){
+            return redirect()->back()->with('sucess', 'Message envoyé');
+        }
+        return redirect()->back()->with('error', 'Problème d\'enregistrement');
     }
 }
