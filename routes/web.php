@@ -36,6 +36,8 @@ Route::get('/deliver', 'DeliveryController@index');
 Route::get('/deliver/{id}', 'DeliveryController@delivery')->name('deliver.delivery');
 Route::get('/deliver/{id}/takeCharge', 'DeliveryController@takeCharge')->name('deliver.takeCharge');
 Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.cancel');
+Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name('deliver.message');
+Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name('deliver.endDelivery');
 
 Route::resource('order', 'OrderController');
 

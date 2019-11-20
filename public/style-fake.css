@@ -1,5 +1,6 @@
 body{
     background: none;
+    background-color: pink;
 }
 nav, .navbar{
 	display: none;
@@ -9,7 +10,7 @@ nav, .navbar{
 	background-color: brown;
 }
 .navbar a{
-    color: lime;    
+    color: lime;
 }
 .navbar-brand{
 	display: none;
