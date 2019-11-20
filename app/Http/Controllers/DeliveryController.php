@@ -15,12 +15,6 @@ use App\Models\MessageDelivery;
  *
  */
 
-define(commande_en_cours, 0);
-define(livraison_en_attente, 1);
-define(livraison_en_cours, 2);
-define(livraison_terminee, 3);
-define(livraison_annulee, 4);
-
 class DeliveryController extends Controller
 {
     public function __construct(){
@@ -31,9 +25,9 @@ class DeliveryController extends Controller
      *  Pour afficher les commandes prises en charge et celles disponibles
      */
     public function index(){
-        $currentOrders = Order::where(['delivery_driver_id' => Auth::id(), 'status' => livraison_en_cours])->get();
+        $currentOrders = Order::where(['delivery_driver_id' => Auth::id(), 'status' => config('ordering.status.IN_DELIVERY')])->get();
 
-        $availlableOrders = Order::where('status', 1)->orderBy('updated_at', 'desc')->limit(10)->get();
+        $availlableOrders = Order::where('status', config('ordering.status.PENDING'))->orderBy('updated_at', 'desc')->limit(10)->get();
 
         return view('gest.deliveries.availlable_orders', ['currentOrders' => $currentOrders, 'availlableOrders' => $availlableOrders]);
     }
@@ -52,9 +46,9 @@ class DeliveryController extends Controller
      */
     public function takeCharge($id){
         if ($order = Order::where('id', $id)->first()){
-            if (empty($order->delivery_driver_id) && $order->status!=3){
+            if (empty($order->delivery_driver_id) && $order->status != config('ordering.status.DELIVERED')){
                 $order->delivery_driver_id = Auth::id();
-                $order->status = 2;
+                $order->status = config('ordering.status.IN_DELIVERY');
                 $order->save();
                 return redirect()->back()->with('sucess', 'Commande prise en charge !');
             }
@@ -68,9 +62,9 @@ class DeliveryController extends Controller
      */
     public function cancel($id){
         if ($order = Order::where(['id' => $id, 'delivery_driver_id' => Auth::id()])->first()){
-            if ($order->status==1){
+            if ($order->status==config('ordering.status.IN_DELIVERY')){
                 $order->delivery_driver_id = NULL;
-                $order->status = 3;
+                $order->status = config('ordering.status.CANCELLED');
                 $order->save();
                 return redirect()->back()->with('sucess', 'Commande annulée avec sucess !');
             }
@@ -103,8 +97,8 @@ class DeliveryController extends Controller
             'method_payment' => 'required|max:30'
         ]);
         if ($order = Order::where(['id' => $id, 'delivery_driver_id' => Auth::id()])->first()){
-            if ($order->status<=1){
-                $order->status = 2;
+            if ($order->status == config('ordering.status.IN_DELIVERY')){
+                $order->status = config('ordering.status.DELIVERED');
                 $order->method_payment = $data['method_payment'];
                 $order->paid_at = date('Y-m-d H:i:s');
                 $order->save();

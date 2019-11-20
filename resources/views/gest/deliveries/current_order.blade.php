@@ -7,11 +7,11 @@
         </div>
         <div class="row bg-light mb-2 p-2">
             <p class="m-0">
-                @if($order->status == 0)
+                @if($order->status == config('ordering.status.PENDING'))
                     <span class="badge badge-primary">En Attente</span>
-                @elseif($order->status ==1)
+                @elseif($order->status == config('ordering.status.IN_DELIVERY'))
                     <span class="badge badge-warning">En Cours</span>
-                @elseif($order->status ==2)
+                @elseif($order->status == config('ordering.status.DELIVERED'))
                     <span class="badge badge-success">Livré</span>
                 @else
                     <span class="badge badge-danger">Commande Annulée</span>
@@ -61,7 +61,7 @@
 				@endforeach
 			</ul>
         </div>
-        @if(Auth::id() == $order->delivery_driver_id && $order->status != 2)
+        @if(Auth::id() == $order->delivery_driver_id && $order->status != config('ordering.status.DELIVERED'))
             <div class="row bg-light mb-2 p-2">
                 <form method="post" action="{{ route('deliver.endDelivery', $order->id) }}" style="width: 100%">
 					@csrf
