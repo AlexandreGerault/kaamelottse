@@ -29,7 +29,7 @@
                                     Aucun client
                                     @endif
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle text-center">
                                     {{ config('enums.order.status.' . $order->status) }}
                                 </td>
                                 <td class="align-middle">

@@ -7,6 +7,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading mb-5">
                     <h3 class="panel-title">Créer une commande manuellement</h3>
+                    <a class="btn btn-primary" href="{{ url()->previous() }}"><i class="fas fa-arrow-left"></i> Retour</a>
                 </div>
                 <form class="form-inline" id="pick-user">
                 </form>
@@ -16,6 +17,42 @@
                     @if(isset($method))
                         @method($method)
                     @endif
+
+                    <div class="form-group">
+                        <label for="status">Status de la commande</label>
+                        <select class="form-control" name="status">
+                            <option value="{{ config('ordering.status.NOT_COMPLETED') }}"
+                            @if(isset($order) && $order->status == config('ordering.status.NOT_COMPLETED'))
+                            selected="selected"
+                            @endif>
+                                {{ config('enums.order.status.' . config('ordering.status.NOT_COMPLETED')) }}
+                            </option>
+                            <option value="{{ config('ordering.status.PENDING') }}"
+                            @if(isset($order) && $order->status == config('ordering.status.PENDING'))
+                            selected="selected"
+                            @endif>
+                                {{ config('enums.order.status.' . config('ordering.status.PENDING')) }}
+                            </option>
+                            <option value="{{ config('ordering.status.IN_DELIVERY') }}"
+                            @if(isset($order) && $order->status == config('ordering.status.IN_DELIVERY'))
+                            selected="selected"
+                            @endif>
+                                {{ config('enums.order.status.' . config('ordering.status.IN_DELIVERY')) }}
+                            </option>
+                            <option value="{{ config('ordering.status.DELIVERED') }}"
+                            @if(isset($order) && $order->status == config('ordering.status.DELIVERED'))
+                            selected="selected"
+                            @endif>
+                                {{ config('enums.order.status.' . config('ordering.status.DELIVERED')) }}
+                            </option>
+                            <option value="{{ config('ordering.status.CANCELLED') }}"
+                            @if(isset($order) && $order->status == config('ordering.status.CANCELLED'))
+                            selected="selected"
+                            @endif>
+                                {{ config('enums.order.status.' . config('ordering.status.CANCELLED')) }}
+                            </option>
+                        </select>
+                    </div>
 
                     <div class="form-group">
                         <label for="autocomplete">Email du client</label>
@@ -59,12 +96,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">
-                                        {{ $product->description }} &
-                                        @if(isset($order) && $order->items()->byProduct($product)->first() !== null)
-                                            {{ $order->items()->byProduct($product)->first()->quantity }}
-                                        @else
-                                            0
-                                        @endif
+                                        {{ $product->description }}
                                     </p>
 
                                     <div class="input-group mb-3">
@@ -126,7 +158,7 @@
                         @endforeach
                     </div>
                     <div class="mt-2">
-                        <input class="btn btn-info" type="submit" value="Valider la commande"/>
+                        <input class="btn btn-primary" type="submit" value="Valider la commande"/>
                     </div>
                 </form>
             </div>

@@ -7,7 +7,20 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
 
-                        <h3 class="panel-title">Commande N°{{ $order->id }} - <span class="badge">{{ config('enums.order.status.' . $order->status ) }}</span></h3>
+                        <h3 class="panel-title">
+                            Commande N°{{ $order->id }} -
+                            <span class="badge">{{ config('enums.order.status.' . $order->status ) }}</span>
+                        </h3>
+                        <div class="d-flex flex-wrap">
+                            <a class="btn btn-primary mr-3" href="{{ route('order.edit', ['order' => $order]) }}">
+                                Éditer la commande manuellement
+                            </a>
+                            <form class="form-inline" method="POST" action="{{ route('order.destroy', ['order' => $order]) }}">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger delete-user" value="Supprimer la commande" />
+                            </form>
+                        </div>
 
                     </div>
                     <div class="d-flex flex-wrap">
