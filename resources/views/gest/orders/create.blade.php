@@ -11,8 +11,12 @@
                 <form class="form-inline" id="pick-user">
                 </form>
 
-                <form method="post" action="{{ route('order.store') }}">
+                <form method="post" action="{{ $action }}">
                     @csrf
+                    @if(isset($method))
+                        @method($method)
+                    @endif
+
                     <div class="form-group">
                         <label for="autocomplete">Email du client</label>
                         <input id="autocomplete"
@@ -22,6 +26,7 @@
                                placeholder="Client (email)"
                                autocomplete="off"
                                required
+                               value="@if(isset($order) && isset($order->customer)) {{ $order->customer->email }} @else {{ old('customer_email') }} @endif"
                         />
                     </div>
 
@@ -29,6 +34,7 @@
                         <label for="shipping_address">Adresse de livraison</label>
                         <input id="shipping_address" class="form-control col mr-2" name="shipping_address"
                                type="text" placeholder="Adresse de livraison"
+                               value="@if(isset($order) && $order->shipping_address != null) {{ $order->shipping_address }} @else {{ old('shipping_address') }} @endif"
                                required
                         />
                     </div>
@@ -40,6 +46,7 @@
                                name="customer_phone"
                                type="tel"
                                placeholder="N° de téléphone pour la livraison"
+                               value="@if(isset($order) && $order->phone != null) {{ $order->phone }} @else {{ old('customer_phone') }} @endif"
                                required />
                     </div>
 
@@ -51,7 +58,14 @@
                                 <img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
-                                    <p class="card-text">{{ $product->description }}</p>
+                                    <p class="card-text">
+                                        {{ $product->description }} &
+                                        @if(isset($order) && $order->items()->byProduct($product)->first() !== null)
+                                            {{ $order->items()->byProduct($product)->first()->quantity }}
+                                        @else
+                                            0
+                                        @endif
+                                    </p>
 
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -70,8 +84,12 @@
                                                min="0"
                                                name="{{ $product->id }}"
                                                id="product-{{ $product->id }}"
-                                               value="0"
-                                               type="number">
+                                               @if(isset($order) && $order->items()->byProduct($product)->first() !== null)
+                                               value="{{ $order->items()->byProduct($product)->first()->quantity }}"
+                                               @else
+                                               value="{{ old($product->id, 0) }}"
+                                                @endif"
+                                        type="number">
 
                                         <div class="input-group-append">
                                             <button onclick="
