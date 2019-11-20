@@ -23,8 +23,16 @@ class OrderController extends Controller
 
     public function create()
     {
-        if(User::noPendingOrder()->get())
-        return view('gest.orders.create');
+        return view('gest.orders.create')
+            ->with('action', route('order.store'));
+    }
+
+    public function edit(Order $order)
+    {
+        return view('gest.orders.create')
+            ->with('order', $order)
+            ->with('action', route('order.update', ['order' => $order]))
+            ->with('method', 'PUT');
     }
 
     public function show(Order $order)
@@ -34,6 +42,8 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
+        $this->authorize('create', Order::class);
+
         $products = array();
         $totalPrice = 0;
         $totalPoints = 0;
@@ -61,10 +71,9 @@ class OrderController extends Controller
          */
         $order = new Order;
         $order->customer()->associate(User::where('email', $request->customer_email)->first());
-        $order->status = 0;
+        $order->status = $request->get('status');
         $order->shipping_address = $request->get('shipping_address');
         $order->phone = $request->get('customer_phone');
-        $order->save();
         $order->total_points = $totalPoints;
         $order->total_price = $totalPrice;
         $order->save();
@@ -81,6 +90,69 @@ class OrderController extends Controller
         }
 
         return $this->index()->with('success', 'Commande créée manuellement avec succès');
+    }
+
+    public function update(Request $request, Order $order)
+    {
+        $this->authorize('update', $order);
+
+        $products = array();
+        $totalPrice = 0;
+        $totalPoints = 0;
+
+        /*
+         * On vérifie que chaque produit existe et est disponible
+         * => A REFACTORISE POUR UN CODE REUTILISABLE
+         * => SERA REUTILISER POUR LE UserOrderController
+         */
+        foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'customer_phone']) as $productId => $quantity) {
+            if ($quantity == 0) continue;
+            elseif ($quantity != (int) $quantity) continue;
+
+            $product = Product::find($productId);
+            if ($product && $product->available) {
+                $products[] = $product;
+
+                $totalPoints += $quantity * $product->points;
+                $totalPrice += $quantity * $product->price;
+            }
+        }
+
+        /*
+         * On commence par créer la commande avec des informations de bases
+         */
+        $order->customer()->associate(User::where('email', $request->customer_email)->first());
+        $order->status = $request->get('status');
+        $order->shipping_address = $request->get('shipping_address');
+        $order->phone = $request->get('customer_phone');
+        $order->total_points = $totalPoints;
+        $order->total_price = $totalPrice;
+        $order->save();
+
+        /*
+         * On ajoute tout les produits commandés à la commande
+         */
+        foreach ($products as $product) {
+            $orderItem = null;
+            if(OrderItem::find($order->items()->byProduct($product)->first())) {
+                $orderItem = OrderItem::find($order->items()->byProduct($product)->first()->id);
+            } else {
+                $orderItem = new OrderItem();
+                $orderItem->order()->associate($order);
+                $orderItem->product()->associate($product);
+            }
+            $orderItem->quantity = $request->get($product->id);
+            $orderItem->save();
+        }
+
+        return $this->show($order)->with('success', 'Commande éditée manuellement avec succès');
+    }
+
+    public function destroy(Order $order)
+    {
+        Order::destroy($order->id);
+
+        return $this->index()->with('success', 'Commande supprimée avec succès');
     }
 
     public function usernameAutocomplete(Request $request)

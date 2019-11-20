@@ -51,6 +51,17 @@ class OrderPolicy
     }
 
     /**
+     * Determine whether the user can create orders.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function createForOthers(User $user)
+    {
+        return User::hasPermission('order.create-for-others');
+    }
+
+    /**
      * Determine whether the user can update the order.
      *
      * @param  \App\User  $user
