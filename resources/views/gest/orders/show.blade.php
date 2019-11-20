@@ -6,16 +6,22 @@
             <div class="col-md-12 bg-light p-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
+
                         <h3 class="panel-title">Commande N°{{ $order->id }} - <span class="badge">{{ config('enums.order.status.' . $order->status ) }}</span></h3>
+
                     </div>
                     <div class="d-flex flex-wrap">
                         <div class="card m-3">
                             <div class="card-body">
                                 <h4>Informations du client</h4>
                                 <ul>
+                                    @if(isset($order->customer))
                                     <li><b>Nom du client : </b> {{ $order->customer->name }}</li>
+                                    @endif
                                     <li><b>N° de téléphone : </b> {{ $order->phone }}</li>
-                                    <li><b>Moyen de paiment : </b> {{ $order->method_payment }}</li>
+                                    @if($order->method_payment !== null)
+                                        <li><b>Moyen de paiment : </b> {{ $order->method_payment }}</li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -23,9 +29,10 @@
                             <div class="card-body">
                                 <h4>Informations de livraison</h4>
                                 <ul>
+                                    @if(isset($order->deliveryDriver))
                                     <li><b>Nom du livreur : </b> {{ $order->deliveryDriver->name }}</li>
+                                    @endif
                                     <li><b>Adresse de livraison :</b> {{ $order->shipping_address }}</li>
-                                    <li><b>Moyen de paiment : </b> {{ $order->method_payment }}</li>
                                 </ul>
                             </div>
                         </div>

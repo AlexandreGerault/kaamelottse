@@ -23,7 +23,11 @@
                         @foreach ($orders as $order)
                             <tr>
                                 <td class="align-middle text-primary">
+                                    @if(isset($order->customer))
                                     <strong>{{ $order->customer->name }}</strong>
+                                    @else
+                                    Aucun client
+                                    @endif
                                 </td>
                                 <td class="align-middle">
                                     {{ config('enums.order.status.' . $order->status) }}

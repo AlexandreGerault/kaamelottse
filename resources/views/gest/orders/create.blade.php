@@ -13,10 +13,37 @@
 
                 <form method="post" action="{{ route('order.store') }}">
                     @csrf
-                    <input id="autocomplete"
-                           class="autocomplete form-control col mr-2"
-                           type="text"
-                           placeholder="Utilisateur" />
+                    <div class="form-group">
+                        <label for="autocomplete">Email du client</label>
+                        <input id="autocomplete"
+                               class="autocomplete form-control col mr-2"
+                               name="customer_email"
+                               type="email"
+                               placeholder="Client (email)"
+                               autocomplete="off"
+                               required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shipping_address">Adresse de livraison</label>
+                        <input id="shipping_address" class="form-control col mr-2" name="shipping_address"
+                               type="text" placeholder="Adresse de livraison"
+                               required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label>N° de téléphone pour la livraison :</label>
+                        <input id="customer_phone"
+                               class="form-control col mr-2"
+                               name="customer_phone"
+                               type="tel"
+                               placeholder="N° de téléphone pour la livraison"
+                               required />
+                    </div>
+
+
                     <div class="card-deck d-flex flex-wrap">
                         @foreach (App\Models\Product::all() as $product)
                             <div class="card mr-2 @if(!$product->available) bg-light @endif my-3"
@@ -41,7 +68,7 @@
 
                                         <input class="form-control text-center no-spins-button"
                                                min="0"
-                                               name="product-{{ $product->id }}"
+                                               name="{{ $product->id }}"
                                                id="product-{{ $product->id }}"
                                                value="0"
                                                type="number">
