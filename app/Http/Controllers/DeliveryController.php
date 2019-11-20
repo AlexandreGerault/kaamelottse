@@ -92,11 +92,19 @@ class DeliveryController extends Controller
      *  Pour terminer une commande avec le paiement
      */
     public function endDelivery(Request $request, $id){
-        return;
-
-        if ($messageDelivery->save()){
-            return redirect()->back()->with('sucess', 'Message envoyé');
+        $data = $request->validate([
+            'method_payment' => 'required|max:30'
+        ]);
+        if ($order = Order::where(['id' => $id, 'delivery_driver_id' => Auth::id()])->first()){
+            if ($order->status<=1){
+                $order->status = 2;
+                $order->method_payment = $data['method_payment'];
+                $order->paid_at = date('Y-m-d H:i:s');
+                $order->save();
+                return redirect('/deliver')->with('sucess', 'Commande Livrée avec sucess !');
+            }
+            return redirect()->back()->with('error', 'Validation impossible !');
         }
-        return redirect()->back()->with('error', 'Problème d\'enregistrement');
+        return redirect()->back()->with('error', 'Validation impossible !');
     }
 }

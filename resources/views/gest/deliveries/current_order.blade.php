@@ -55,13 +55,19 @@
                 </div>
                 <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
             </form>
+			<ul class="list-group list-group-flush">
+				@foreach ($order->messages as $message)
+					<li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}<br><em>Envoyé le {{ $message->created_at }}</em></li>
+				@endforeach
+			</ul>
         </div>
-        @if(Auth::id() == $order->delivery_driver_id)
+        @if(Auth::id() == $order->delivery_driver_id && $order->status != 2)
             <div class="row bg-light mb-2 p-2">
-                <form method="post" action="" style="width: 100%">
+                <form method="post" action="{{ route('deliver.endDelivery', $order->id) }}" style="width: 100%">
+					@csrf
                     <div class="form-group">
                         <label for="message">Methode Paiement</label>
-                        <select id="message" class="form-control">
+                        <select id="message" class="form-control" name="method_payment">
                             <option value="pumkin">Pumkin</option>
                             <option value="espece">Espèce</option>
                             <option value="cheque">Chèque</option>
