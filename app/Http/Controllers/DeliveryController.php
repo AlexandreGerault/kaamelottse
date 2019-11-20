@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Order;
 use App\Models\Product;
@@ -15,6 +16,10 @@ use App\Models\MessageDelivery;
  */
 class DeliveryController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');  //Ceci peut être utile, y compris en début ! Et oui...
+    }
+
     /*
      *  Pour afficher les commandes prises en charge et celles disponibles
      */
@@ -71,12 +76,23 @@ class DeliveryController extends Controller
      *  Pour envoyer un message associé à la livraison (demande précision, pb ou autre)
      */
     public function sendMessage(Request $request, $id){
-        $messageDelivery = new MessageDelivery();
-        $messageDelivery->content = $request->validate([
+        $messageDelivery = new MessageDelivery($request->validate([
             'content' => 'required|max:1000',
-        ]);
+        ]));
         $messageDelivery->user_sender_id = Auth::id();
         $messageDelivery->order_id = $id;
+
+        if ($messageDelivery->save()){
+            return redirect()->back()->with('sucess', 'Message envoyé');
+        }
+        return redirect()->back()->with('error', 'Problème d\'enregistrement');
+    }
+
+    /*
+     *  Pour terminer une commande avec le paiement
+     */
+    public function endDelivery(Request $request, $id){
+        return;
 
         if ($messageDelivery->save()){
             return redirect()->back()->with('sucess', 'Message envoyé');

@@ -51,6 +51,11 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+	
+    public function messages()
+    {
+        return $this->hasMany(MessageDelivery::class);
+    }
 
     public function customer()
     {
