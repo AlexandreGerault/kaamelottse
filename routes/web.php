@@ -38,6 +38,9 @@ Route::get('/deliver/{id}/takeCharge', 'DeliveryController@takeCharge')->name('d
 Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.cancel');
 
 Route::resource('order', 'OrderController');
+
+Route::get('username_autocomplete', 'OrderController@usernameAutocomplete')
+    ->name('order.username_autocomplete');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('citation', 'CitationsController');

@@ -11100,3 +11100,17 @@ a.text-dark:focus {
   }
 }
 
+.autocomplete-item {
+  display: block;
+  background: #f8f9fa;
+  color: #343a40;
+}
+
+.autocomplete-item:hover {
+  background: #dae0e5;
+}
+
+.autocomplete-item:active {
+  background: #bdc6d0;
+}
+
