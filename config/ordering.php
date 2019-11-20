@@ -2,4 +2,11 @@
 
 return [
     'max_total_price' => 1000,
+	'status' => [
+		'NOT_COMPLETED' => 0,
+		'PENTING' => 1,
+		'IN_DELIVERY' => 2,
+		'DELIVERED' => 3,
+		'CANCELED' => 4,
+	]
 ];
