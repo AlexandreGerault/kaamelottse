@@ -213,3 +213,7 @@ q{
     }
   }
 }
+
+.pointer {
+    cursor: pointer;
+}

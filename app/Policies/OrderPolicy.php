@@ -47,9 +47,7 @@ class OrderPolicy
      */
     public function create(User $user)
     {
-        return ! Order::whereCustomerId($user->id)->where(function (Builder $query) {
-            return $query->where('status', 0)->orWhere('status', 1);
-        })->exists();
+        return User::noPendingOrder()->get()->contains($user);
     }
 
     /**

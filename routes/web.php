@@ -39,6 +39,9 @@ Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.c
 Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name('deliver.message');
 
 Route::resource('order', 'OrderController');
+
+Route::get('username_autocomplete', 'OrderController@usernameAutocomplete')
+    ->name('order.username_autocomplete');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('citation', 'CitationsController');

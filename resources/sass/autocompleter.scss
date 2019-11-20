@@ -1,0 +1,13 @@
+.autocomplete-item {
+  display: block;
+  background: $light;
+  color: $dark;
+}
+
+.autocomplete-item:hover {
+  background: darken($light, 10);
+}
+
+.autocomplete-item:active {
+  background: darken($light, 20);
+}
