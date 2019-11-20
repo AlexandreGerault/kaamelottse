@@ -8,19 +8,15 @@
                 <div class="panel-heading mb-5">
                     <h3 class="panel-title">Créer une commande manuellement</h3>
                 </div>
-                <form class="form-inline">
-                    <div class="form-row">
-                        <input id="autocomplete"
-                               class="autocomplete form-control col-auto mr-2"
-                               type="text"
-                               placeholder="Utilisateur" />
-                        <input type="submit" class="btn btn-primary col-auto"/>
-                    </div>
+                <form class="form-inline" id="pick-user">
                 </form>
 
                 <form method="post" action="{{ route('order.store') }}">
                     @csrf
-                    <input type="number" hidden />
+                    <input id="autocomplete"
+                           class="autocomplete form-control col mr-2"
+                           type="text"
+                           placeholder="Utilisateur" />
                     <div class="card-deck d-flex flex-wrap">
                         @foreach (App\Models\Product::all() as $product)
                             <div class="card mr-2 @if(!$product->available) bg-light @endif my-3"
