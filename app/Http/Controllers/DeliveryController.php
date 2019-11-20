@@ -14,6 +14,13 @@ use App\Models\MessageDelivery;
  *Permet de gérer la commande pour le livreur (prise en charge, paiement)
  *
  */
+
+define(commande_en_cours, 0);
+define(livraison_en_attente, 1);
+define(livraison_en_cours, 2);
+define(livraison_terminee, 3);
+define(livraison_annulee, 4);
+
 class DeliveryController extends Controller
 {
     public function __construct(){
@@ -24,9 +31,9 @@ class DeliveryController extends Controller
      *  Pour afficher les commandes prises en charge et celles disponibles
      */
     public function index(){
-        $currentOrders = Order::where(['delivery_driver_id' => Auth::id(), 'status' => 1])->get();
+        $currentOrders = Order::where(['delivery_driver_id' => Auth::id(), 'status' => livraison_en_cours])->get();
 
-        $availlableOrders = Order::where('status', 0)->orderBy('updated_at', 'desc')->limit(10)->get();
+        $availlableOrders = Order::where('status', 1)->orderBy('updated_at', 'desc')->limit(10)->get();
 
         return view('gest.deliveries.availlable_orders', ['currentOrders' => $currentOrders, 'availlableOrders' => $availlableOrders]);
     }
@@ -45,9 +52,9 @@ class DeliveryController extends Controller
      */
     public function takeCharge($id){
         if ($order = Order::where('id', $id)->first()){
-            if (empty($order->delivery_driver_id) && $order->status!=2){
+            if (empty($order->delivery_driver_id) && $order->status!=3){
                 $order->delivery_driver_id = Auth::id();
-                $order->status = 1;
+                $order->status = 2;
                 $order->save();
                 return redirect()->back()->with('sucess', 'Commande prise en charge !');
             }
