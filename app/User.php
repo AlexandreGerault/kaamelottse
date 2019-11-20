@@ -84,6 +84,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id', 'id');
+    }
+
     /**
      * @param String $permission
      * @return bool
@@ -101,7 +106,7 @@ class User extends Authenticatable
 
     public function scopeNoPendingOrder(Builder $query)
     {
-        return $query->doesntHave(Order::class, function (Builder $query) {
+        return $query->whereDoesntHave('orders', function (Builder $query) {
             return $query->whereIn('status', [0, 1]);
         });
     }

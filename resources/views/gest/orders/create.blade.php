@@ -10,7 +10,10 @@
                 </div>
                 <form class="form-inline">
                     <div class="form-row">
-                        <input class="autocomplete form-control col-auto mr-2" type="text" placeholder="Utilisateur" />
+                        <input id="autocomplete"
+                               class="autocomplete form-control col-auto mr-2"
+                               type="text"
+                               placeholder="Utilisateur" />
                         <input type="submit" class="btn btn-primary col-auto"/>
                     </div>
                 </form>
@@ -89,24 +92,8 @@
         </div>
     </div>
 </div>
+@endsection
 
-<script type="text/javascript">
-
-    //var path = "{ route('order.username_autocomplete') }";
-
-    $('input.typeahead').typeahead({
-
-        source:  function (query, process) {
-
-            return $.get(path, { query: query }, function (data) {
-
-                return process(data);
-
-            });
-
-        }
-
-    });
-
-</script>
+@section('scripts')
+    <script src="{{ asset('js/no-pending-order-username-autocomplete.js') }}"></script>
 @endsection

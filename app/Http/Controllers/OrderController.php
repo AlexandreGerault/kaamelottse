@@ -22,6 +22,7 @@ class OrderController extends Controller
 
     public function create()
     {
+        if(User::noPendingOrder()->get())
         return view('gest.orders.create');
     }
 
@@ -43,7 +44,7 @@ class OrderController extends Controller
 
     public function usernameAutocomplete(Request $request)
     {
-        $users = User::noPendingOrder()->get();
+        $users = User::noPendingOrder()->where('name', 'LIKE', '%'. $request->get('name') . '%')->select('name')->get();
 
         return response()->json($users, 200);
     }

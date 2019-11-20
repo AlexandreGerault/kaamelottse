@@ -32,7 +32,7 @@
                         <div class="card m-3">
                             <div class="card-body">
                                 <h4 class="mb-4">Produits</h4>
-                                
+
                                 <table class="table">
                                     <thead>
                                     <tr>
