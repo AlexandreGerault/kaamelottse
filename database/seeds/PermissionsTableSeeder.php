@@ -14,6 +14,7 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->insert([
             ['name' => 'message'],
             ['name' => 'message.index'],
+            ['name' => 'message.create'],
             ['name' => 'message.view'],
             ['name' => 'message.viewany'],
             ['name' => 'message.edit'],
@@ -26,6 +27,7 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->insert([
             ['name' => 'product'],
             ['name' => 'product.index'],
+            ['name' => 'product.create'],
             ['name' => 'product.view'],
             ['name' => 'product.viewany'],
             ['name' => 'product.edit'],
@@ -37,6 +39,8 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->insert([
             ['name' => 'order'],
             ['name' => 'order.index'],
+            ['name' => 'order.create'],
+            ['name' => 'order.create-for-others'],
             ['name' => 'order.view'],
             ['name' => 'order.viewany'],
             ['name' => 'order.edit'],
