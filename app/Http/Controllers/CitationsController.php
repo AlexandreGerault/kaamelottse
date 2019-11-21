@@ -23,9 +23,7 @@ class CitationsController extends Controller
      */
     public function index()
     {
-        $citations = Citation::where('creator_id', Auth::id())
-                ->orderBy('updated_at', 'desc')
-                ->get();
+        $citations = Citation::orderBy('updated_at', 'desc')->get();
         
         return view('gest.citations')
             ->with('citations', $citations);
@@ -83,7 +81,7 @@ class CitationsController extends Controller
      */
     public function edit($id)
     {
-        if($citation = Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
+        if($citation = Citation::where(['id' => $id])->first()){
             
             return view('gest/citation',[
                 'citation'=>$citation,
@@ -103,7 +101,7 @@ class CitationsController extends Controller
      */
     public function update(CitationRequest $request, $id)
     {
-        if (Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
+        if (Citation::where(['id' => $id])->first()){
             $data = $request->validated();
             $citation->update($data);
             $citation->save();
@@ -126,7 +124,7 @@ class CitationsController extends Controller
     public function destroy($id)
     {
         
-        if ($citation = Citation::where(['id' => $id, 'creator_id' => Auth::id()])->first()){
+        if ($citation = Citation::where(['id' => $id])->first()){
             if($citation->delete()){
                 return redirect()->route('citation.index')->with('success', ['Citation supprimé']);  
             }

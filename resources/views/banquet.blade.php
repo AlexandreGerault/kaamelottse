@@ -6,7 +6,7 @@
         <div class="col-md-12 bg-light p-4">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">Préparer son pc</h3>
+					<h3 class="panel-title">Nos produits du terroire</h3>
 				</div>
                 <form method="post" action="{{ route('order.store') }}">
                     @csrf
@@ -72,7 +72,7 @@
                         @else
                             <input class="btn btn-info" type="submit" value="Commander"/>
                         @endcan
-                    </div>                    
+                    </div>
                 </form>
 			</div>
         </div>

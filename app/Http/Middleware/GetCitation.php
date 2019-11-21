@@ -18,9 +18,10 @@ class GetCitation
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->session()->get('citation') && Citation::all()->count() > 0) {	//Pour forcer la citation à changer à chaque fois
-            $citation = Citation::all()->random()->first();
+        if (config('website.alwayse_change_citation') or (!$request->session()->get('citation') && Citation::all()->count() > 0)) {	//Pour forcer la citation à changer à chaque fois
+            $citation = Citation::all()->random();
             $request->session()->put('citation', [ 'content' => $citation->content, 'author' => $citation->author ]);
+			Log::debug($citation);
         }
         return $next($request);
     }

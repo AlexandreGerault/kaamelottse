@@ -20,8 +20,8 @@
 						@foreach ($citations as $citation)
 						<tr>
 							<td>{{ $citation->id }}</td>
-							<td>{!! nl2br(e($citation->contenu)) !!}</td>
-							<td><a href="{{ route('citation.edit',$citation->id) }}">{{ ($citation->auteur)?$citation->auteur:"Inconnu" }}</td>
+							<td>{!! nl2br(e($citation->content)) !!}</td>
+							<td><a href="{{ route('citation.edit',$citation->id) }}">{{ ($citation->author)?$citation->author:"Inconnu" }}</td>
 						</tr>
 						@endforeach
 					</tbody>
