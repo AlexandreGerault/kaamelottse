@@ -12,9 +12,9 @@ class OrderFactory
      * @param array|null $options
      * @param User|null $customer
      * @param User|null $deliveryDriver
-     * @return bool
+     * @return Order
      */
-    public static function make(array $orderItems, array $options = null, User $customer = null, User $deliveryDriver = null) : bool
+    public static function make(array $orderItems = null, array $options = null, User $customer = null, User $deliveryDriver = null) : Order
     {
         $order = new Order($options);
 
@@ -24,10 +24,14 @@ class OrderFactory
         if ($deliveryDriver !== null) {
             $order->customer()->associate($deliveryDriver);
         }
-        foreach ($orderItems as $orderItem) {
-            $order->items()->save($orderItem);
+        if ($orderItems !== null) {
+            foreach ($orderItems as $orderItem) {
+                $order->items()->save($orderItem);
+            }
         }
 
-        return $order->save();
+        $order->save();
+
+        return $order;
     }
 }
