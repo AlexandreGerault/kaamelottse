@@ -32,6 +32,8 @@ class OrderItem extends Model
 {
     use HasProduct;
 
+    protected $fillable = ['quantity'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

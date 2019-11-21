@@ -48,6 +48,13 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
+    protected $dates = [
+        'shipped_at',
+        'paid_at',
+        'created_at',
+        'updated_at'
+    ];
+
     protected $fillable = ['status', 'total_price', 'shipping_address', 'method_payment', 'phone', 'total_points'];
 
     public function items()
