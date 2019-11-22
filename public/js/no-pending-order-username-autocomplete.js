@@ -93,46 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var input = document.getElementById("autocomplete");
-autocomplete({
-  input: input,
-  emptyMsg: "Aucun résultats correspondant",
-  fetch: function (_fetch) {
-    function fetch(_x, _x2) {
-      return _fetch.apply(this, arguments);
-    }
-
-    fetch.toString = function () {
-      return _fetch.toString();
-    };
-
-    return fetch;
-  }(function (text, update) {
-    text = text.toLowerCase(); // you can also use AJAX requests instead of preloaded data
-
-    var suggestions = fetch('/username_autocomplete?email=' + text).then(function (r) {
-      return r.json();
-    }).then(function (data) {
-      update(data);
-    });
-  }),
-  onSelect: function onSelect(item) {
-    input.value = item.email;
-  },
-  render: function render(item, currentValue) {
-    var itemElement = document.createElement('div');
-    itemElement.classList.add('border', 'pointer');
-    var link = document.createElement('a');
-    link.setAttribute('href', '#');
-    link.classList.add('autocomplete-item');
-    link.textContent = item.email;
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-    });
-    itemElement.appendChild(link);
-    return itemElement;
-  }
-});
+eval("var input = document.getElementById(\"autocomplete\");\nautocomplete({\n  input: input,\n  emptyMsg: \"Aucun résultats correspondant\",\n  fetch: function (_fetch) {\n    function fetch(_x, _x2) {\n      return _fetch.apply(this, arguments);\n    }\n\n    fetch.toString = function () {\n      return _fetch.toString();\n    };\n\n    return fetch;\n  }(function (text, update) {\n    text = text.toLowerCase(); // you can also use AJAX requests instead of preloaded data\n\n    var suggestions = fetch('/backoffice/username_autocomplete?email=' + text).then(function (r) {\n      return r.json();\n    }).then(function (data) {\n      update(data);\n    });\n  }),\n  onSelect: function onSelect(item) {\n    input.value = item.email;\n  },\n  render: function render(item, currentValue) {\n    var itemElement = document.createElement('div');\n    itemElement.classList.add('border', 'pointer');\n    var link = document.createElement('a');\n    link.setAttribute('href', '#');\n    link.classList.add('autocomplete-item');\n    link.textContent = item.email;\n    link.addEventListener('click', function (e) {\n      e.preventDefault();\n    });\n    itemElement.appendChild(link);\n    return itemElement;\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvbm8tcGVuZGluZy1vcmRlci11c2VybmFtZS1hdXRvY29tcGxldGUuanM/YjViYSJdLCJuYW1lcyI6WyJpbnB1dCIsImRvY3VtZW50IiwiZ2V0RWxlbWVudEJ5SWQiLCJhdXRvY29tcGxldGUiLCJlbXB0eU1zZyIsImZldGNoIiwidGV4dCIsInVwZGF0ZSIsInRvTG93ZXJDYXNlIiwic3VnZ2VzdGlvbnMiLCJ0aGVuIiwiciIsImpzb24iLCJkYXRhIiwib25TZWxlY3QiLCJpdGVtIiwidmFsdWUiLCJlbWFpbCIsInJlbmRlciIsImN1cnJlbnRWYWx1ZSIsIml0ZW1FbGVtZW50IiwiY3JlYXRlRWxlbWVudCIsImNsYXNzTGlzdCIsImFkZCIsImxpbmsiLCJzZXRBdHRyaWJ1dGUiLCJ0ZXh0Q29udGVudCIsImFkZEV2ZW50TGlzdGVuZXIiLCJlIiwicHJldmVudERlZmF1bHQiLCJhcHBlbmRDaGlsZCJdLCJtYXBwaW5ncyI6IkFBQUEsSUFBSUEsS0FBSyxHQUFHQyxRQUFRLENBQUNDLGNBQVQsQ0FBd0IsY0FBeEIsQ0FBWjtBQUVBQyxZQUFZLENBQUM7QUFDVEgsT0FBSyxFQUFFQSxLQURFO0FBRVRJLFVBQVEsRUFBRSwrQkFGRDtBQUdUQyxPQUFLO0FBQUE7QUFBQTtBQUFBOztBQUFBO0FBQUE7QUFBQTs7QUFBQTtBQUFBLElBQUUsVUFBU0MsSUFBVCxFQUFlQyxNQUFmLEVBQXVCO0FBRTFCRCxRQUFJLEdBQUdBLElBQUksQ0FBQ0UsV0FBTCxFQUFQLENBRjBCLENBRzFCOztBQUNBLFFBQUlDLFdBQVcsR0FBR0osS0FBSyxDQUFDLDZDQUE2Q0MsSUFBOUMsQ0FBTCxDQUNiSSxJQURhLENBQ1IsVUFBQUMsQ0FBQyxFQUFJO0FBQ1AsYUFBT0EsQ0FBQyxDQUFDQyxJQUFGLEVBQVA7QUFDSCxLQUhhLEVBR1hGLElBSFcsQ0FHTixVQUFBRyxJQUFJLEVBQUk7QUFDWk4sWUFBTSxDQUFDTSxJQUFELENBQU47QUFDSCxLQUxhLENBQWxCO0FBTUgsR0FWSSxDQUhJO0FBY1RDLFVBQVEsRUFBRSxrQkFBU0MsSUFBVCxFQUFlO0FBQ3JCZixTQUFLLENBQUNnQixLQUFOLEdBQWNELElBQUksQ0FBQ0UsS0FBbkI7QUFDSCxHQWhCUTtBQWlCVEMsUUFBTSxFQUFFLGdCQUFTSCxJQUFULEVBQWVJLFlBQWYsRUFBNkI7QUFDakMsUUFBTUMsV0FBVyxHQUFHbkIsUUFBUSxDQUFDb0IsYUFBVCxDQUF1QixLQUF2QixDQUFwQjtBQUNBRCxlQUFXLENBQUNFLFNBQVosQ0FBc0JDLEdBQXRCLENBQTBCLFFBQTFCLEVBQW9DLFNBQXBDO0FBQ0EsUUFBTUMsSUFBSSxHQUFHdkIsUUFBUSxDQUFDb0IsYUFBVCxDQUF1QixHQUF2QixDQUFiO0FBQ0FHLFFBQUksQ0FBQ0MsWUFBTCxDQUFrQixNQUFsQixFQUEwQixHQUExQjtBQUNBRCxRQUFJLENBQUNGLFNBQUwsQ0FBZUMsR0FBZixDQUFtQixtQkFBbkI7QUFDQUMsUUFBSSxDQUFDRSxXQUFMLEdBQW1CWCxJQUFJLENBQUNFLEtBQXhCO0FBQ0FPLFFBQUksQ0FBQ0csZ0JBQUwsQ0FBc0IsT0FBdEIsRUFBK0IsVUFBVUMsQ0FBVixFQUFhO0FBQ3hDQSxPQUFDLENBQUNDLGNBQUY7QUFDSCxLQUZEO0FBR0FULGVBQVcsQ0FBQ1UsV0FBWixDQUF3Qk4sSUFBeEI7QUFFQSxXQUFPSixXQUFQO0FBQ0g7QUE5QlEsQ0FBRCxDQUFaIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL2pzL25vLXBlbmRpbmctb3JkZXItdXNlcm5hbWUtYXV0b2NvbXBsZXRlLmpzLmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIGlucHV0ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJhdXRvY29tcGxldGVcIik7XHJcblxyXG5hdXRvY29tcGxldGUoe1xyXG4gICAgaW5wdXQ6IGlucHV0LFxyXG4gICAgZW1wdHlNc2c6IFwiQXVjdW4gcsOpc3VsdGF0cyBjb3JyZXNwb25kYW50XCIsXHJcbiAgICBmZXRjaDogZnVuY3Rpb24odGV4dCwgdXBkYXRlKSB7XHJcblxyXG4gICAgICAgIHRleHQgPSB0ZXh0LnRvTG93ZXJDYXNlKCk7XHJcbiAgICAgICAgLy8geW91IGNhbiBhbHNvIHVzZSBBSkFYIHJlcXVlc3RzIGluc3RlYWQgb2YgcHJlbG9hZGVkIGRhdGFcclxuICAgICAgICB2YXIgc3VnZ2VzdGlvbnMgPSBmZXRjaCgnL2JhY2tvZmZpY2UvdXNlcm5hbWVfYXV0b2NvbXBsZXRlP2VtYWlsPScgKyB0ZXh0KVxyXG4gICAgICAgICAgICAudGhlbihyID0+IHtcclxuICAgICAgICAgICAgICAgIHJldHVybiByLmpzb24oKTtcclxuICAgICAgICAgICAgfSkudGhlbihkYXRhID0+IHtcclxuICAgICAgICAgICAgICAgIHVwZGF0ZShkYXRhKTtcclxuICAgICAgICAgICAgfSlcclxuICAgIH0sXHJcbiAgICBvblNlbGVjdDogZnVuY3Rpb24oaXRlbSkge1xyXG4gICAgICAgIGlucHV0LnZhbHVlID0gaXRlbS5lbWFpbDtcclxuICAgIH0sXHJcbiAgICByZW5kZXI6IGZ1bmN0aW9uKGl0ZW0sIGN1cnJlbnRWYWx1ZSkge1xyXG4gICAgICAgIGNvbnN0IGl0ZW1FbGVtZW50ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7XHJcbiAgICAgICAgaXRlbUVsZW1lbnQuY2xhc3NMaXN0LmFkZCgnYm9yZGVyJywgJ3BvaW50ZXInKTtcclxuICAgICAgICBjb25zdCBsaW5rID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnYScpXHJcbiAgICAgICAgbGluay5zZXRBdHRyaWJ1dGUoJ2hyZWYnLCAnIycpXHJcbiAgICAgICAgbGluay5jbGFzc0xpc3QuYWRkKCdhdXRvY29tcGxldGUtaXRlbScpXHJcbiAgICAgICAgbGluay50ZXh0Q29udGVudCA9IGl0ZW0uZW1haWw7XHJcbiAgICAgICAgbGluay5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsIGZ1bmN0aW9uIChlKSB7XHJcbiAgICAgICAgICAgIGUucHJldmVudERlZmF1bHQoKVxyXG4gICAgICAgIH0pXHJcbiAgICAgICAgaXRlbUVsZW1lbnQuYXBwZW5kQ2hpbGQobGluaylcclxuXHJcbiAgICAgICAgcmV0dXJuIGl0ZW1FbGVtZW50O1xyXG4gICAgfVxyXG59KTsiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/js/no-pending-order-username-autocomplete.js\n");
 
 /***/ }),
 

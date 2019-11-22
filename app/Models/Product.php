@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -45,6 +46,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Product withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Product withoutTrashed()
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product available()
  */
 class Product extends Model
 {
@@ -72,5 +74,10 @@ class Product extends Model
     public function ordering()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function scopeAvailable(Builder $query)
+    {
+        return $query->where('available', 1);
     }
 }

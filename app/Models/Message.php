@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -46,5 +47,10 @@ class Message extends Model
     public function scopeNotResponded(Builder $query)
     {
         return $query->where('responded', false);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
     }
 }

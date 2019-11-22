@@ -23,8 +23,8 @@
       <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
           <div class="navbar-brand">
-            <img src="/images/blason-min.png" alt="logo">
-            <a class="navbar-brand" href="#">web Dev website</a>
+            <img src="{{ Storage::url('images/blason-min.png') }}" alt="logo">
+            <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
           </div>
 
           <button class="navbar-toggler navbar-dark"
@@ -61,20 +61,23 @@
                        role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        {{ Auth::user()["name"]}}
+                        {{ Auth::user()->name }}
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('dashboard') }}">Tableau de Bord</a>
-                        <a class="dropdown-item" href="/commander">Commander</a>
+                        <a class="dropdown-item" href="{{ route('order.create') }}">Commander</a>
+                        <a class="dropdown-item" href="{{ route('message.index') }}">Mes demandes de contact</a>
                         <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Gestion Commandes</a>
-                            <a class="dropdown-item" href="/message">Messagerie</a>
+                            <a class="dropdown-item" href="{{ route('order.index') }}">Mes commandes</a>
+                            <a class="dropdown-item" href="{{ route('message.index') }}">Messagerie</a>
                             <a class="dropdown-item" href="/article">Edition Articles</a>
                             <a class="dropdown-item" href="/citation">Edition Citations</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Utilisateurs</a>
                             <a class="dropdown-item" href="#">Statistiques</a>
-                            <div class="dropdown-divider"></div>
+                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             Déconnexion
@@ -101,9 +104,9 @@
                 {{ session('error') }}
             </div>
         @endif
-        @if(session('sucess'))
+        @if(session('success'))
             <div class="alert alert-success">
-                {{ session('sucess') }}
+                {{ session('success') }}
             </div>
         @endif
         @yield('content')
@@ -124,10 +127,8 @@
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script  src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>$('.carousel').carousel();</script>
     <script src=" {{ asset('js/app.js') }}"></script>
+    <script>$('.carousel').carousel();</script>
     @yield('scripts')
   </body>
 </html>

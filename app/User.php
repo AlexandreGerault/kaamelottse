@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\Permission;
 use App\Models\Role;
@@ -106,10 +107,22 @@ class User extends Authenticatable
                 })->count() > 0;
     }
 
+    public function hasRole($rolename)
+    {
+        return $this->roles()->get()->reject(function ($role) use ($rolename) {
+            return ! $role->name == $role;
+        })->count() > 0;
+    }
+
     public function scopeNoPendingOrder(Builder $query)
     {
         return $query->whereDoesntHave('orders', function (Builder $query) {
             return $query->whereIn('status', [0, 1]);
         });
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'author_id');
     }
 }

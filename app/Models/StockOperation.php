@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StockOperation whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StockOperation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StockOperation byProduct(\App\Models\Product $product)
  */
 class StockOperation extends Model
 {

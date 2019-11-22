@@ -13,7 +13,7 @@ class OrderPolicy
 
     public function before(User $user, $string)
     {
-        return $user->hasPermission('order');
+        if ($user->hasPermission('order')) return true;
     }
 
     /**
@@ -36,7 +36,7 @@ class OrderPolicy
      */
     public function view(User $user, Order $order)
     {
-        return $user->hasPermission('order.viewany') || $order->customer === $user;
+        return $user->hasPermission('order.viewany') || $order->customer->id == $user->id;
     }
 
     /**

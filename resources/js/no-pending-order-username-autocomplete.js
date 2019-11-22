@@ -7,7 +7,7 @@ autocomplete({
 
         text = text.toLowerCase();
         // you can also use AJAX requests instead of preloaded data
-        var suggestions = fetch('/username_autocomplete?email=' + text)
+        var suggestions = fetch('/backoffice/username_autocomplete?email=' + text)
             .then(r => {
                 return r.json();
             }).then(data => {
