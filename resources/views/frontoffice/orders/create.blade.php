@@ -12,7 +12,8 @@
                         @csrf
                         <div class="card-deck d-flex flex-wrap">
                             @foreach ($products as $product)
-                                <div class="card mr-2 @if(!$product->available) bg-light @endif my-3" style="min-width: 200px; max-width: 220px;">
+                                <div class="card mr-2 @if(!$product->available) bg-light @endif my-3"
+                                     style="min-width: 200px; max-width: 220px;">
                                     <img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $product->name }}</h5>
@@ -29,7 +30,8 @@
                                                     </button>
                                                 </div>
 
-                                                <input class="form-control text-center no-spins-button" min="0" name="{{ $product->id }}" value="0" type="number">
+                                                <input class="form-control text-center no-spins-button" min="0"
+                                                       name="{{ $product->id }}" value="0" type="number">
 
                                                 <div class="input-group-append">
                                                     <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepUp(1); return false"

@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\User;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Citation
@@ -12,19 +15,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string|null $author
  * @property int $creator_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereCreatorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quote whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read \App\User $creator
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Quote newModelQuery()
+ * @method static Builder|Quote newQuery()
+ * @method static Builder|Quote query()
+ * @method static Builder|Quote whereAuthor($value)
+ * @method static Builder|Quote whereContent($value)
+ * @method static Builder|Quote whereCreatedAt($value)
+ * @method static Builder|Quote whereCreatorId($value)
+ * @method static Builder|Quote whereId($value)
+ * @method static Builder|Quote whereUpdatedAt($value)
+ * @mixin Eloquent
+ * @property-read User $creator
  */
 class Quote extends Model
 {

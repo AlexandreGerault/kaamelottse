@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.backoffice')
 
 @section('content')
     <div class="container">
@@ -6,7 +6,8 @@
             <div class="col-md-12 bg-light p-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Commande N°{{ $order->id }} - <span class="badge">{{ config('enums.order.status.' . $order->status ) }}</span></h3>
+                        <h3 class="panel-title">Commande N°{{ $order->id }} - <span
+                                    class="badge">{{ config('enums.order.status.' . $order->status ) }}</span></h3>
                     </div>
                     <div class="d-flex flex-wrap">
                         <div class="card m-3">

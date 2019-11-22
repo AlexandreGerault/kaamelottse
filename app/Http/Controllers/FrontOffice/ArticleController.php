@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 
 use App\Http\Requests\ArticleRequest;
+use Exception;
+use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
@@ -16,7 +18,7 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -30,7 +32,7 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -41,7 +43,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ArticleRequest $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(ArticleRequest $request)  //La validation est dÃ©lÃ©guÃ©e Ã  articleRequest
     {
@@ -52,7 +54,7 @@ class ArticleController extends Controller
      * Display the specified resource.
      *
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Article $article)
     {
@@ -63,7 +65,7 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Article $article)
     {
@@ -75,7 +77,7 @@ class ArticleController extends Controller
      *
      * @param ArticleRequest $request
      * @param Article $article
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(ArticleRequest $request, Article $article)
     {
@@ -86,8 +88,8 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Article $article
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Article $article)
     {

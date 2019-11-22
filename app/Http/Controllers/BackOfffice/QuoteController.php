@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
@@ -112,7 +113,7 @@ class QuoteController extends Controller
         try {
             $quote->delete();
             return $this->index();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return back()->with('error', 'Impossible de supprimer la citation');
         }
     }

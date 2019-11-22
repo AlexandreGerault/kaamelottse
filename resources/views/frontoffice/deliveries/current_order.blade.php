@@ -25,7 +25,8 @@
                 <br>
                 <strong>Tel </strong><a href="phone:{{ $order->phone }}" class="text-muted">{{ $order->phone }}</a>
                 <br>
-                <strong>Email </strong><a href="mail:{{ $order->customer->email }}" class="text-muted">{{ $order->customer->email }}</a>
+                <strong>Email </strong><a href="mail:{{ $order->customer->email }}"
+                                          class="text-muted">{{ $order->customer->email }}</a>
                 <br>
                 <strong>Date Commande </strong>{{ $order->created_at }}
                 @if($order->shipped_at)
@@ -37,7 +38,10 @@
         <div class="row bg-white mb-2">
             <ul class="col p-2 list-group" style="width: 100%;">
                 @foreach ($order->items as $orderItem)
-                    <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif"><span class="badge badge-primary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }} ({{ $orderItem->product->price }}€ unité)</li>
+                    <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">
+                        <span class="badge badge-primary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
+                        ({{ $orderItem->product->price }}€ unité)
+                    </li>
                 @endforeach
             </ul>
         </div>
@@ -55,16 +59,17 @@
                 </div>
                 <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
             </form>
-			<ul class="list-group list-group-flush">
-				@foreach ($order->messages as $message)
-					<li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}<br><em>Envoyé le {{ $message->created_at }}</em></li>
-				@endforeach
-			</ul>
+            <ul class="list-group list-group-flush">
+                @foreach ($order->messages as $message)
+                    <li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
+                        <br><em>Envoyé le {{ $message->created_at }}</em></li>
+                @endforeach
+            </ul>
         </div>
         @if(Auth::id() == $order->delivery_driver_id && $order->status != config('ordering.status.DELIVERED'))
             <div class="row bg-light mb-2 p-2">
                 <form method="post" action="{{ route('deliver.endDelivery', $order->id) }}" style="width: 100%">
-					@csrf
+                    @csrf
                     <div class="form-group">
                         <label for="message">Methode Paiement</label>
                         <select id="message" class="form-control" name="method_payment">
@@ -81,7 +86,8 @@
             </div>
         @elseif(empty($order->delivery_driver_id))
             <div class="row bg-light mb-2 p-2">
-                <a href="{{ route('deliver.takeCharge', $order->id) }}" class="btn btn-primary btn-lg bt-block">Prendre en charge cette commande</a>
+                <a href="{{ route('deliver.takeCharge', $order->id) }}" class="btn btn-primary btn-lg bt-block">Prendre
+                    en charge cette commande</a>
             </div>
         @else
             <div class="row bg-light mb-2 p-2">

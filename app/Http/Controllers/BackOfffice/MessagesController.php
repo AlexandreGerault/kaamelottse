@@ -8,8 +8,10 @@ use App\Mail\ContactConfirmation;
 use App\Mail\ContactResponse;
 use App\Models\Message;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Mail;
 
 class MessagesController extends Controller
@@ -26,13 +28,13 @@ class MessagesController extends Controller
      * Display a listing of the resource.
      *
      * @return Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws AuthorizationException
      */
     public function index()
     {
         $this->authorize('viewany', Message::class);
 
-        $messages = Message::notResponded()->orderBy('updated_at')->get();
+        $messages = Message::orderBy('updated_at')->get();
         
         return view('backoffice.messages.index', [
             'messages' => $messages,
@@ -108,14 +110,14 @@ class MessagesController extends Controller
 
     /**
      * @param Message $message
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return Factory|View
+     * @throws AuthorizationException
      */
     public function respond(Message $message)
     {
         $this->authorize('respond', $message);
 
-        return view('gest.messages.respond')->with('message', $message);
+        return view('backoffice.messages.respond')->with('message', $message);
     }
 
     public function postRespond(Request $request, Message $message)
@@ -130,7 +132,7 @@ class MessagesController extends Controller
 
             Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactResponse($validatedData));
 
-            if (!Mail::failures()) {
+            if (! Mail::failures()) {
                 $message->responded = true;
                 $message->save();
             }

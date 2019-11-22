@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\Traits\HasProduct;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\OrderItem
@@ -13,21 +16,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $order_id
  * @property int $product_id
  * @property int $quantity
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Order $order
- * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereOrderId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereQuantity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem whereUpdatedAt($value)
- * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderItem byProduct(\App\Models\Product $product)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Order $order
+ * @property-read Product $product
+ * @method static Builder|OrderItem newModelQuery()
+ * @method static Builder|OrderItem newQuery()
+ * @method static Builder|OrderItem query()
+ * @method static Builder|OrderItem whereCreatedAt($value)
+ * @method static Builder|OrderItem whereId($value)
+ * @method static Builder|OrderItem whereOrderId($value)
+ * @method static Builder|OrderItem whereProductId($value)
+ * @method static Builder|OrderItem whereQuantity($value)
+ * @method static Builder|OrderItem whereUpdatedAt($value)
+ * @mixin Eloquent
+ * @method static Builder|OrderItem byProduct(Product $product)
  */
 class OrderItem extends Model
 {
@@ -36,7 +39,7 @@ class OrderItem extends Model
     protected $fillable = ['quantity'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function order()
     {
@@ -44,7 +47,7 @@ class OrderItem extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function product()
     {

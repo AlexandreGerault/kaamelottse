@@ -18,7 +18,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view any products.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -29,8 +29,8 @@ class ProductPolicy
     /**
      * Determine whether the user can view the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Models\Product  $product
+     * @param User $user
+     * @param Product $product
      * @return mixed
      */
     public function view(User $user, Product $product)
@@ -41,7 +41,7 @@ class ProductPolicy
     /**
      * Determine whether the user can create products.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -52,8 +52,8 @@ class ProductPolicy
     /**
      * Determine whether the user can update the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Models\Product  $product
+     * @param User $user
+     * @param Product $product
      * @return mixed
      */
     public function update(User $user, Product $product)
@@ -64,8 +64,8 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Models\Product  $product
+     * @param User $user
+     * @param Product $product
      * @return mixed
      */
     public function delete(User $user, Product $product)
@@ -76,8 +76,8 @@ class ProductPolicy
     /**
      * Determine whether the user can restore the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Models\Product  $product
+     * @param User $user
+     * @param Product $product
      * @return mixed
      */
     public function restore(User $user, Product $product)
@@ -88,8 +88,8 @@ class ProductPolicy
     /**
      * Determine whether the user can permanently delete the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Models\Product  $product
+     * @param User $user
+     * @param Product $product
      * @return mixed
      */
     public function forceDelete(User $user, Product $product)

@@ -21,8 +21,6 @@ Route::get('/banquet', function () {
 })->middleware('auth');
 
 Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard');
-Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
-Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
 
 //Delivery
 Route::get('/deliver', 'DeliveryController@index');

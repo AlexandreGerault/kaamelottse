@@ -14,7 +14,9 @@
                     </div>
                     <ul class="p-2 list-group">
                         @foreach ($order->items as $orderItem)
-                            <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif"><span class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}</li>
+                            <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">
+                                <span class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
+                            </li>
                         @endforeach
                     </ul>
                     <div class="p-2 bg-light">
@@ -28,23 +30,27 @@
         </div>
 
         @if($availableOrders->count() > 0)
-        <div class="row">
-            @foreach ($availableOrders as $order)
-                <div class="col-md-6 bg-light mb-2 p-0">
-                    <div class="bg-dark text-white p-2">
-                        <strong>{{ $order->customer->name }}</strong> - {{ $order->total_price }}€<a href="{{ route('deliver.delivery', $order->id) }}" class="btn btn-info ml-2">Voir</a>
+            <div class="row">
+                @foreach ($availableOrders as $order)
+                    <div class="col-md-6 bg-light mb-2 p-0">
+                        <div class="bg-dark text-white p-2">
+                            <strong>{{ $order->customer->name }}</strong> - {{ $order->total_price }}€<a
+                                    href="{{ route('deliver.delivery', $order->id) }}"
+                                    class="btn btn-info ml-2">Voir</a>
+                        </div>
+                        <div class="p-2 list-group">
+                            @foreach ($order->items as $orderItem)
+                                <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">
+                                    <span class="badge badge-primary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
+                                </li>
+                            @endforeach
+                        </div>
+                        <div class="p-2 bg-light">
+                            {{ $order->shipping_address }}
+                        </div>
                     </div>
-                    <div class="p-2 list-group">
-                        @foreach ($order->items as $orderItem)
-                            <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif"><span class="badge badge-primary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}</li>
-                        @endforeach
-                    </div>
-                    <div class="p-2 bg-light">
-                        {{ $order->shipping_address }}
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
         @endif
     </div>
 @endsection

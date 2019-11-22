@@ -9,36 +9,37 @@
                         <h3 class="panel-title">Vos commandes</h3>
                     </div>
                     @if($orders->count() > 0)
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Status</th>
-                            <th>Montant</th>
-                            <th>Commandé le</th>
-                            <th>Livraison</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($orders as $order)
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ config('enums.order.status.' . $order->status) }}</td>
-                                <td>{{ $order->total_price }} €</td>
-                                <td>{{ $order->created_at->formatLocalized('%A %d %B %Y') }}</td>
-                                <td>
-                                    @if($order->status == config('ordering.status.DELIVERED') && $order->shipped_at !== null)
-                                    {{ $order->shipped_at }}
-                                    @else
-                                    Commande non livrée
-                                    @endif
-                                </td>
-                                <td><a class="btn btn-primary" href="{{ route('order.show', ['order' => $order]) }}">Voir</a></td>
+                                <th>Status</th>
+                                <th>Montant</th>
+                                <th>Commandé le</th>
+                                <th>Livraison</th>
+                                <th></th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach ($orders as $order)
+                                <tr>
+                                    <td>{{ config('enums.order.status.' . $order->status) }}</td>
+                                    <td>{{ $order->total_price }} €</td>
+                                    <td>{{ $order->created_at->formatLocalized('%A %d %B %Y') }}</td>
+                                    <td>
+                                        @if($order->status == config('ordering.status.DELIVERED') && $order->shipped_at !== null)
+                                            {{ $order->shipped_at }}
+                                        @else
+                                            Commande non livrée
+                                        @endif
+                                    </td>
+                                    <td><a class="btn btn-primary"
+                                           href="{{ route('order.show', ['order' => $order]) }}">Voir</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     @else
-                    <p>Vous n'avez passé aucune commande.</p>
+                        <p>Vous n'avez passé aucune commande.</p>
                     @endif
                 </div>
             </div>

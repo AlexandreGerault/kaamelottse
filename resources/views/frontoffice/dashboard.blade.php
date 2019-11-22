@@ -5,7 +5,7 @@
 @section('content')
     <div class="row carre">
         <h2 class="m-0 p-2">
-          Tableau de Bord
+            Tableau de Bord
         </h2>
     </div>
     <div class="row carre">
@@ -37,18 +37,19 @@
                             <div class="card-body">
                                 <h5 class="card-title">Commande du 5/11</h5>
                                 <ul class="list-group list-group-flush">
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <img src="images/produits/cookie.png" alt="." class="mr-1">Cookie au chocolat
-                                    <span class="badge badge-primary badge-pill">2</span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <img src="images/produits/quiche.png" alt="." class="mr-1">Part de Quiche Loraine
-                                    <span class="badge badge-primary badge-pill">1</span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <img src="images/produits/crepe.png" alt="." class="mr-1">Crêpe
-                                    <span class="badge badge-primary badge-pill">5</span>
-                                  </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img src="images/produits/cookie.png" alt="." class="mr-1">Cookie au chocolat
+                                        <span class="badge badge-primary badge-pill">2</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img src="images/produits/quiche.png" alt="." class="mr-1">Part de Quiche
+                                        Loraine
+                                        <span class="badge badge-primary badge-pill">1</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img src="images/produits/crepe.png" alt="." class="mr-1">Crêpe
+                                        <span class="badge badge-primary badge-pill">5</span>
+                                    </li>
                                 </ul>
                                 <p class="card-text"><small class="text-muted"></p>
                             </div>
@@ -60,10 +61,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">Commande du 3/11</h5>
                                 <ul class="list-group list-group-flush">
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <img src="images/produits/cookie.png" alt="." class="mr-1">Cookie au chocolat
-                                    <span class="badge badge-primary badge-pill">5</span>
-                                  </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <img src="images/produits/cookie.png" alt="." class="mr-1">Cookie au chocolat
+                                        <span class="badge badge-primary badge-pill">5</span>
+                                    </li>
                                 </ul>
                                 <p class="card-text"><small class="text-muted"></p>
                             </div>

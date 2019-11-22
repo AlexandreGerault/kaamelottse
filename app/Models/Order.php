@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use App\User;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Order
@@ -21,35 +24,35 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $delivery_driver_id
  * @property string|null $paid_at
  * @property string|null $shipped_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User $customer
- * @property-read \App\User $deliveryDriver
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $items
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $customer
+ * @property-read User $deliveryDriver
+ * @property-read Collection|OrderItem[] $items
  * @property-read int|null $items_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCustomerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeliveryDriverId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeliveryRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereMethodPayment($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order wherePaidAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereShippedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereShippingAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalPoints($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MessageDelivery[] $messages
+ * @method static Builder|Order newModelQuery()
+ * @method static Builder|Order newQuery()
+ * @method static Builder|Order query()
+ * @method static Builder|Order whereCreatedAt($value)
+ * @method static Builder|Order whereCustomerId($value)
+ * @method static Builder|Order whereDeliveryDriverId($value)
+ * @method static Builder|Order whereDeliveryRating($value)
+ * @method static Builder|Order whereId($value)
+ * @method static Builder|Order whereMethodPayment($value)
+ * @method static Builder|Order wherePaidAt($value)
+ * @method static Builder|Order wherePhone($value)
+ * @method static Builder|Order whereShippedAt($value)
+ * @method static Builder|Order whereShippingAddress($value)
+ * @method static Builder|Order whereStatus($value)
+ * @method static Builder|Order whereTotalPoints($value)
+ * @method static Builder|Order whereTotalPrice($value)
+ * @method static Builder|Order whereUpdatedAt($value)
+ * @mixin Eloquent
+ * @property-read Collection|MessageDelivery[] $messages
  * @property-read int|null $messages_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order byDriver(\App\User $user)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order noDriver()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order byCustomer(\App\User $user)
+ * @method static Builder|Order byDriver(User $user)
+ * @method static Builder|Order noDriver()
+ * @method static Builder|Order byCustomer(User $user)
  */
 class Order extends Model
 {

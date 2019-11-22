@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\User;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Article
@@ -20,33 +22,33 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $slug
  * @property string|null $link
  * @property int $author_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\User $user
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $user
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Article onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article published()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
+ * @method static Builder|Article newModelQuery()
+ * @method static Builder|Article newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Article onlyTrashed()
+ * @method static Builder|Article published()
+ * @method static Builder|Article query()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereAuthorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereLink($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article wherePriority($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article wherePublished($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereSubtitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Article withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Article withoutTrashed()
- * @mixin \Eloquent
+ * @method static Builder|Article whereAuthorId($value)
+ * @method static Builder|Article whereContent($value)
+ * @method static Builder|Article whereCreatedAt($value)
+ * @method static Builder|Article whereDeletedAt($value)
+ * @method static Builder|Article whereId($value)
+ * @method static Builder|Article whereImage($value)
+ * @method static Builder|Article whereLink($value)
+ * @method static Builder|Article wherePriority($value)
+ * @method static Builder|Article wherePublished($value)
+ * @method static Builder|Article whereSlug($value)
+ * @method static Builder|Article whereSubtitle($value)
+ * @method static Builder|Article whereTitle($value)
+ * @method static Builder|Article whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Article withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Article withoutTrashed()
+ * @mixin Eloquent
  */
 class Article extends Model
 {

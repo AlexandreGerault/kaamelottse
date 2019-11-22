@@ -20,7 +20,7 @@ class CreateMessagesTable extends Migration
             $table->string('email');
             $table->string('subject');
             $table->string('sender_ip');
-			$table->boolean('responded')->default(0);
+			$table->boolean('responded')->default(false);
 			$table->text('content');
             $table->timestamps();
         });

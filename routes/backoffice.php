@@ -18,3 +18,6 @@ Route::resource('order', 'OrderController');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('product', 'ProductController');
+
+Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
+Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
