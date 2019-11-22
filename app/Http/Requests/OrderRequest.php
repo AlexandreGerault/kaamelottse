@@ -25,7 +25,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'customer_email' => 'nullable|email|exists:users,email'
         ];
     }
 }

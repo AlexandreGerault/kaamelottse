@@ -36,7 +36,7 @@ class OrderPolicy
      */
     public function view(User $user, Order $order)
     {
-        //
+        return $user->hasPermission('order.viewany') || $order->customer === $user;
     }
 
     /**

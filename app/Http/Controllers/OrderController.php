@@ -6,29 +6,37 @@ use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $this->authorize('index', Order::class);
-
-        $orders = Order::with(['customer', 'deliveryDriver'])
-            ->orderBy('updated_at', 'desc')
-            ->paginate(5);
-
-        return view('gest.orders.index')
-            ->with('orders', $orders);
+        try {
+            $this->authorize('viewAny', Order::class);
+            $orders = Order::with(['customer', 'deliveryDriver'])
+                ->orderBy('updated_at', 'desc')
+                ->paginate(5);
+            return view('gest.orders.index')
+                ->with('orders', $orders);
+        } catch (AuthorizationException $e) {
+            $orders = Auth::user()->orders;
+            return view('users.order.index')->with('orders', $orders);
+        }
     }
 
     public function create()
     {
-        $this->authorize('create', Order::class);
+        try {
+            $this->authorize('create', Order::class);
 
-        return view('gest.orders.create')
-            ->with('action', route('order.store'));
+            return view('gest.orders.create')
+                ->with('action', route('order.store'));
+        } catch (AuthorizationException $e) {
+        }
     }
 
     public function edit(Order $order)
@@ -41,23 +49,28 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $this->authorize('viewAny', Order::class);
-
-        return view('gest.orders.show')->with('order', $order);
+        try {
+            $this->authorize('view', $order);
+            return view('gest.orders.show')->with('order', $order);
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'Vous n\'avez pas le droit d\'accéder à cette commande');
+        }
     }
 
     public function store(OrderRequest $request)
     {
-        $this->authorize('create', Order::class);
+        try {
+            $this->authorize('create', Order::class);
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'Vous n\'avez pas le droit de créer une commande');
+        }
 
         $products = array();
         $totalPrice = 0;
         $totalPoints = 0;
 
         /*
-         * On vérifie que chaque produit existe et est disponible
-         * => A REFACTORISE POUR UN CODE REUTILISABLE
-         * => SERA REUTILISER POUR LE UserOrderController
+         * Check for each product that we have enough in stock
          */
         foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'customer_phone']) as $productId => $quantity) {
             if ($quantity == 0) continue;
@@ -73,7 +86,7 @@ class OrderController extends Controller
         }
 
         /*
-         * On commence par créer la commande avec des informations de bases
+         * Create order
          */
         $order = new Order(array_merge($request->only(['status', 'shipping_address', 'phone']),
             ['total_points' => $totalPoints, 'total_price' => $totalPrice]));
@@ -81,7 +94,7 @@ class OrderController extends Controller
         $order->save();
 
         /*
-         * On ajoute tout les produits commandés à la commande
+         * Add orderItems to order
          */
         foreach ($products as $product) {
             $orderItem = new OrderItem(['quantity' => $request->get($product->id)]);
@@ -149,7 +162,7 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        $this->authorize('destroy', Order::class);
+        $this->authorize('delete', Order::class);
 
         Order::destroy($order->id);
 
