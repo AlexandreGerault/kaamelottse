@@ -9,7 +9,7 @@
 
                         <h3 class="panel-title">
                             Commande N°{{ $order->id }} -
-                            <span class="badge">{{ config('enums.order.status.' . $order->status ) }}</span>
+                            @include('includes.delivering_status', ['status' => $order->status])
                         </h3>
 
                     </div>
