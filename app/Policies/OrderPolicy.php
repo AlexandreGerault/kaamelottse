@@ -70,7 +70,22 @@ class OrderPolicy
      */
     public function update(User $user, Order $order)
     {
-        return $user->hasPermission('order.update');
+        return ($order->customer->id === $user->id &&
+                ($order->status == config('ordering.status.NOT_COMPLETED')) || $order->status == config('ordering.status.PENDING'))
+            || $user->hasPermission('order.update');
+    }
+
+    /**
+     * Determine whether the user can confirm the order
+     *
+     * @param User $user
+     * @param Order $order
+     * @return bool
+     */
+    public function confirm(User $user, Order $order)
+    {
+        return $user->id === $order->id && $order->status == config('ordering.status.NOT_COMPLETED') && $order->phone !== null && $order->shipping_address !== null
+            || $user->hasPermission('order.confirm');
     }
 
     /**

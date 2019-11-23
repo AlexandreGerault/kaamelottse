@@ -31,6 +31,7 @@ Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name
 Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name('deliver.endDelivery');
 
 Route::resource('order', 'OrderController');
+Route::get('order/confirm/{order}', 'OrderController@confirm')->name('order.confirm');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('product', 'ProductController');
