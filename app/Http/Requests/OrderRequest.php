@@ -18,7 +18,7 @@ class OrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->can('create', Order::class);
+        return true;
     }
 
     /**
@@ -29,9 +29,6 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_email' => 'required|email|exists:users,email',
-            'shipping_address' => 'nullable|string',
-            'phone' => 'nullable|string'
         ];
     }
 
@@ -47,7 +44,8 @@ class OrderRequest extends FormRequest
         $products = array();
         $validator->after(function (Validator $validator) use ($request) {
             $totalPrice = 0;
-            foreach ($request->except(['customer_email', 'shipping_address', 'phone']) as $productId => $quantity) {
+            foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'phone']) as $productId => $quantity) {
+                if ($quantity == 0) continue;
                 try {
                     $product = Product::available()->findOrFail($productId);
 
@@ -55,21 +53,19 @@ class OrderRequest extends FormRequest
                         $validator->errors()
                             ->add(
                                 'product-' . $product,
-                                'Le stock de ' . $product->name . ' n\est pas suffisant pour cette commande'
+                                'Le stock de ' . $product->name . ' n\'est pas suffisant pour cette commande'
                             );
                     } else {
                         $totalPrice += $product->price * $quantity;
                     }
                 } catch (ModelNotFoundException $e) {
-                    $validator->errors()->add('not-available', 'This product does not exist or  isn\'t available!');
+                    $product = Product::find($productId);
+                    $validator->errors()->add('not-available', 'Le produit d\'id ' . $productId . ' n\'est pas disponible !');
                 }
             }
             if ($totalPrice > config('ordering.max_total_price')) {
                 $validator->errors()->add('max-price', 'Le montant totale de cette commande excède la capicité maximale autorisée.');
             }
-            /*if ($this->somethingElseIsInvalid()) {
-
-            }*/
         });
     }
 }
