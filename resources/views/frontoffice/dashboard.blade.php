@@ -17,12 +17,12 @@
                 <div class="col-sm-3">
 					<div class="">
 						<div class="card mb-3">
-							<div class="card-body">
+							<div class="card-body bg-warning">
 								<h5 class="card-title">Quête du graal</h5>
                                 @if (Auth::user()->totalPoints()>1)
-                                    <p class="card-text">{{ Auth::user()->totalPoints() }} points</p>
+                                    <p class="card-text"><b>{{ Auth::user()->totalPoints() }} points</b></p>
                                 @else
-                                    <p class="card-text">{{ Auth::user()->totalPoints() }} point</p>
+                                    <p class="card-text"><b>{{ Auth::user()->totalPoints() }} point</b></p>
                                 @endif
 							</div>
 						</div>

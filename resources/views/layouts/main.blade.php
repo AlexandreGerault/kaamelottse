@@ -63,7 +63,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">Tableau de Bord</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('order.create') }}">Commander</a>
+                                <a class="dropdown-item" href="/produits">Commander</a>
                                 <a class="dropdown-item" href="{{ route('order.index') }}">Mes commandes</a>
                                 <a class="dropdown-item" href="{{ route('message.index') }}">Demandes de contact</a>
                                 <div class="dropdown-divider"></div>

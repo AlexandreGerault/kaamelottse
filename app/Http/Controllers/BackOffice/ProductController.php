@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('desc')->paginate(10);
-        
+        $products = Product::paginate(10);
+
         return view('backoffice.products.index')->with('products', $products);
     }
 
@@ -88,7 +88,7 @@ class ProductController extends Controller
 
             return view('backoffice.products.form', [
                 'product' => $product,
-                'action' => route('backoffice.products.form', $product),
+                'action' => route('backoffice.product.update', $product),
                 'method' => 'PUT'
             ]);
         } catch (AuthorizationException $e) {

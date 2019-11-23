@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <div class="form-check">
                         <input id="published" name="published" class="form-check-input" type="checkbox"
-                               @if(old('published', $article->published)) checked @endif id="defaultCheck1">
+                               @if(old('published', $article->published)) checked @endif>
                         <label for="published">Rendre l'article visible</label>
 
                     </div>

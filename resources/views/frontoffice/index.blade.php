@@ -32,7 +32,7 @@
                     </div>
                     @if ($article->slug)
                         <div class="card-body">
-                            <a href="{{ $article->link }}" class="card-link">{{ $article->link }}</a>
+                            <a href="{{ $article->link }}" class="card-link">{{ $article->slug }}</a>
                         </div>
                     @endif
                 </div>

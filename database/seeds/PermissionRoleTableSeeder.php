@@ -27,5 +27,10 @@ class PermissionRoleTableSeeder extends Seeder
             ->first()
             ->permissions()
             ->attach(Permission::whereName('product')->first()->id);
+
+        Role::whereName('livreur')
+            ->first()
+            ->permissions()
+            ->attach(Permission::whereName('deliver')->first()->id);
     }
 }

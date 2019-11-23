@@ -87,6 +87,21 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+               aria-expanded="true" aria-controls="collapseProducts">
+                <i class="fas fa-newspaper"></i>
+                <span>Produits</span>
+            </a>
+            <div id="collapseProducts" class="collapse" aria-labelledby="headingArticles"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Actions</h6>
+                    <a class="collapse-item" href="{{ route('backoffice.product.index') }}">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMessages"
                aria-expanded="true" aria-controls="collapseMessages">
                 <i class="fas fa-comment"></i>
@@ -158,7 +173,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form style="visibility: hidden" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                aria-label="Search" aria-describedby="basic-addon2">
@@ -169,6 +184,8 @@
                         </div>
                     </div>
                 </form>
+
+                {{--
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -316,7 +333,7 @@
                             </a>
                             <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                         </div>
-                    </li>
+                    </li> --}}
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
