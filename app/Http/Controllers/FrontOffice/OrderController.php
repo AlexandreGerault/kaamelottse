@@ -32,7 +32,7 @@ class OrderController extends Controller
 
             return view('frontoffice.orders.create')
                 ->with('action', route('order.store'))
-                ->with('products', Product::available()->get());
+                ->with('products', Product::available()->orderBy('priority', 'desc')->get());
         } catch (AuthorizationException $e) {
             return back()->with('error', 'Vous n\'avez pas le droit de créer une commande');
         }

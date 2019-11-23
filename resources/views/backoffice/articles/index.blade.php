@@ -34,6 +34,6 @@
             @endforeach
             </tbody>
         </table>
-        <a class="btn btn-info pull-right" href="{{ route('article.create') }}">Ajouter un article</a>
+        <a class="btn btn-info pull-right" href="{{ route('backoffice.article.create') }}">Ajouter un article</a>
     </div>
 @endsection
