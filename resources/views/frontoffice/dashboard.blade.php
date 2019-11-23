@@ -9,7 +9,7 @@
         </h2>
     </div>
     <div class="row carre">
-        @include('includes.citation')
+        @include('includes.quote')
     </div>
     <div class="row">
         <div class="container panel panel-primary">
