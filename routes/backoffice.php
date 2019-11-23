@@ -33,6 +33,3 @@ Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name
 * User Routes
 */
 Route::post('user/{$user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
-
-Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
-Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
