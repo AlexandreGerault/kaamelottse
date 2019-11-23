@@ -22,7 +22,7 @@
                             <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td>{{ config('enums.order.status.' . $order->status) }}</td>
+                                    <td>@include('includes.delivering_status', ['status' => $order->status])</td>
                                     <td>{{ $order->total_price }} €</td>
                                     <td>{{ $order->created_at->formatLocalized('%A %d %B %Y') }}</td>
                                     <td>

@@ -21,7 +21,7 @@ Route::resource('product', 'ProductController');
 Route::resource('quote', 'QuoteController');
 
 //Delivery
-Route::get('/deliver', 'DeliveryController@index');
+Route::get('/deliver', 'DeliveryController@index')->name('deliver.index');
 Route::get('/deliver/{id}', 'DeliveryController@delivery')->name('deliver.delivery');
 Route::get('/deliver/{id}/takeCharge', 'DeliveryController@takeCharge')->name('deliver.takeCharge');
 Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.cancel');
