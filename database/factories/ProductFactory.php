@@ -13,7 +13,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'priority' => $faker->randomNumber(),
         'stock' => $faker->randomNumber(),
         'price' => $faker->randomFloat(2, 1, 5),
-        'points' => $faker->randomNumber(),
+        'points' => $faker->randomNumber(2),
         'available' => $faker->boolean,
     ];
 });

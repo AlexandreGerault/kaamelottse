@@ -6,7 +6,7 @@
     Or: #A7905A
 */
 body{
-    background: url('images/rideau.png') repeat;
+    background: url('storage/images/rideau.png') repeat;
 }
 @media (min-width: 1200px) {
     .container.page{
@@ -17,7 +17,7 @@ body{
     margin-bottom: 10px;
 }
 .carre{
-    background: url('images/parchemin2.png') repeat;
+    background: url('storage/images/parchemin2.png') repeat;
     border-radius: 0;
     padding: 8px;
 }
@@ -36,7 +36,7 @@ q{
     margin-bottom: 0;
 }
 .navbar{
-    background: url('images/fur1.png') repeat;
+    background: url('storage/images/fur1.png') repeat;
 }
 .navbar a{
     color: #A7905A;    
@@ -84,13 +84,13 @@ q{
     height: 50px;    
 }
 #social .fb{
-    background-image: url("images/Facebook.svg");
+    background-image: url("storage/images/Facebook.svg");
 }
 #social .yt{
-    background-image: url("images/YouTube.svg");
+    background-image: url("storage/images/YouTube.svg");
 }
 #social .tw{
-    background-image: url("images/Twitter.svg");
+    background-image: url("storage/images/Twitter.svg");
 }
 
 .commandes .card{

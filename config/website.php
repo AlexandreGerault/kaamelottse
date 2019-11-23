@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'alwayse_change_citation' => true,
+    'alwayse_change_quote' => true,
 ];
