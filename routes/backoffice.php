@@ -37,4 +37,3 @@ Route::post('message/respond/{message}', 'MessagesController@postRespond')->name
 * User Routes
 */
 Route::post('user/{$user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
->>>>>>> 9e99515092d10e545bc4566521bf2795a78b9403
