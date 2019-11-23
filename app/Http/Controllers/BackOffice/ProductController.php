@@ -12,7 +12,11 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('desc')->paginate(10);
-        
+
         return view('backoffice.products.index')->with('products', $products);
     }
 
