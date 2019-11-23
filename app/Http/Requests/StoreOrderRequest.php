@@ -62,6 +62,9 @@ class StoreOrderRequest extends FormRequest
      */
     public function withValidator(Validator $validator)
     {
+        if(! config('ordering.up')) {
+            $validator->errors()->add('ordering-down', 'Impossible de commande actuellement');
+        }
         $request = $this;
         $products = array();
         $validator->after(function (Validator $validator) use ($request) {

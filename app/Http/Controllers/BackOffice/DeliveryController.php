@@ -25,7 +25,7 @@ class DeliveryController extends Controller
         $noDriverOrders = Order::noDriver()->get();
         $currentOrders = Order::byDriver(Auth::user())->get();
 
-        return view('frontoffice.deliveries.available_orders', [
+        return view('backoffice.deliveries.available_orders', [
             'currentOrders' => $currentOrders,
             'availableOrders' => $noDriverOrders
         ]);
@@ -38,7 +38,7 @@ class DeliveryController extends Controller
     {
         try {
             $order = Order::findOrFail($id);
-            return view('frontoffice.deliveries.current_order', ['order' => $order]);
+            return view('backoffice.deliveries.current_order', ['order' => $order]);
         } catch (ModelNotFoundException $e) {
             // TODO : handle ModelNotFoundException
         }
@@ -126,7 +126,7 @@ class DeliveryController extends Controller
                 $order->paid_at = now('Europe/Paris');
                 $order->save();
 
-                return redirect('/deliver')->with('sucess', 'Commande Livrée avec sucess !');
+                return redirect(route('backoffice.deliver.index'))->with('sucess', 'Commande Livrée avec sucess !');
             }
 
             return redirect()->back()->with('error', 'Validation impossible !');
