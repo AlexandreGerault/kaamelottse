@@ -83,9 +83,9 @@ class OrderController extends Controller
         $rules = [];
 
         if ($order->phone === null)
-            $rules['phone'] = 'nullable|string';
+            $rules['phone'] = 'required|string';
         if ($order->shipping_address === null)
-            $rules['shipping_address'] = 'nullable|string';
+            $rules['shipping_address'] = 'required|string';
 
         \Validator::make($request->all(), $rules);
 

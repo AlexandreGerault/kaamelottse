@@ -122,7 +122,7 @@ class User extends Authenticatable
     public function scopeNoPendingOrder(Builder $query)
     {
         return $query->whereDoesntHave('orders', function (Builder $query) {
-            return $query->whereIn('status', [0, 1]);
+            return $query->whereIn('status', [config('ordering.status.NOT_COMPLETED'), config('ordering.status.PENDING'), config('ordering.status.IN_DELIVERY')]);
         });
     }
 

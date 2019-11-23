@@ -67,7 +67,7 @@
                         @foreach ($order->items as $orderItem)
                             <tr>
                                 <td class="text-primary">
-                                    <a href="{{ route('product.show', $orderItem->product) }}">
+                                    <a href="{{ route('backoffice.product.show', $orderItem->product) }}">
                                         {{ $orderItem->product->name }}
                                     </a>
                                 </td>
