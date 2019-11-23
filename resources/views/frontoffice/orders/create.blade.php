@@ -55,7 +55,7 @@
                                                     point
                                                 @endif
                                         </span>
-                                            @if(!$product->available or $product->stock)
+                                            @if(!$product->available or $product->stock < 1)
                                                 <span class="badge badge-danger">Non disponible</span>
                                             @endif
                                         </p>

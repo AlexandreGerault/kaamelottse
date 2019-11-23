@@ -14,7 +14,7 @@ use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +23,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('available', 'desc')->get();
-        
-        return view('banquet', ['products' => $products]);
+
+        return view('frontoffice.products.index', ['products' => $products]);
     }
 
     /**
