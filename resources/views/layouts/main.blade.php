@@ -62,17 +62,21 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('dashboard') }}">Tableau de Bord</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('order.create') }}">Commander</a>
-                                <a class="dropdown-item" href="{{ route('message.index') }}">Mes demandes de contact</a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('order.index') }}">Mes commandes</a>
-                                <a class="dropdown-item" href="{{ route('message.index') }}">Messagerie</a>
-                                <a class="dropdown-item" href="/article">Edition Articles</a>
-                                <a class="dropdown-item" href="/citation">Edition Citations</a>
+                                <a class="dropdown-item" href="{{ route('message.index') }}">Demandes de contact</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Utilisateurs</a>
-                                <a class="dropdown-item" href="#">Statistiques</a>
-                                <div class="dropdown-divider"></div>
+
+                                @if(Auth::user()->hasRole('administrateur') or Auth::user()->hasRole('éditeur'))
+                                    <a class="dropdown-item" href="/backoffice/order">Administration</a>
+                                    <div class="dropdown-divider"></div>
+                                @endif
+
+                                @if(Auth::user()->hasPermission('deliver'))
+                                    <a class="dropdown-item" href="{{ route('backoffice.deliver.index') }}">Livraisons</a>
+                                    <div class="dropdown-divider"></div>
+                                @endif
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

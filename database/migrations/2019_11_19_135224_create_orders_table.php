@@ -26,6 +26,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('delivery_driver_id')->nullable()->default(null);
             $table->dateTime('paid_at')->nullable()->default(null);
             $table->dateTime('shipped_at')->nullable()->default(null);
+			
+			$table->softDeletes();
             $table->timestamps();
         });
     }

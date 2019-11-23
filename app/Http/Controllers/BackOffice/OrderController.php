@@ -19,7 +19,7 @@ class OrderController extends Controller
             $this->authorize('viewAny', Order::class);
             $orders = Order::with(['customer', 'deliveryDriver'])
                 ->orderBy('updated_at', 'desc')
-                ->paginate(5);
+                ->paginate(30);
             return view('backoffice.orders.index')
                 ->with('orders', $orders);
         } catch (AuthorizationException $e) {
