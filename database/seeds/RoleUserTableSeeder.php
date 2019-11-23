@@ -18,7 +18,5 @@ class RoleUserTableSeeder extends Seeder
             $user->roles()->attach(Role::all()->random()->id);
         });
 
-
-        User::find(31)->roles()->attach([1, 2, 3, 4]);
     }
 }

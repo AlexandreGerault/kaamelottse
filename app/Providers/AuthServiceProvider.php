@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 		Schema::defaultStringLength(191);
         $this->registerPolicies();
 
-        Gate::define('acceess-backoffice', function (User $user) {
+        Gate::define('access-backoffice', function (User $user) {
             return $user->hasRole('administrateur');
         });
 
