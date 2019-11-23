@@ -31,6 +31,6 @@ class HomeController extends Controller
 		$products = Product::where([['available', 1],['stock', '>', 0]])->orderBy('priority')->limit(3)->get();
 		$orders = Order::where('customer_id', Auth::id())->orderBy('updated_at')->get();
 
-        return view('frontoffice.index', ['products' => $products, 'orders' => $orders]);
+        return view('frontoffice.dashboard', ['products' => $products, 'orders' => $orders]);
     }
 }
