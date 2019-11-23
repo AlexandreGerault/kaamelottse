@@ -169,7 +169,7 @@ class OrderController extends Controller
 
         Order::destroy($order->id);
 
-        return $this->index()->with('success', 'Commande supprimée avec succès');
+        return redirect()->route('backoffice.order.index');
     }
 
     public function usernameAutocomplete(Request $request)

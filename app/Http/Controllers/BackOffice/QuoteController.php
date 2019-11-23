@@ -36,7 +36,7 @@ class QuoteController extends Controller
         $quote = new Quote();
         return view('backoffice.quotes.form', [
             'quote' => $quote,
-            'action' => route('backoffice.quotes.store')
+            'action' => route('backoffice.quote.store')
         ]);
     }
 
@@ -81,7 +81,7 @@ class QuoteController extends Controller
     {
         return view('backoffice.quotes.form',[
                 'quote' => $quote,
-                'action' => route('backoffice.quotes.update', $quote),
+                'action' => route('backoffice.quote.update', $quote),
                 'method' => 'PUT'
         ]);
     }

@@ -17,7 +17,7 @@ class Authenticate extends Middleware
     {
         if (! $request->expectsJson()) {
             session()->flash('error', 'Vous devez être connecté pour accèder à cette page');
-            return route('home');
+            return route('login');
         }
     }
 }

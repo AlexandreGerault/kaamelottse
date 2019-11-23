@@ -18,36 +18,34 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $product->name }}</h5>
                                         <p class="card-text">{{ $product->description }}</p>
-                                        @cannot('update', $product)
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepDown(1); return false"
-                                                            class="btn border"
-                                                            type="button"
-                                                            id="button-addon1"
-                                                    >
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-
-                                                <input class="form-control text-center no-spins-button" min="0"
-                                                       name="{{ $product->id }}" value="0" type="number">
-
-                                                <div class="input-group-append">
-                                                    <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepUp(1); return false"
-                                                            class="btn border"
-                                                            type="button"
-                                                            id="button-addon1">
-                                                        <i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepDown(1); return false"
+                                                        class="btn border"
+                                                        type="button"
+                                                        id="button-addon1"
+                                                >
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
                                             </div>
+
+                                            <input class="form-control text-center no-spins-button" min="0"
+                                                   name="{{ $product->id }}" value="0" type="number">
+
+                                            <div class="input-group-append">
+                                                <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepUp(1); return false"
+                                                        class="btn border"
+                                                        type="button"
+                                                        id="button-addon1">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                         <!-- <div class="def-number-input number-input safari_only mb-1">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepDown(1); return false" class="btn px-3"></button>
                                             <input class="quantity" min="0" name="{{ $product->id }}" value="0" type="number">
                                             <button onclick="this.parentNode.querySelector('input[type=number]').stepUp(1); return false" class="btn px-3"></button>
                                         </div> -->
-                                        @endcannot
                                         <p class="card-text" style="text-align: right">
                                             <small class="text-muted">{{ $product->price }} €</small>
                                             <span class="badge badge-warning ml-2">{{ $product->points }}
@@ -69,11 +67,7 @@
                             @endforeach
                         </div>
                         <div class="mt-2">
-                            @can('create', App\Models\Product::class)
-                                <a class="btn btn-success" href="{{ route('product.create') }}">Ajouter un produit<a>
-                                        @else
-                                            <input class="btn btn-info" type="submit" value="Commander"/>
-                            @endcan
+                            <input class="btn btn-primary" type="submit" value="Commander"/>
                         </div>
                     </form>
                 </div>

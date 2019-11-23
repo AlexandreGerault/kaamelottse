@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -97,6 +97,22 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Actions</h6>
                     <a class="collapse-item" href="{{ route('backoffice.message.index') }}">Liste</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQuotes"
+               aria-expanded="true" aria-controls="collapseQuotes">
+                <i class="fas fa-quote-left"></i>
+                <span>Citations</span>
+            </a>
+            <div id="collapseQuotes" class="collapse" aria-labelledby="headingQuotes"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Actions</h6>
+                    <a class="collapse-item" href="{{ route('backoffice.quote.index') }}">Liste</a>
+                    <a class="collapse-item" href="{{ route('backoffice.quote.create') }}">Ajouter une citation</a>
                 </div>
             </div>
         </li>
@@ -303,6 +319,10 @@
                                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Activity Log
                             </a>-->
+                            <a class="dropdown-item" href="{{ route('home') }}">
+                                <i class="fas fa-arrow-left fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Retour au frontoffice
+                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -383,6 +403,8 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+
+@yield('scripts')
 </body>
 
 </html>
