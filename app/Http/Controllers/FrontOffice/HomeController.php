@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Article;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,8 @@ class HomeController extends Controller
 		$products = Product::where([['available', 1],['stock', '>', 0]])->orderBy('priority')->limit(3)->get();
 		$orders = Order::where('customer_id', Auth::id())->orderBy('updated_at')->get();
 
-        return view('frontoffice.dashboard', ['products' => $products, 'orders' => $orders]);
+        $article_bienvenue = Article::where('title', 'texte_bienvenue')->first();
+
+        return view('frontoffice.dashboard', ['products' => $products, 'orders' => $orders, 'article_bienvenue' => $article_bienvenue]);
     }
 }

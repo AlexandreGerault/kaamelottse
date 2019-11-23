@@ -5,7 +5,7 @@
 @section('content')
     <div class="row carre">
         <h2 class="m-0 p-2">
-            Tableau de Bord
+            Bonjour {{ Auth::user()->name }}
         </h2>
     </div>
     <div class="row carre">
@@ -16,6 +16,12 @@
             <div class="row">
                 <div class="col-sm-3">
 					<div class="">
+						<div class="card mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Quête du graal</h5>
+								<p class="card-text">2012 points</p>
+							</div>
+						</div>
                         @foreach($products as $id=>$product)
                             <div class="card @if(!$product->available) bg-light @endif mb-3">
                                 <img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}" />
@@ -31,8 +37,13 @@
                 <div class="col-sm-9">
                     <div class="card-group mb-3 commandes">
                         @if(sizeof($orders)<1)
-                            <div class="bg-white">
-                                Aucune commande trouvée :(
+                            <div class="bg-white p-2 carre" style="width: 100%">
+                                Aucune commande n'a encore été trouvée
+                            </div>
+                        @endif
+                        @if(isset($article_bienvenue->content))
+                            <div class="carre mt-3">
+                                {{ $article_bienvenue->content }}
                             </div>
                         @endif
                         @foreach($orders as $order)
