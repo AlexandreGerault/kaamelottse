@@ -130,4 +130,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'author_id');
     }
+
+    public function totalPoints()
+    {
+        $points = 0;
+
+        $this->orders()->each(function (Order $order) use (&$points) {
+            if ($order->status == config('ordering.status.DELIVERED')) {
+                $points += $order->total_points;
+            }
+        });
+
+        return $points;
+    }
 }

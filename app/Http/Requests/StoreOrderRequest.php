@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class OrderRequest extends FormRequest
+class StoreOrderRequest extends FormRequest
 {
     /**
      * @var array

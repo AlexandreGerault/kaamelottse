@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\User;
@@ -56,7 +56,7 @@ class OrderController extends Controller
         }
     }
 
-    public function store(OrderRequest $request)
+    public function store(StoreOrderRequest $request)
     {
         try {
             $this->authorize('create', Order::class);
