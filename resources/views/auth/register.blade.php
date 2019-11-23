@@ -76,7 +76,7 @@
 								</div>
 								<div class="form-check col-md-6">
 									<input type="checkbox" class="form-check-input" id="confirmkheops" name="confirmkheops" required>
-									<label class="form-check-label" for="confirmKheops">Je ne suis pas un Khéops</label>
+									<label class="form-check-label" for="confirmkheops">Je ne suis pas un Khéops</label>
 
                                     @error('confirmkheops')
 										<span class="invalid-feedback" role="alert">
