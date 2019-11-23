@@ -22,10 +22,11 @@
                     </table>
 
                     <div class="row">
-                        <form method="post" action="{{ route('backoffice.user.roles.attach', $user) }}" class="col">
+                        <form method="POST" action="{{ route('backoffice.user.roles.attach', $user) }}" class="col">
+                            @csrf
                             <div class="form-group">
                                 <label>Ajouter des rôles :</label>
-                                <select class="form-control text-capitalize" multiple>
+                                <select class="form-control text-capitalize" name="roles[]" multiple>
                                     @foreach(App\Models\Role::all() as $role)
                                         @if(! $user->roles()->get()->contains($role))
                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -34,10 +35,12 @@
                                 </select>
                                 <input type="submit" value="Ajouter les rôles sélectionnés" class="btn btn-primary my-3" >
                             </div>
-                        </form><form method="post" action="{{ route('backoffice.user.roles.attach', $user) }}" class="col">
+                        </form>
+                        <form method="post" action="{{ route('backoffice.user.roles.detach', $user) }}" class="col">
+                            @csrf
                             <div class="form-group">
                                 <label>Enlever des roles :</label>
-                                <select class="form-control text-capitalize" multiple>
+                                <select class="form-control text-capitalize" name="roles[]" multiple>
                                     @foreach($user->roles as $role)
                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach

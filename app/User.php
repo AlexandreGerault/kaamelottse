@@ -115,7 +115,7 @@ class User extends Authenticatable
     public function hasRole($rolename)
     {
         return $this->roles()->get()->reject(function ($role) use ($rolename) {
-            return ! $role->name == $role;
+            return $role->name != $rolename;
         })->count() > 0;
     }
 
