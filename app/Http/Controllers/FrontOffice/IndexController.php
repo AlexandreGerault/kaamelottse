@@ -22,10 +22,11 @@ class IndexController extends Controller
         4 => "Un problème technique avec le site",
         5 => "Une demande de confidencialité"
     ];
-    
+
     public function index()
     {
         $articles = Article::published()
+            ->orderBy('priority', 'desc')
             ->orderBy('updated_at', 'desc')
             ->paginate(config('paginate.frontoffice.articles.index'));
 
