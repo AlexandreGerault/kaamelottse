@@ -17,8 +17,8 @@ Route::get('/contact', 'IndexController@get_contact');
 Route::post('/contact', 'IndexController@post_contact');
 Route::get('/tableRonde', 'IndexController@tableRonde')->name('round-table');
 Route::get('/banquet', function () {
-    return redirect()->route('order.create');
-})->middleware('auth');
+    return redirect()->route('product.index');
+});
 
 Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard');
 

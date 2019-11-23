@@ -117,6 +117,21 @@
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+               aria-expanded="true" aria-controls="collapseUsers">
+                <i class="fas fa-quote-left"></i>
+                <span>Utilisateurs</span>
+            </a>
+            <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Actions</h6>
+                    <a class="collapse-item" href="{{ route('backoffice.user.index') }}">Liste</a>
+                </div>
+            </div>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

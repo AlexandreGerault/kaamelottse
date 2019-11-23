@@ -92,23 +92,10 @@ class OrderController extends Controller
         foreach ($request->except('_token', '_method') as $key => $value) {
             $order->$key = $value;
         }
-        $order->save();
-
-        return $this->show($order)->with('error', 'Commande éditée manuellement avec succès');
-    }
-
-    public function confirm(Order $order)
-    {
-        try {
-            $this->authorize('confirm', $order);
-        } catch (AuthorizationException $e) {
-            return back()->with('error', 'Vous ne pouvez pas confirmer cette commande');
-        }
-
         $order->status = config('ordering.status.PENDING');
         $order->save();
 
-        return back()->with('success', 'Commande validée avec succès');
+        return $this->show($order)->with('error', 'Commande éditée manuellement avec succès');
     }
 
     public function destroy(Order $order)

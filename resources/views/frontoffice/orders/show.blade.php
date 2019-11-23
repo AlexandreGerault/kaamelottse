@@ -64,7 +64,7 @@
                                     <input type="text" class="form-control" name="shipping_address" id="shipping_address" value="{{ old('shipping_address', $order->shipping_address) }}">
                                 </div>
 
-                                <input type="submit" class="btn btn-primary"/>
+                                <input type="submit" class="btn btn-primary" value="Terminer la commande"/>
                             </div>
                         </form>
                         @endcan
@@ -122,12 +122,6 @@
                                 </p>
                             </div>
                         </div>
-
-                        @can('confirm', $order)
-                            <div>
-                                <p><a class="btn btn-primary" href="{{ route('order.confirm', $order) }}">Confirmer</a></p>
-                            </div>
-                        @endcan
                     </div>
                 </div>
             </div>
