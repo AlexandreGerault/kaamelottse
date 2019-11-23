@@ -21,7 +21,6 @@ class OrdersTableSeeder extends Seeder
                 'delivery_driver_id' => User::all()->random()->id,
             ])
             ->each(function (Order $order) {
-                $totalPrice = 0;
                 $order->customer_id = User::all()->random()->id;
                 $order->delivery_driver_id = User::all()->random()->id;
                 $order->save();
@@ -29,16 +28,14 @@ class OrdersTableSeeder extends Seeder
                 factory(OrderItem::class, 3)->create([
                     'order_id' => $order->id,
                     'product_id' => 1,
-                ])->each(function (OrderItem $orderItem) use (&$totalPrice, $order) {
+                ])->each(function (OrderItem $orderItem) use ($order) {
                     $orderItem->product_id = Product::all()->random()->id;
                     $orderItem->order()->associate($order);
                     $orderItem->save();
-                    $totalPrice += $orderItem->product->price * $orderItem->quantity;
                 });
 
-                $order->total_price = $totalPrice;
                 $order->save();
-
+                $order->selfUpdateTotals();
             });
     }
 }

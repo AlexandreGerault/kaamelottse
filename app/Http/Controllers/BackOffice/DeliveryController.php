@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Auth;
 class DeliveryController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:deliver');
+    }
+
     /*
      *  Pour afficher les commandes prises en charge et celles disponibles
      */

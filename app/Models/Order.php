@@ -109,6 +109,8 @@ class Order extends Model
 
     public function selfUpdateTotals()
     {
+        $dispatcher = Order::getEventDispatcher();
+        Order::unsetEventDispatcher();
         $this->total_points = 0;
         $this->total_price = 0;
         $order = $this;
@@ -117,6 +119,7 @@ class Order extends Model
             $order->total_points += $orderItem->quantity * $orderItem->product->points;
         });
         $this->save();
+        Order::setEventDispatcher($dispatcher);
     }
 
 }
