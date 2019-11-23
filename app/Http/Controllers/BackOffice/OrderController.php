@@ -15,6 +15,12 @@ use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
+
     public function index()
     {
         try {

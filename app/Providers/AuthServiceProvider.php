@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('acceess-backoffice', function (User $user) {
-
+            return $user->hasRole('administrateur');
         });
 
         Gate::define('deliver', function (User $user) {

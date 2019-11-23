@@ -14,6 +14,11 @@ use App\Models\Quote;
 
 class QuoteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +27,7 @@ class QuoteController extends Controller
     public function index()
     {
         $quotes = Quote::orderBy('updated_at', 'desc')->get();
-        
+
         return view('backoffice.quotes.index')->with('quotes', $quotes);
     }
 
@@ -51,7 +56,7 @@ class QuoteController extends Controller
         $data = $request->validated();
         $quote = new Quote($data);
         $quote->creator_id = Auth::id();
-        
+
         if ($quote->save()){
             return $this->index();
         }

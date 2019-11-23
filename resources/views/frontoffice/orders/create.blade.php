@@ -57,9 +57,6 @@
                                                 @endif
                                         </span>
                                         </p>
-                                        @can('update', $product)
-                                            <a href="{{ route('product.edit', $product) }}" class="">Editer</a>
-                                        @endcan
                                     </div>
                                 </div>
                             @endforeach

@@ -12,6 +12,10 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
 
     /**
      * Display a listing of the resource.

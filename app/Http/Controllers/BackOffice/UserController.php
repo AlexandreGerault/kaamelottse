@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Validator as Validator;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
+
     /**
      * Display a listing of the resource.
      *

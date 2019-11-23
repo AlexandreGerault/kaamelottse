@@ -16,6 +16,11 @@ use Mail;
 
 class MessagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:access-backoffice');
+    }
+
     public $categories_messages = [
         1 => "Event",
         2 => "Commande",
@@ -35,7 +40,7 @@ class MessagesController extends Controller
         $this->authorize('viewany', Message::class);
 
         $messages = Message::orderBy('updated_at')->get();
-        
+
         return view('backoffice.messages.index', [
             'messages' => $messages,
             'categories_messages' => $this->categories_messages
