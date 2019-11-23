@@ -70,7 +70,7 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-	
+
     public function messages()
     {
         return $this->hasMany(MessageDelivery::class);
@@ -103,6 +103,16 @@ class Order extends Model
         return $query->whereHas('deliveryDriver', function (Builder $query) use ($user) {
             return $query->where('customer_id', $user->id);
         });
+    }
+
+    public function selfUpdateTotals()
+    {
+        $order = $this;
+        $this->items()->each(function (OrderItem $orderItem) use (&$order) {
+            $order->total_price += $orderItem->quantity * $orderItem->product->price;
+            $order->total_points += $orderItem->quantity * $orderItem->product->points;
+        });
+        $this->save();
     }
 
 }

@@ -84,7 +84,9 @@ class OrderPolicy
      */
     public function confirm(User $user, Order $order)
     {
-        return $user->id === $order->id && $order->status == config('ordering.status.NOT_COMPLETED') && $order->phone !== null && $order->shipping_address !== null
+        return $user->id === $order->customer->id
+            && $order->status == config('ordering.status.NOT_COMPLETED')
+            && $order->phone !== null && $order->shipping_address !== null
             || $user->hasPermission('order.confirm');
     }
 

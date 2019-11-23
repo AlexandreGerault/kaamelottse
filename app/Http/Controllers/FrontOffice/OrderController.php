@@ -73,6 +73,7 @@ class OrderController extends Controller
         }
 
         // TODO : Update total price
+        $order->selfUpdateTotals();
 
         return $this->index()->with('error', 'Commande créée manuellement avec succès');
     }
