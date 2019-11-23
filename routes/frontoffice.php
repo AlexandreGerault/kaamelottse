@@ -20,7 +20,6 @@ Route::get('/tableRonde', 'IndexController@tableRonde')->name('round-table');
 Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard');
 
 Route::resource('order', 'OrderController');
-Route::get('order/confirm/{order}', 'OrderController@confirm')->name('order.confirm');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('produits', 'ProductController');

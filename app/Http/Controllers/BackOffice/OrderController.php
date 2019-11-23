@@ -10,6 +10,8 @@ use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
@@ -107,56 +109,31 @@ class OrderController extends Controller
 
     public function update(Request $request, Order $order)
     {
-        $this->authorize('update', $order);
-
-        $products = array();
-        $orderItems = array();
-        $totalPrice = 0;
-        $totalPoints = 0;
-
-        /*
-         * On vérifie que chaque produit existe et est disponible
-         * => A REFACTORISE POUR UN CODE REUTILISABLE
-         * => SERA REUTILISER POUR LE UserOrderController
-         */
-        foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'customer_phone']) as $productId => $quantity) {
-            if ($quantity == 0) continue;
-            elseif ($quantity != (int) $quantity) continue;
-
-            $product = Product::find($productId);
-            if ($product && $product->available) {
-                $products[] = $product;
-
-                $totalPoints += $quantity * $product->points;
-                $totalPrice += $quantity * $product->price;
-            }
+        try {
+            $this->authorize('update', $order);
+        } catch (AuthorizationException $e) {
+            return back()->with('error', 'Action non autorisée');
         }
+
+        $validator = Validator::make($request->only(['status', 'shipping_address', 'phone']), [
+            'status' => 'required|numeric',
+            'shipping_address' => 'required|string',
+            'phone' => 'required|string'
+        ]);
 
         /*
          * On commence par créer la commande avec des informations de bases
          */
-        $order->update(array_merge($request->only(['status', 'shipping_address', 'phone']),
-            ['total_points' => $totalPoints, 'total_price' => $totalPrice]));
+        try {
+            $order->update($validator->validated());
+        } catch (ValidationException $e) {
+            return back()->with('error', 'Erreur de validation');
+        }
+
         $order->customer()->associate(User::where('email', $request->customer_email)->first());
         $order->save();
 
-        /*
-         * On ajoute tout les produits commandés à la commande
-         */
-        foreach ($products as $product) {
-            $orderItem = null;
-            if(OrderItem::find($order->items()->byProduct($product)->first())) {
-                $orderItem = OrderItem::find($order->items()->byProduct($product)->first()->id);
-            } else {
-                $orderItem = new OrderItem();
-                $orderItem->order()->associate($order);
-                $orderItem->product()->associate($product);
-            }
-            $orderItem->quantity = $request->get($product->id);
-            $orderItem->save();
-        }
-
-        return $this->show($order)->with('success', 'Commande éditée manuellement avec succès');
+        return redirect()->route('backoffice.order.show', ['order' => $order]);
     }
 
     public function destroy(Order $order)

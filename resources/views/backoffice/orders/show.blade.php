@@ -92,6 +92,15 @@
                     </table>
                 </div>
             </div>
+
+            <div class="card m-3">
+                <div class="card-body">
+                    <p>
+                        <b>Prix total : </b> {{ $order->total_price }} €<br />
+                        <b>Points totaux : </b> {{$order->total_points}}
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

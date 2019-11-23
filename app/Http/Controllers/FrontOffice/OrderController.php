@@ -75,7 +75,7 @@ class OrderController extends Controller
         // TODO : Update total price
         $order->selfUpdateTotals();
 
-        return $this->index()->with('error', 'Commande créée manuellement avec succès');
+        return redirect()->route('order.show', $order);
     }
 
     public function update(Request $request, Order $order)

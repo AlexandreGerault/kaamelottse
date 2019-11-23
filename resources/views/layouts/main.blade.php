@@ -115,12 +115,6 @@
             </div>
         @endif
 
-        @if(session('error'))
-            <div class="alert alert-danger">
-                <strong>Erreur</strong>
-                {{ session('error') }}
-            </div>
-        @endif
         @yield('content')
     </div>
     <div id="social">
