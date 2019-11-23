@@ -29,5 +29,12 @@ Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.c
 Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name('deliver.message');
 Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name('deliver.endDelivery');
 
+
 Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
 Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
+
+/*
+* User Routes
+*/
+Route::post('user/{$user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
+>>>>>>> 9e99515092d10e545bc4566521bf2795a78b9403

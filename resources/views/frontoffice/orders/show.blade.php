@@ -88,9 +88,7 @@
                                     @foreach ($order->items as $orderItem)
                                         <tr>
                                             <td class="text-primary">
-                                                <a href="{{ route('product.show', $orderItem->product) }}">
-                                                    {{ $orderItem->product->name }}
-                                                </a>
+                                                {{ $orderItem->product->name }}
                                             </td>
                                             <td>
                                                 {{ $orderItem->quantity }}

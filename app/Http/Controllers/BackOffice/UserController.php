@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('backoffice.users.show', $user);
+        return view('backoffice.users.show')->with('user', $user);
     }
 
     /**
@@ -83,5 +83,18 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function attachRoles(Request $request)
+    {
+
+    }
+
+    public function dettachRoles(Request $request)
+    {
+
     }
 }

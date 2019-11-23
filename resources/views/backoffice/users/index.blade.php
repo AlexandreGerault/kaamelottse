@@ -15,7 +15,7 @@
             @foreach ($users as $user)
                 <tr>
                     <td class="align-middle text-primary">
-                        <b>{{ $user->name }}</b>
+                        <a href="{{ route('backoffice.user.show', $user) }}"><b>{{ $user->name }}</b></a>
                     </td>
                     <td class="align-middle text-primary">
                         <b>{{ $user->email }}</b>
