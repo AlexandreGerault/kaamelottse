@@ -24,6 +24,7 @@ class OrderObserver
      */
     public function updated(Order $order)
     {
+        $order->selfUpdateTotals();
     }
 
     /**
@@ -45,7 +46,7 @@ class OrderObserver
      */
     public function restored(Order $order)
     {
-        //
+        $order->selfUpdateTotals();
     }
 
     /**

@@ -86,7 +86,7 @@
             </div>
 
 
-            <div class="card-deck d-flex flex-wrap">
+            {{-- <div class="card-deck d-flex flex-wrap">
                 @foreach (App\Models\Product::all() as $product)
                     <div class="card mr-2 @if(!$product->available) bg-light @endif my-3"
                          style="min-width: 200px; max-width: 220px;">
@@ -97,42 +97,30 @@
                                 {{ $product->description }}
                             </p>
 
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <button onclick="
-                                            document.getElementById('product-{{ $product->id }}').stepDown(1);
-                                            return false; "
-                                            class="btn border"
-                                            type="button"
-                                            id="button-addon1"
-                                    >
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
+                            @if($product->available and $product->stock > 0)
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepDown(1); return false"
+                                                class="btn border"
+                                                type="button"
+                                                id="button-addon1">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
 
-                                <input class="form-control text-center no-spins-button"
-                                       min="0"
-                                       name="{{ $product->id }}"
-                                       id="product-{{ $product->id }}"
-                                       @if(isset($order) && $order->items()->byProduct($product)->first() !== null)
-                                       value="{{ $order->items()->byProduct($product)->first()->quantity }}"
-                                       @else
-                                       value="{{ old($product->id, 0) }}"
-                                @endif"
-                                type="number">
+                                    <input class="form-control text-center no-spins-button" min="0"
+                                           name="{{ $product->id }}" value="{{ App\Models\OrderItem::byProduct($product)->first()->quantity }}" type="number">
 
-                                <div class="input-group-append">
-                                    <button onclick="
-                                            document.getElementById('product-{{ $product->id }}').stepUp(1);
-                                            return false;
-                                            "
-                                            class="btn border"
-                                            type="button"
-                                            id="button-addon1">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                    <div class="input-group-append">
+                                        <button onclick="this.parentNode.parentNode.parentNode.querySelector('input[type=number]').stepUp(1); return false"
+                                                class="btn border"
+                                                type="button"
+                                                id="button-addon1">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <p class="card-text" style="text-align: right">
                                 <small class="text-muted">
@@ -147,14 +135,14 @@
                                         point
                                     @endif
                         </span>
-                                @if(!$product->available or $product->stock)
+                                @if(! $product->available or $product->stock < 1)
                                     <span class="badge badge-danger">Non disponible</span>
                                 @endif
                             </p>
                         </div>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
             <div class="mt-2">
                 <input class="btn btn-primary" type="submit" value="Valider la commande"/>
             </div>

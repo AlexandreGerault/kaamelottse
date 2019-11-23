@@ -109,6 +109,8 @@ class Order extends Model
 
     public function selfUpdateTotals()
     {
+        $this->total_points = 0;
+        $this->total_price = 0;
         $order = $this;
         $this->items()->each(function (OrderItem $orderItem) use (&$order) {
             $order->total_price += $orderItem->quantity * $orderItem->product->price;

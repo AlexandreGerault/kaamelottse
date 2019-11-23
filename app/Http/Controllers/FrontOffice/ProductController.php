@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -24,7 +25,10 @@ class ProductController extends Controller
     {
         $products = Product::orderBy('available', 'desc')->get();
 
-        return view('frontoffice.products.index', ['products' => $products]);
+        if(Auth::check() && Auth::user()->can('create', Order::class))
+            return redirect()->route('order.create');
+        else
+            return view('frontoffice.products.index', ['products' => $products]);
     }
 
     /**
