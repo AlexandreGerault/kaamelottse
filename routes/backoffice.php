@@ -29,13 +29,11 @@ Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.c
 Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name('deliver.message');
 Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name('deliver.endDelivery');
 
-//Delivery
-Route::get('/deliver', 'DeliveryController@index');
-Route::get('/deliver/{id}', 'DeliveryController@delivery')->name('deliver.delivery');
-Route::get('/deliver/{id}/takeCharge', 'DeliveryController@takeCharge')->name('deliver.takeCharge');
-Route::get('/deliver/{id}/cancel', 'DeliveryController@cancel')->name('deliver.cancel');
-Route::post('/deliver/{id}/sendMessage', 'DeliveryController@sendMessage')->name('deliver.message');
-Route::post('/deliver/{id}/endDelivery', 'DeliveryController@endDelivery')->name('deliver.endDelivery');
+/*
+* User Routes
+*/
+Route::post('user/{$user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
+
 
 Route::get('message/respond/{message}', 'MessagesController@respond')->name('message.respond');
 Route::post('message/respond/{message}', 'MessagesController@postRespond')->name('message.respond');
