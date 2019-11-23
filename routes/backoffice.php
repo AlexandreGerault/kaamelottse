@@ -36,5 +36,5 @@ Route::post('message/respond/{message}', 'MessagesController@postRespond')->name
 /*
 * User Routes
 */
-Route::post('user/{$user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
-Route::post('user/{$user}/roles/detach', 'UserController@detachRoles')->name('user.roles.detach');
+Route::post('user/{user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
+Route::post('user/{user}/roles/detach', 'UserController@detachRoles')->name('user.roles.detach');
