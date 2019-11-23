@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Policies\MessagePolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -36,6 +37,15 @@ class AuthServiceProvider extends ServiceProvider
     {
 		Schema::defaultStringLength(191);
         $this->registerPolicies();
+
+        Gate::define('acceess-backoffice', function (User $user) {
+
+        });
+
+        Gate::define('deliver', function (User $user) {
+            return $user->hasPermission('deliver');
+        });
+
 
         //
     }
