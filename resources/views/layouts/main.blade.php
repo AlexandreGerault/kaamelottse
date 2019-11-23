@@ -120,7 +120,6 @@
         <div class="container">
             <p class="m-0 text-center">Copyright &copy; Kaamelot'TSE 2019</p>
         </div>
-<<<<<<< HEAD
       </footer>
     </main>
     <!-- Optional JavaScript -->
@@ -132,14 +131,4 @@
     <!--<script src=" {{ asset('js/app.js') }}"></script>-->
     @yield('scripts')
   </body>
-=======
-    </footer>
-</main>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src=" {{ asset('js/app.js') }}"></script>
-<script>$('.carousel').carousel();</script>
-@yield('scripts')
-</body>
->>>>>>> f26866046f721e731fccf0176f61e544e5c182b3
 </html>
