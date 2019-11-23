@@ -55,37 +55,10 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-        try {
-            $this->authorize('create', Order::class);
-        } catch (AuthorizationException $e) {
-            return back()->with('error', 'Vous n\'avez pas le droit de créer une commande');
-        }
-
-        $products = array();
-        $totalPrice = 0;
-        $totalPoints = 0;
-
-        /*
-         * Check for each product that we have enough in stock
-         */
-        foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'customer_phone']) as $productId => $quantity) {
-            if ($quantity == 0) continue;
-            elseif ($quantity != (int) $quantity) continue;
-
-            $product = Product::find($productId);
-            if ($product && $product->available) {
-                $products[] = $product;
-
-                $totalPoints += $quantity * $product->points;
-                $totalPrice += $quantity * $product->price;
-            }
-        }
-
         /*
          * Create order
          */
-        $order = new Order(array_merge($request->only(['status', 'shipping_address', 'phone']),
-            ['total_points' => $totalPoints, 'total_price' => $totalPrice]));
+        $order = new Order($request->only(['status', 'shipping_address', 'phone']));
         $order->customer()->associate(Auth::user());
 
         $order->save();
@@ -93,7 +66,7 @@ class OrderController extends Controller
         /*
          * Add orderItems to order
          */
-        foreach ($products as $product) {
+        foreach ($request->products() as $product) {
             $orderItem = new OrderItem(['quantity' => $request->get($product->id)]);
             $orderItem->product()->associate($product);
             $orderItem->order()->associate($order);

@@ -12,6 +12,23 @@ use Illuminate\Validation\Validator;
 class OrderRequest extends FormRequest
 {
     /**
+     * @var array
+     */
+    private $products;
+
+    public function __construct(array $query = [],
+                                array $request = [],
+                                array $attributes = [],
+                                array $cookies = [],
+                                array $files = [],
+                                array $server = [],
+                                $content = null)
+    {
+        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
+        $this->products = [];
+    }
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -28,10 +45,12 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [];
+
+        if($this->input('customer_email')) {
+            $rules['customer_email'] = 'required|exists:email,users|string';
+        }
         return [
-            'customer_email' => 'required|email|exists:users,email',
-            'shipping_address' => 'nullable|string',
-            'phone' => 'nullable|string'
         ];
     }
 
@@ -47,7 +66,8 @@ class OrderRequest extends FormRequest
         $products = array();
         $validator->after(function (Validator $validator) use ($request) {
             $totalPrice = 0;
-            foreach ($request->except(['customer_email', 'shipping_address', 'phone']) as $productId => $quantity) {
+            foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'phone']) as $productId => $quantity) {
+                if ($quantity == 0) continue;
                 try {
                     $product = Product::available()->findOrFail($productId);
 
@@ -55,21 +75,24 @@ class OrderRequest extends FormRequest
                         $validator->errors()
                             ->add(
                                 'product-' . $product,
-                                'Le stock de ' . $product->name . ' n\est pas suffisant pour cette commande'
+                                'Le stock de ' . $product->name . ' n\'est pas suffisant pour cette commande'
                             );
                     } else {
+                        $this->products[] = $product;
                         $totalPrice += $product->price * $quantity;
                     }
                 } catch (ModelNotFoundException $e) {
-                    $validator->errors()->add('not-available', 'This product does not exist or  isn\'t available!');
+                    $validator->errors()->add('not-available', 'Le produit d\'id ' . $productId . ' n\'est pas disponible !');
                 }
             }
             if ($totalPrice > config('ordering.max_total_price')) {
                 $validator->errors()->add('max-price', 'Le montant totale de cette commande excède la capicité maximale autorisée.');
             }
-            /*if ($this->somethingElseIsInvalid()) {
-
-            }*/
         });
+    }
+
+    public function products()
+    {
+        return $this->products;
     }
 }
