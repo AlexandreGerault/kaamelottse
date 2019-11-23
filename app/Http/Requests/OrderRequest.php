@@ -12,13 +12,30 @@ use Illuminate\Validation\Validator;
 class OrderRequest extends FormRequest
 {
     /**
+     * @var array
+     */
+    private $products;
+
+    public function __construct(array $query = [],
+                                array $request = [],
+                                array $attributes = [],
+                                array $cookies = [],
+                                array $files = [],
+                                array $server = [],
+                                $content = null)
+    {
+        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
+        $this->products = [];
+    }
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
     public function authorize()
     {
-        return true;
+        return Auth::user()->can('create', Order::class);
     }
 
     /**
@@ -28,6 +45,11 @@ class OrderRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [];
+
+        if($this->input('customer_email')) {
+            $rules['customer_email'] = 'required|exists:email,users|string';
+        }
         return [
         ];
     }
@@ -56,10 +78,10 @@ class OrderRequest extends FormRequest
                                 'Le stock de ' . $product->name . ' n\'est pas suffisant pour cette commande'
                             );
                     } else {
+                        $this->products[] = $product;
                         $totalPrice += $product->price * $quantity;
                     }
                 } catch (ModelNotFoundException $e) {
-                    $product = Product::find($productId);
                     $validator->errors()->add('not-available', 'Le produit d\'id ' . $productId . ' n\'est pas disponible !');
                 }
             }
@@ -67,5 +89,10 @@ class OrderRequest extends FormRequest
                 $validator->errors()->add('max-price', 'Le montant totale de cette commande excède la capicité maximale autorisée.');
             }
         });
+    }
+
+    public function products()
+    {
+        return $this->products;
     }
 }
