@@ -57,7 +57,7 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'description', 'image', 'priority', 'available', 'price', 'points'
+        'name', 'description', 'image', 'priority', 'available', 'price', 'points', 'stock'
     ];
 
     protected $casts = [
