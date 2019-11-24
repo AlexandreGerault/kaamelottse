@@ -13,7 +13,7 @@
                     <th>Catégorie</th>
                     <th>Message</th>
                     <th>Depuis</th>
-                    <th>Répondu ?</th>
+                    <th>Répondu</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

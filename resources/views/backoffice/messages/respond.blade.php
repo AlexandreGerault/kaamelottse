@@ -5,6 +5,9 @@
 @section('content')
     <div class="container">
         <h3 class="mb-5">Répondre à une prise de contact</h3>
+        @if($message->responded)
+            <p class="mb-3">Ce message a déjà reçu une réponse</p>
+        @endif
         <form method="post" action="{{ route('backoffice.message.respond', $message) }}" style="width: 100%">
             @csrf
             <div class="form-group row">

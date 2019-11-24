@@ -4,6 +4,10 @@
     <div class="container">
         <h3 class="mb-5">Voir une demande de contact</h3>
 
+        @if($message->responded)
+            <p class="mb-3">Ce message a déjà reçu une réponse</p>
+        @endif
+
         <div class="card">
             <div class="card-header">
                 <h5 class="p-0 m-0">{{ $message->subject }}</h5>

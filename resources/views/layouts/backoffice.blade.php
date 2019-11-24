@@ -69,6 +69,16 @@
             </div>
         </li>
 
+        @can('deliver')
+        <!-- Nav Item - Orders Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backoffice.deliver.index') }}">
+                <i class="fas fa-truck"></i>
+                <span>Livraisons</span>
+            </a>
+        </li>
+        @endcan
+
         <!-- Nav Item - Articles Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticles"
@@ -89,7 +99,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
                aria-expanded="true" aria-controls="collapseProducts">
-                <i class="fas fa-newspaper"></i>
+                <i class="fas fa-tags"></i>
                 <span>Produits</span>
             </a>
             <div id="collapseProducts" class="collapse" aria-labelledby="headingArticles"
@@ -135,7 +145,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
                aria-expanded="true" aria-controls="collapseUsers">
-                <i class="fas fa-quote-left"></i>
+                <i class="fas fa-user"></i>
                 <span>Utilisateurs</span>
             </a>
             <div id="collapseUsers" class="collapse" aria-labelledby="headingUsers"

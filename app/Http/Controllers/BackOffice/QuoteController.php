@@ -16,7 +16,12 @@ class QuoteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:access-backoffice');
+        $this->middleware(function (Request $request, $next) {
+            if (Auth::user()->can('access-backoffice')
+            || Auth::user()->can('access-backoffice.quotes')) {
+                return $next($request);
+            }
+        });
     }
 
     /**

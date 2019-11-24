@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Http\Requests\ArticleRequest;
@@ -13,8 +14,12 @@ use App\Http\Requests\ArticleRequest;
 class ArticleController extends Controller
 {
     public function __construct()
-    {
-        $this->middleware('can:access-backoffice');
+    {$this->middleware(function (Request $request, $next) {
+        if (Auth::user()->can('access-backoffice')
+            || Auth::user()->can('access-backoffice.articles')) {
+            return $next($request);
+        }
+    });
     }
 
     /**

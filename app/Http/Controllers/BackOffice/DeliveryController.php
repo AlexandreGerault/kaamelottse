@@ -18,8 +18,12 @@ class DeliveryController extends Controller
 {
 
     public function __construct()
-    {
-        $this->middleware('can:deliver');
+    {$this->middleware(function (Request $request, $next) {
+        if (Auth::user()->can('access-backoffice')
+            || Auth::user()->can('deliver')) {
+            return $next($request);
+        }
+    });
     }
 
     /*
