@@ -40,6 +40,6 @@ class ProductsTableSeeder extends Seeder
                 'points' => 25
             ]
         ]);
-        $users = factory(App\Models\Product::class, 10)->create();
+        $products = factory(App\Models\Product::class, 10)->create();
     }
 }

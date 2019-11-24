@@ -3,10 +3,11 @@
 return [
     'order' => [
         'status' => [
-            0 => 'En attente',
-            1 => 'En cours de livraison',
-            2 => 'Livrée',
-            3 => 'Annulée',
+            0 => 'Non confirmée',
+            1 => 'En attente de livreur',
+            2 => 'En livraison',
+            3 => 'Livrée',
+            4 => 'Annulée',
         ]
     ]
 ];

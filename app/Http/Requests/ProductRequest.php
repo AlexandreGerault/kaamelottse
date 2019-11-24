@@ -32,6 +32,7 @@ class ProductRequest extends FormRequest
             'available' => 'nullable',
             'price' => 'numeric',
             'points' => 'numeric',
+            'stock' => 'numeric',
         ];
     }
 }

@@ -14,6 +14,7 @@ class PermissionsTableSeeder extends Seeder
         DB::table('permissions')->insert([
             ['name' => 'message'],
             ['name' => 'message.index'],
+            ['name' => 'message.create'],
             ['name' => 'message.view'],
             ['name' => 'message.viewany'],
             ['name' => 'message.edit'],
@@ -23,9 +24,11 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'message.restore'],
             ['name' => 'message.respond'],
         ]);
+
         DB::table('permissions')->insert([
             ['name' => 'product'],
             ['name' => 'product.index'],
+            ['name' => 'product.create'],
             ['name' => 'product.view'],
             ['name' => 'product.viewany'],
             ['name' => 'product.edit'],
@@ -33,6 +36,50 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'product.delete'],
             ['name' => 'product.forcedelete'],
             ['name' => 'product.restore'],
+        ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'order'],
+            ['name' => 'order.index'],
+            ['name' => 'order.create'],
+            ['name' => 'order.create-for-others'],
+            ['name' => 'order.view'],
+            ['name' => 'order.viewany'],
+            ['name' => 'order.edit'],
+            ['name' => 'order.update'],
+            ['name' => 'order.delete'],
+            ['name' => 'order.forcedelete'],
+            ['name' => 'order.restore'],
+        ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'article'],
+            ['name' => 'article.index'],
+            ['name' => 'article.create'],
+            ['name' => 'article.view'],
+            ['name' => 'article.viewany'],
+            ['name' => 'article.edit'],
+            ['name' => 'article.update'],
+            ['name' => 'article.delete'],
+            ['name' => 'article.forcedelete'],
+            ['name' => 'article.restore'],
+        ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'quote'],
+            ['name' => 'quote.index'],
+            ['name' => 'quote.create'],
+            ['name' => 'quote.view'],
+            ['name' => 'quote.viewany'],
+            ['name' => 'quote.edit'],
+            ['name' => 'quote.update'],
+            ['name' => 'quote.delete'],
+            ['name' => 'quote.forcedelete'],
+            ['name' => 'quote.restore'],
+        ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'deliver'],
         ]);
     }
 }
