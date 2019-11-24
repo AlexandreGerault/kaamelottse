@@ -21,5 +21,19 @@ class UsersTableSeeder extends Seeder
             $admin->password = Hash::make(env('TESTING_ADMIN_PASSWORD'));
             $admin->save();
         }
+        if(env('TESTING_DELIVERY') && env('TESTING_DELIVERY_MAIL') && env('TESTING_DELIVERY_PASSWORD')) {
+            $admin = new User;
+            $admin->name = env('TESTING_DELIVERY');
+            $admin->email = env('TESTING_DELIVERY_MAIL');
+            $admin->password = Hash::make(env('TESTING_DELIVERY_PASSWORD'));
+            $admin->save();
+        }
+        if(env('TESTING_EDITOR') && env('TESTING_EDITOR_MAIL') && env('TESTING_EDITOR_PASSWORD')) {
+            $admin = new User;
+            $admin->name = env('TESTING_EDITOR');
+            $admin->email = env('TESTING_EDITOR_MAIL');
+            $admin->password = Hash::make(env('TESTING_EDITOR_PASSWORD'));
+            $admin->save();
+        }
     }
 }

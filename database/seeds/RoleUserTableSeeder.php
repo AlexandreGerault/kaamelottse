@@ -18,5 +18,20 @@ class RoleUserTableSeeder extends Seeder
             $user->roles()->attach(Role::all()->random()->id);
         });
 
+        if($name = env('TESTING_ADMIN')) {
+            $user = User::where('name', $name)->first();
+            $user->roles()->attach([1,2,3]);
+            $user->save();
+        }
+        if($name = env('TESTING_DELIVERY')) {
+            $user = User::where('name', $name)->first();
+            $user->roles()->attach(Role::where('name', 'livreur')->first()->id);
+            $user->save();
+        }
+        if($name = env('TESTING_EDITOR')) {
+            $user = User::where('name', $name)->first();
+            $user->roles()->attach(Role::where('name', 'éditeur')->first()->id);
+            $user->save();
+        }
     }
 }
