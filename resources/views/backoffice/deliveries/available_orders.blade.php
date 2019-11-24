@@ -10,7 +10,7 @@
                 <div class="col-md-6 bg-primary mb-3 p-0">
                     <div class="bg-sucess text-white p-2">
                         <strong>{{ $order->customer->name }}</strong> - {{ $order->total_price }}€
-                        <a href="{{ route('backoffice.deliver.delivery', $order->id) }}" class="btn btn-info ml-2">Détail</a>
+                        <a href="{{ route('backoffice.deliver.delivery', $order) }}" class="btn btn-info ml-2">Détail</a>
                     </div>
                     <ul class="p-2 list-group">
                         @foreach ($order->items as $orderItem)

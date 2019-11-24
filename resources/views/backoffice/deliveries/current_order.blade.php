@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row bg-light mb-2 p-2">
-            <form method="post" action="{{ route('backoffice.deliver.message', $order->id) }}" style="width: 100%">
+            <form method="post" action="{{ route('backoffice.deliver.message', $order) }}" style="width: 100%">
                 @csrf
                 <div class="form-group">
                     <label for="message">Envoyer un message</label>
@@ -60,7 +60,7 @@
         </div>
         @if(Auth::id() == $order->delivery_driver_id && $order->status != config('ordering.status.DELIVERED'))
             <div class="row bg-light mb-2 p-2">
-                <form method="post" action="{{ route('backoffice.deliver.endDelivery', $order->id) }}" style="width: 100%">
+                <form method="post" action="{{ route('backoffice.deliver.endDelivery', $order) }}" style="width: 100%">
                     @csrf
                     <div class="form-group">
                         <label for="message">Methode Paiement</label>
@@ -71,14 +71,14 @@
                         </select>
                     </div>
                     <input type="submit" class="btn btn-primary btn-sm" value="Valider la commande">
-                    <a href="{{ route('backoffice.deliver.cancel', $order->id) }}" class="btn btn-danger  btn-sm">
+                    <a href="{{ route('backoffice.deliver.cancel', $order) }}" class="btn btn-danger  btn-sm">
                         Annuler la commande
                     </a>
                 </form>
             </div>
         @elseif(empty($order->delivery_driver_id))
             <div class="row bg-light mb-2 p-2">
-                <a href="{{ route('backoffice.deliver.takeCharge', $order->id) }}" class="btn btn-primary btn-lg bt-block">Prendre
+                <a href="{{ route('backoffice.deliver.takeCharge', $order) }}" class="btn btn-primary btn-lg bt-block">Prendre
                     en charge cette commande</a>
             </div>
         @else

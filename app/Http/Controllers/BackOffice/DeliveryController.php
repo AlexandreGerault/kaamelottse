@@ -39,10 +39,9 @@ class DeliveryController extends Controller
     /*
      *  Affiche une livraion
      */
-    public function delivery($id)
+    public function delivery(Order $order)
     {
         try {
-            $order = Order::findOrFail($id);
             return view('backoffice.deliveries.current_order', ['order' => $order]);
         } catch (ModelNotFoundException $e) {
             // TODO : handle ModelNotFoundException
@@ -52,11 +51,9 @@ class DeliveryController extends Controller
     /*
      *  Pour prendre en charge une livraison
      */
-    public function takeCharge($id)
+    public function takeCharge(Order $order)
     {
         try {
-            $order = Order::findOrFail($id);
-
             if (empty($order->delivery_driver_id) && $order->status != config('ordering.status.DELIVERED')){
                 $order->deliveryDriver()->associate(Auth::user());
                 $order->status = config('ordering.status.IN_DELIVERY');
@@ -73,12 +70,10 @@ class DeliveryController extends Controller
     /*
      *  Pour annuler une commande qui pose problème
      */
-    public function cancel($id)
+    public function cancel(Order $order)
     {
         try {
-            $order = Order::findOrFail($id);
-
-            if ($order->status==config('ordering.status.IN_DELIVERY')){
+            if ($order->status == config('ordering.status.IN_DELIVERY')){
                 $order->delivery_driver_id = NULL;
                 $order->status = config('ordering.status.CANCELLED');
                 $order->save();
@@ -95,11 +90,9 @@ class DeliveryController extends Controller
     /*
      *  Pour envoyer un message associé à la livraison (demande précision, pb ou autre)
      */
-    public function sendMessage(Request $request, $id)
+    public function sendMessage(Request $request, Order $order)
     {
         try {
-            $order = Order::findOrFail($id);
-
             $messageDelivery = new MessageDelivery($request->validate([
                 'content' => 'required|max:1000',
             ]));
@@ -116,15 +109,13 @@ class DeliveryController extends Controller
     /*
      *  Pour terminer une commande avec le paiement
      */
-    public function endDelivery(Request $request, $id)
+    public function endDelivery(Request $request, Order $order)
     {
         $data = $request->validate([
             'method_payment' => 'required|max:30'
         ]);
 
         try {
-            $order = Order::findOrFail($id);
-
             if ($order->status == config('ordering.status.IN_DELIVERY')) {
                 $order->status = config('ordering.status.DELIVERED');
                 $order->method_payment = $data['method_payment'];
