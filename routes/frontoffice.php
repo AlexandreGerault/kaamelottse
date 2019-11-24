@@ -20,6 +20,5 @@ Route::get('/tableRonde', 'IndexController@tableRonde')->name('round-table');
 Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard')->middleware('auth');
 
 Route::resource('order', 'OrderController');
-Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('produits', 'ProductController');
