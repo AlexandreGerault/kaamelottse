@@ -42,9 +42,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/produits">Banquets</a>
                     </li>
-                    <li class="nav-item">
+                    {{--<li class="nav-item">
                         <a class="nav-link" href="/tableRonde">Table ronde</a>
-                    </li>
+                    </li>--}}
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
