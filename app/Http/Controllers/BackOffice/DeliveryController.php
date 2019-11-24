@@ -128,6 +128,7 @@ class DeliveryController extends Controller
             if ($order->status == config('ordering.status.IN_DELIVERY')) {
                 $order->status = config('ordering.status.DELIVERED');
                 $order->method_payment = $data['method_payment'];
+                $order->shipped_at = now('Europe/Paris');
                 $order->paid_at = now('Europe/Paris');
                 $order->save();
 

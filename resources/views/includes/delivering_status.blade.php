@@ -5,7 +5,7 @@
 @elseif($status == config('ordering.status.IN_DELIVERY'))
 	<span class="badge badge-warning">En Cours</span>
 @elseif($status == config('ordering.status.DELIVERED'))
-	<span class="badge badge-success">Livré</span>
+	<span class="badge badge-success">{{ config('enums.order.status.' . $status) }}</span>
 @else
 	<span class="badge badge-danger">Commande Annulée</span>
 @endif

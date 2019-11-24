@@ -54,17 +54,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Commande du {{ $order->created_at }}
-                                        @if($order->status == config('ordering.status.NOT_COMPLETED'))
-                                            <span class="badge badge-info">Non confirmée</span>
-                                        @elseif($order->status == config('ordering.status.PENDING'))
-                                            <span class="badge badge-primary">En Attente de livreur</span>
-                                        @elseif($order->status == config('ordering.status.IN_DELIVERY'))
-                                            <span class="badge badge-warning">En Cours</span>
-                                        @elseif($order->status == config('ordering.status.DELIVERED'))
-                                            <span class="badge badge-success">Livré</span>
-                                        @else
-                                            <span class="badge badge-danger">Commande Annulée</span>
-                                        @endif
+                                        @include('includes.delivering_status', ['status' => $order->status])
                                     </h5>
                                     <ul class="list-group list-group-flush">
                                         @foreach($order->items as $orderItem)
@@ -81,7 +71,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <a href="/banquet" class="btn btn-secondary btn-lg btn-block">Nouvelle commande</a>
+                    <a href="{{ route('order.create') }}" class="btn btn-primary btn-lg btn-block">Nouvelle commande</a>
                 </div>
             </div>
         </div>

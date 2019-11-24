@@ -15,7 +15,7 @@
                                 <th>Status</th>
                                 <th>Montant</th>
                                 <th>Commandé le</th>
-                                <th>Livraison</th>
+                                <th>Livrée le</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -27,7 +27,7 @@
                                     <td>{{ $order->created_at->formatLocalized('%A %d %B %Y') }}</td>
                                     <td>
                                         @if($order->status == config('ordering.status.DELIVERED') && $order->shipped_at !== null)
-                                            {{ $order->shipped_at }}
+                                            {{ $order->shipped_at->formatLocalized('%A %d %B %Y') }}
                                         @else
                                             Commande non livrée
                                         @endif
