@@ -24,6 +24,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'message.restore'],
             ['name' => 'message.respond'],
         ]);
+
         DB::table('permissions')->insert([
             ['name' => 'product'],
             ['name' => 'product.index'],
@@ -36,6 +37,7 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'product.forcedelete'],
             ['name' => 'product.restore'],
         ]);
+
         DB::table('permissions')->insert([
             ['name' => 'order'],
             ['name' => 'order.index'],
@@ -49,6 +51,33 @@ class PermissionsTableSeeder extends Seeder
             ['name' => 'order.forcedelete'],
             ['name' => 'order.restore'],
         ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'article'],
+            ['name' => 'article.index'],
+            ['name' => 'article.create'],
+            ['name' => 'article.view'],
+            ['name' => 'article.viewany'],
+            ['name' => 'article.edit'],
+            ['name' => 'article.update'],
+            ['name' => 'article.delete'],
+            ['name' => 'article.forcedelete'],
+            ['name' => 'article.restore'],
+        ]);
+
+        DB::table('permissions')->insert([
+            ['name' => 'quote'],
+            ['name' => 'quote.index'],
+            ['name' => 'quote.create'],
+            ['name' => 'quote.view'],
+            ['name' => 'quote.viewany'],
+            ['name' => 'quote.edit'],
+            ['name' => 'quote.update'],
+            ['name' => 'quote.delete'],
+            ['name' => 'quote.forcedelete'],
+            ['name' => 'quote.restore'],
+        ]);
+
         DB::table('permissions')->insert([
             ['name' => 'deliver'],
         ]);

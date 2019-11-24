@@ -10,16 +10,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\Http\Requests\ArticleRequest;
+use Auth;
 
 class ArticleController extends Controller
 {
     public function __construct()
-    {$this->middleware(function (Request $request, $next) {
-        if (Auth::user()->can('access-backoffice')
-            || Auth::user()->can('access-backoffice.articles')) {
-            return $next($request);
-        }
-    });
+    {
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->can('access-backoffice')
+                || Auth::user()->can('access-backoffice.articles')) {
+                return $next($request);
+            }
+            abort(403);
+        });
     }
 
     /**

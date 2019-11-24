@@ -14,7 +14,7 @@ class RoleUserTableSeeder extends Seeder
     public function run()
     {
         User::all()->each(function (User $user) {
-            if ($user->id == 31) return;
+            if ($user->id > 30) return;
             $user->roles()->attach(Role::all()->random()->id);
         });
 

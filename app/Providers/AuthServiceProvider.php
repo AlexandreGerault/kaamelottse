@@ -41,10 +41,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-backoffice', function (User $user) {
             return $user->hasRole('administrateur');
         });
-
         Gate::define('access-backoffice.articles', function (User $user) {
             return $user->hasPermission('article');
-        });Gate::define('access-backoffice.messages', function (User $user) {
+        });
+        Gate::define('access-backoffice.messages', function (User $user) {
             return $user->hasPermission('message');
         });
         Gate::define('access-backoffice.quotes', function (User $user) {

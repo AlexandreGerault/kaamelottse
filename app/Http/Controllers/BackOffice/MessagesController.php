@@ -7,6 +7,7 @@ use App\Http\Requests\MessageRequest;
 use App\Mail\ContactConfirmation;
 use App\Mail\ContactResponse;
 use App\Models\Message;
+use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class MessagesController extends Controller
                 || Auth::user()->can('access-backoffice.messages')) {
                 return $next($request);
             }
+            abort(403);
         });
     }
 
