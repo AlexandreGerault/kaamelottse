@@ -95,15 +95,6 @@ class OrderController extends Controller
         $order->status = config('ordering.status.PENDING');
         $order->save();
 
-        /*
-         * La commande est validée => On mets à jour les stocks des produits
-         */
-        $order->items()->each(function (OrderItem $item) {
-            $product = $item->product;
-            $product->stock -= $item->quantity;
-            $product->save();
-        });
-
         return $this->show($order)->with('error', 'Commande terminée avec succès');
     }
 
