@@ -139,7 +139,7 @@
                         </form>
                         <ul class="list-group list-group-flush">
                             @foreach ($order->messages as $message)
-                                <li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
+                                <li class="list-group-item @if($order->delivery_driver_id == $message->user_sender_id ) bg-warning @endif"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
                                     <br><em>Envoyé le {{ $message->created_at }}</em></li>
                             @endforeach
                         </ul>
