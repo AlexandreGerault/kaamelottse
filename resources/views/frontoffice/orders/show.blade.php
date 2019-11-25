@@ -138,7 +138,9 @@
                             <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
                         </form>
                         <ul class="list-group list-group-flush">
-                            @foreach ($order->messages as $message)
+                            @foreach ($order->messages->sortByDesc(function ($message, $key) {
+                                return $message->created_at;
+                            }) as $message)
                                 <li class="list-group-item @if($order->delivery_driver_id == $message->user_sender_id ) bg-warning @endif"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
                                     <br><em>Envoyé le {{ $message->created_at }}</em></li>
                             @endforeach
