@@ -6,7 +6,7 @@
             <div class="col-md-12 bg-light p-4">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Préparer son pc</h3>
+                        <h3 class="panel-title">Liste des articles</h3>
                     </div>
                     <form method="post" action="{{ $action }}">
                         @csrf

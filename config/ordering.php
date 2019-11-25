@@ -9,5 +9,6 @@ return [
 		'IN_DELIVERY' => 2,
 		'DELIVERED' => 3,
 		'CANCELLED' => 4,
-	]
+	],
+	'up' => false,
 ];

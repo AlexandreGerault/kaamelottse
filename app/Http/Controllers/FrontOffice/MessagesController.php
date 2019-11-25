@@ -20,7 +20,7 @@ class MessagesController extends Controller
         2 => "Commande",
         3 => "Martins Marteau",
         4 => "Site",
-        5 => "Confidencialité"
+        5 => "Confidentialité"
     ];
     
     //Accès réservé aux seuls éditeurs

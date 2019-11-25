@@ -20,7 +20,7 @@ class IndexController extends Controller
         2 => "Une demande concernant une commande / un service",
         3 => "Les paroles de Martins Marteau",
         4 => "Un problème technique avec le site",
-        5 => "Une demande de confidencialité"
+        5 => "Une demande de confidenctalité"
     ];
 
     public function index()
