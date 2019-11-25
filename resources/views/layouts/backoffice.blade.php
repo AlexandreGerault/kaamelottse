@@ -55,7 +55,7 @@
 
         <!-- Nav Item - Orders Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+            <a class="nav-link collapsed" href="{{ route('backoffice.order.index') }}" data-toggle="collapse" data-target="#collapseOrders"
                aria-expanded="true" aria-controls="collapseOrders">
                 <i class="fas fa-tag"></i>
                 <span>Commandes</span>
@@ -81,7 +81,7 @@
 
         <!-- Nav Item - Articles Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseArticles"
+            <a class="nav-link collapsed" href="{{ route('backoffice.article.index') }}" data-toggle="collapse" data-target="#collapseArticles"
                aria-expanded="true" aria-controls="collapseArticles">
                 <i class="fas fa-newspaper"></i>
                 <span>Articles</span>
@@ -97,7 +97,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+            <a class="nav-link collapsed" href="{{ route('backoffice.product.index') }}" data-toggle="collapse" data-target="#collapseProducts"
                aria-expanded="true" aria-controls="collapseProducts">
                 <i class="fas fa-tags"></i>
                 <span>Produits</span>
@@ -112,7 +112,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMessages"
+            <a class="nav-link collapsed" href="{{ route('backoffice.message.index') }}" data-toggle="collapse" data-target="#collapseMessages"
                aria-expanded="true" aria-controls="collapseMessages">
                 <i class="fas fa-comment"></i>
                 <span>Messages</span>
@@ -127,7 +127,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQuotes"
+            <a class="nav-link collapsed" href="{{ route('backoffice.quote.index') }}" data-toggle="collapse" data-target="#collapseQuotes"
                aria-expanded="true" aria-controls="collapseQuotes">
                 <i class="fas fa-quote-left"></i>
                 <span>Citations</span>
@@ -143,7 +143,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers"
+            <a class="nav-link collapsed" href="{{ route('backoffice.user.index') }}" data-toggle="collapse" data-target="#collapseUsers"
                aria-expanded="true" aria-controls="collapseUsers">
                 <i class="fas fa-user"></i>
                 <span>Utilisateurs</span>
