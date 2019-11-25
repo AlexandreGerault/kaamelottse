@@ -110,7 +110,6 @@
                 </div>
 
                 <div class="card m-3">
-                    <div class="card m-2">
                         <div class="card-body">
                             <p>
                                 <b>Prix total : </b> {{ $order->total_price }} €<br />
@@ -126,7 +125,6 @@
                             @endif
                         </div>
                     </div>
-                </div>
                 <div class="card m-3">
 
                     <div class="card m-3 p-3">
