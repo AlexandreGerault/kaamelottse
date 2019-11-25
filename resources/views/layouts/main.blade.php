@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <div class="navbar-brand">
-                <img src="images/blason-min.png" alt="logo">
+                <img src="/images/blason-min.png" alt="logo">
                 <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
             </div>
             <button class="navbar-toggler navbar-dark"
