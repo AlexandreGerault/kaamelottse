@@ -20,5 +20,6 @@ Route::get('/tableRonde', 'IndexController@tableRonde')->name('round-table');
 Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard')->middleware('auth');
 
 Route::resource('order', 'OrderController');
+Route::post('order/{order}/sendMessage', 'OrderController@sendMessage')->name('frontoffice.order.message');
 Route::resource('message', 'MessagesController');
 Route::resource('produits', 'ProductController');

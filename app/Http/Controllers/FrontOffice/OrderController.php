@@ -4,13 +4,15 @@ namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
-use App\Models\Order;
-use App\Models\OrderItem;
-use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\MessageDelivery;
+use App\User;
 
 class OrderController extends Controller
 {
@@ -109,5 +111,27 @@ class OrderController extends Controller
         Order::destroy($order->id);
 
         return $this->index()->with('success', 'Commande supprimée avec succès');
+    }
+
+    /*
+     *  Pour envoyer un message associé à la livraison (demande précision, pb ou autre)
+     */
+    public function sendMessage(Request $request, Order $order)
+    {
+        if (Auth::user()->id != $order->customer_id){
+            return redirect()->back()->with('error', 'Commande non reconnue');
+        }
+        try {
+            $messageDelivery = new MessageDelivery($request->validate([
+                'content' => 'required|max:1000',
+            ]));
+            $messageDelivery->sender()->associate(Auth::user());
+            $messageDelivery->order()->associate($order);
+            $messageDelivery->save();
+
+            return redirect()->back()->with('sucess', 'Message envoyé');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Problème d\'enregistrement');
+        }
     }
 }

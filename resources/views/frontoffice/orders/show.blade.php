@@ -70,6 +70,7 @@
                                        value="{{ old('shipping_address', $order->shipping_address) }}">
                             </div>
 
+<<<<<<< HEAD
                             <input type="submit" class="btn btn-primary" value="Terminer la commande"/>
                         </div>
                     </form>
@@ -119,11 +120,30 @@
                 </div>
 
                 <div class="card m-3">
-                    <div class="card-body">
-                        <p>
-                            <b>Prix total : </b> {{ $order->total_price }} €<br/>
-                            <b>Points totaux : </b> {{$order->total_points}}
-                        </p>
+                    <div class="card m-3">
+                        <div class="card-body">
+                            <p>
+                                <b>Prix total : </b> {{ $order->total_price }} €<br />
+                                <b>Points totaux : </b> <span class="badge badge-warning">{{$order->total_points}}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card m-3 p-3">
+                        <form method="post" action="{{ route('frontoffice.order.message', $order) }}" style="width: 100%">
+                            @csrf
+                            <div class="form-group">
+                                <label for="message">Envoyer un message</label>
+                                <textarea id="message" class="form-control" name="content"></textarea>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-sm bt-block" value="Envoyer">
+                        </form>
+                        <ul class="list-group list-group-flush">
+                            @foreach ($order->messages as $message)
+                                <li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
+                                    <br><em>Envoyé le {{ $message->created_at }}</em></li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
