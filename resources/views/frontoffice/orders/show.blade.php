@@ -125,10 +125,11 @@
                             @endif
                         </div>
                     </div>
+
                 <div class="card m-3">
 
                     <div class="card m-3 p-3">
-                        <form method="post" action="{{ route('frontoffice.order.message', $order) }}" style="width: 100%">
+                        <form class="mb-3" method="post" action="{{ route('frontoffice.order.message', $order) }}" style="width: 100%">
                             @csrf
                             <div class="form-group">
                                 <label for="message">Envoyer un message</label>
