@@ -91,6 +91,10 @@ class StoreOrderRequest extends FormRequest
             if ($totalPrice > config('ordering.max_total_price')) {
                 $validator->errors()->add('max-price', 'Le montant totale de cette commande excède la capicité maximale autorisée.');
             }
+
+            if (empty($this->products)) {
+                $validator->errors()->add('empty', 'La commande ne doit pas être vide.');
+            }
         });
     }
 
