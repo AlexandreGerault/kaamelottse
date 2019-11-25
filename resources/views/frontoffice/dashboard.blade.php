@@ -53,7 +53,7 @@
                         @foreach($orders as $order)
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Commande du {{ $order->created_at }}
+                                    <h5 class="card-title"><a href="{{ route('order.show', ['order' => $order]) }}">Commande du {{ $order->created_at }}</a>
                                         @include('includes.delivering_status', ['status' => $order->status])
                                     </h5>
                                     <ul class="list-group list-group-flush">

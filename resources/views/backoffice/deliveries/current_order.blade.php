@@ -39,7 +39,8 @@
         </div>
         <div class="row bg-light mb-2 p-2">
             <div>
-                <strong>Total </strong>{{ $order->total_price }} € <span class="badge badge-warning">{{ $order->total_points }} points</span>
+                <strong>Total </strong>{{ $order->total_price }} €
+                <span class="badge badge-warning">{{ $order->total_points }} points</span>
             </div>
         </div>
         <div class="row bg-light mb-2 p-2">

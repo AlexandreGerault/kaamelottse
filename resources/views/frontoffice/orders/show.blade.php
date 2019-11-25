@@ -8,14 +8,6 @@
                     Commande N°{{ $order->id }} -
                     @include('includes.delivering_status', ['status' => $order->status])
                 </h3>
-
-                @can('delete', $order)
-                <form action="{{ route('order.destroy', $order) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" class="btn btn-danger" value="Annuler la commande" />
-                </form>
-                @endif
             </div>
             <div class="d-flex flex-wrap">
                 @if(isset($order->customer) || $order->phone !== null || $order->method_payment !== null)
@@ -69,8 +61,6 @@
                                 <input type="text" class="form-control" name="shipping_address" id="shipping_address"
                                        value="{{ old('shipping_address', $order->shipping_address) }}">
                             </div>
-
-<<<<<<< HEAD
                             <input type="submit" class="btn btn-primary" value="Terminer la commande"/>
                         </div>
                     </form>
@@ -120,14 +110,24 @@
                 </div>
 
                 <div class="card m-3">
-                    <div class="card m-3">
+                    <div class="card m-2">
                         <div class="card-body">
                             <p>
                                 <b>Prix total : </b> {{ $order->total_price }} €<br />
                                 <b>Points totaux : </b> <span class="badge badge-warning">{{$order->total_points}}</span>
                             </p>
+
+                            @can('delete', $order)
+                            <form action="{{ route('order.destroy', $order) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger btn-sm" value="Annuler la commande" />
+                            </form>
+                            @endif
                         </div>
                     </div>
+                </div>
+                <div class="card m-3">
 
                     <div class="card m-3 p-3">
                         <form method="post" action="{{ route('frontoffice.order.message', $order) }}" style="width: 100%">
