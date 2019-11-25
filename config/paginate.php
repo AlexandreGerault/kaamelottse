@@ -7,7 +7,7 @@ return [
     ],
     'backoffice' => [
         'order' => [
-            'index' => 5,
+            'index' => 20,
         ],
         'articles' => [
             'index' => 10,
