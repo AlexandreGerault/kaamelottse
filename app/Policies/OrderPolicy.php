@@ -83,7 +83,8 @@ class OrderPolicy
      */
     public function delete(User $user, Order $order)
     {
-        return $user->hasPermission('order.delete');
+        return ($order->customer->id === $user->id && $order->status == config('ordering.status.NOT_COMPLETED'))
+            || $user->hasPermission('order.delete');
     }
 
     /**

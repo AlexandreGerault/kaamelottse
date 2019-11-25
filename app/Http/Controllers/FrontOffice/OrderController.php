@@ -101,7 +101,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
-            $this->authorize('delete', Order::class);
+            $this->authorize('delete', $order);
         } catch (AuthorizationException $e) {
             return back()->with('error', 'Vous ne pouvez pas supprimer la commande');
         }
