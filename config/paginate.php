@@ -6,6 +6,9 @@ return [
         ]
     ],
     'backoffice' => [
+        'order' => [
+            'index' => 5,
+        ],
         'articles' => [
             'index' => 10,
         ],
