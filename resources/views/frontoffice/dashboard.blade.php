@@ -28,7 +28,7 @@
 						</div>
                         @foreach($products as $id=>$product)
                             <div class="card @if(!$product->available) bg-light @endif mb-3">
-                                <img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}" />
+                                @if($product->image) <img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}" /> @endif
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">{{ $product->description }}</p>

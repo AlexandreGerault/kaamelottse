@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <div class="navbar-brand">
-                <img src="{{ Storage::url('images/blason-min.png') }}" alt="logo">
+                <img src="images/blason-min.png" alt="logo">
                 <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
             </div>
             <button class="navbar-toggler navbar-dark"
@@ -40,14 +40,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/produits">Banquets</a>
+                        <a class="nav-link" href="/produits">Produits disponlibles</a>
                     </li>
                     {{--<li class="nav-item">
                         <a class="nav-link" href="/tableRonde">Table ronde</a>
-                    </li>--}}
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
-                    </li>
+                    </li>--}}
                     @if(Auth::user())
                         <li class="nav-item dropdown">
 
@@ -65,7 +65,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/produits">Commander</a>
                                 <a class="dropdown-item" href="{{ route('order.index') }}">Mes commandes</a>
-                                <a class="dropdown-item" href="{{ route('message.index') }}">Demandes de contact</a>
+                                {{--<a class="dropdown-item" href="{{ route('message.index') }}">Demandes de contact</a>--}}
                                 <div class="dropdown-divider"></div>
 
                                 @if(Auth::user()->hasRole('administrateur') or Auth::user()->hasRole('éditeur'))
