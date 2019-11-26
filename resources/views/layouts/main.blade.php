@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/produits">Produits disponlibles</a>
+                        <a class="nav-link" href="/produits">Produits disponibles</a>
                     </li>
                     {{--<li class="nav-item">
                         <a class="nav-link" href="/tableRonde">Table ronde</a>
@@ -69,7 +69,7 @@
                                 <div class="dropdown-divider"></div>
 
                                 @if(Auth::user()->hasRole('administrateur') or Auth::user()->hasRole('éditeur'))
-                                    <a class="dropdown-item" href="/backoffice/order">Administration</a>
+                                    <a class="dropdown-item" href="/backoffice">Administration</a>
                                     <div class="dropdown-divider"></div>
                                 @endif
 

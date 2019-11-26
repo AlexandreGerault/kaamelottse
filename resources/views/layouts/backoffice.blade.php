@@ -40,7 +40,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="{{ route('backoffice.order.index') }}">
+            <a class="nav-link" href="{{ route('backoffice.index') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Aperçu</span></a>
         </li>
