@@ -31,7 +31,7 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $noDriverOrders = Order::where('status',config('ordering.status.PENDING'))->get();
+        $noDriverOrders = Order::where('status',config('ordering.status.PENDING'))->orderBy('created_at', 'asc')->get();
         $currentOrders = Order::byDriver(Auth::user())->get();
 
         return view('backoffice.deliveries.available_orders', [
