@@ -11,6 +11,9 @@
 |
 */
 
+//Dashboard Admin
+Route::get('/', 'IndexController@index')->name('index');
+
 Route::get('username_autocomplete', 'OrderController@usernameAutocomplete')
     ->name('order.username_autocomplete');
 
