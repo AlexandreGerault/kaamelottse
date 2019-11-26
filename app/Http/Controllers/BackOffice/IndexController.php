@@ -13,8 +13,8 @@ class IndexController extends Controller
 
     public function index()
     {
-        if (!Auth::user()->can('access-backoffice') or !Auth::user()->can('access-backoffice.quotes')) {
-            return error(404);
+        if (!Auth::user()->hasRole('éditeur') or !Auth::user()->hasRole('administrateur')) {
+            return abort(404);
         }
 
         $pentind_orders = Order::where('status', config('ordering.status.PENDING'))->orderBy('created_at')->limit(40)->get();
