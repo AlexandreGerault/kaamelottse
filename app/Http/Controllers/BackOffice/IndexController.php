@@ -13,7 +13,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        if (!Auth::user()->hasRole('éditeur') or !Auth::user()->hasRole('administrateur')) {
+        if (!Auth::user()->hasRole('éditeur') && !Auth::user()->hasRole('administrateur')) {
             return abort(404);
         }
 
