@@ -52,7 +52,7 @@
                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Rester connecter') }}
+                                            {{ __('Rester connecté') }}
                                         </label>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
 
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                {{ __('Mot de passe oubliÃ©?') }}
+                                                {{ __('Mot de passe oublié?') }}
                                             </a>
                                     @endif
                                 </div>
