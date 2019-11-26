@@ -27,10 +27,32 @@ class OrderObserver
     {
         $order->selfUpdateTotals();
 
+
+    }
+
+    public function updating(Order $order)
+    {
+
+        // TODO : Find a better way of doing this
+
         /*
          * If the status field of the command has changed & is now equals to PENDING then
          */
-        if ($order->isDirty('status') && $order->status == config('ordering.status.PENDING')) {
+        if ($order->isDirty('status') && $order->getDirty()['status'] == config('ordering.status.PENDING')) {
+
+            /*
+             * We return false if one of the product isn't available (stopping the event's propagation)
+             */
+            $order->items()->each(function (OrderItem $item) {
+                $product = $item->product;
+                if ($product->stock - $item->quantity < 0) {
+                    return false;
+                }
+            });
+
+            /*
+             * Then we update the stocks
+             */
             $order->items()->each(function (OrderItem $item) {
                 $product = $item->product;
                 $product->stock -= $item->quantity;
@@ -38,7 +60,6 @@ class OrderObserver
             });
         }
     }
-
     /**
      * Handle the order "deleted" event.
      *
