@@ -18,8 +18,8 @@ class IndexController extends Controller
         }
 
         $pentind_orders = Order::where('status', config('ordering.status.PENDING'))->orderBy('created_at')->limit(40)->get();
-        $in_delivering_orders = Order::where(['status' => config('ordering.status.IN_DELIVERY')])->orderBy('created_at')->limit(40)->get();
-        $last_messages = MessageDelivery::orderBy('created_at')->limit(20)->get();
+        $in_delivering_orders = Order::where(['status' => config('ordering.status.IN_DELIVERY')])->orderBy('created_at','desc')->limit(40)->get();
+        $last_messages = MessageDelivery::orderBy('created_at', 'desc')->limit(20)->get();
 
         $nb_penting_orders = Order::where(['status' => config('ordering.status.PENDING')])->count();
         $nb_in_delivering_orders = Order::where(['status' => config('ordering.status.IN_DELIVERY')])->count();
