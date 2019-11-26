@@ -34,9 +34,6 @@ class OrderObserver
 
     public function updating(Order $order)
     {
-
-        // TODO : Find a better way of doing this
-
         /*
          * If the status field of the command has changed & is now equals to PENDING then
          */

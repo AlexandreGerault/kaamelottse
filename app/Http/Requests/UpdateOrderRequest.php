@@ -65,15 +65,18 @@ class UpdateOrderRequest extends FormRequest
         $products = array();
 
         $validator->after(function (Validator $validator) use ($request) {
-            $this->order->items()->each(function (OrderItem $item) use ($validator) {
-                $product = $item->product;
-                if ($product->stock - $item->quantity < 0) {
-                    $validator->errors()->add(
-                        $product->id,
-                        'Le produit ' . $product->name . ' n\'est plus disponible en assez grande quantité'
-                    );
-                }
-            });
+            if (($request->has('status') && $request->get('status') == config('ordering.status.PENDING'))
+                || $request->route()->getName() == ('order.update')) {
+                $this->order->items()->each(function (OrderItem $item) use ($validator) {
+                    $product = $item->product;
+                    if ($product->stock - $item->quantity < 0) {
+                        $validator->errors()->add(
+                            $product->id,
+                            'Le produit ' . $product->name . ' n\'est plus disponible en assez grande quantité'
+                        );
+                    }
+                });
+            }
         });
     }
 }
