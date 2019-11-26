@@ -12,7 +12,7 @@ use Illuminate\Validation\Validator;
 class StoreOrderRequest extends FormRequest
 {
     /**
-     * @var array
+     * @var Product[]
      */
     private $products;
 
@@ -66,7 +66,6 @@ class StoreOrderRequest extends FormRequest
             $validator->errors()->add('ordering-down', 'Impossible de commande actuellement');
         }
         $request = $this;
-        $products = array();
         $validator->after(function (Validator $validator) use ($request) {
             $totalPrice = 0;
             foreach ($request->except(['_token', 'customer_email', 'shipping_address', 'phone']) as $productId => $quantity) {
@@ -98,6 +97,9 @@ class StoreOrderRequest extends FormRequest
         });
     }
 
+    /**
+     * @return Product[]
+     */
     public function products()
     {
         return $this->products;

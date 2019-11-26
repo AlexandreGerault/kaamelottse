@@ -5,23 +5,33 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="card p-2 mb-2">
-                    <h5>Récapitulatif</h5>
-                    <ul>
-                        <li>Commandes en attente : <e>{{ $nb_penting_orders}}</e></li>
-                        <li>Commandes en livraison : <em>{{ $nb_in_delivering_orders}}</em></li>
-                        <li>Commandes livrées : <em>{{ $nb_delivered_orders}}</em></li>
-                    </ul>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="mb-3">Récapitulatif</h5>
+                        <ul class="mb-0">
+                            <li>Commandes en attente :
+                                <e>{{ $nb_penting_orders}}</e>
+                            </li>
+                            <li>Commandes en livraison : <em>{{ $nb_in_delivering_orders}}</em></li>
+                            <li>Commandes livrées : <em>{{ $nb_delivered_orders}}</em></li>
+                            <li>Recettes totales : <em>{{ $profits }} €</em></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card p-2 mb-2">
-                    <h5>Derniers messages reçus</h5>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mb-3">Derniers messages reçus</h5>
+                        <ul class="list-group list-group-flush">
+                            @foreach ($last_messages as $message)
+                                <li class="list-group-item"><strong>{{ $message->sender->name }}
+                                        :</strong> {{ $message->content }}
+                                    <br><em><a href="{{ route('backoffice.order.show', $message->order_id) }}">Envoyé
+                                            le {{ $message->created_at }}</a></em></li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
-                <ul class="list-group list-group-flush">
-                    @foreach ($last_messages as $message)
-                        <li class="list-group-item"><strong>{{ $message->sender->name }} :</strong> {{ $message->content }}
-                            <br><em><a href="{{ route('backoffice.order.show', $message->order_id) }}">Envoyé le {{ $message->created_at }}</a></em></li>
-                    @endforeach
-                </ul>
             </div>
             <div class="col-md-4">
                 <div class="card p-2 mb-2">
@@ -36,7 +46,8 @@
                         <ul class="p-2 list-group">
                             @foreach ($order->items as $orderItem)
                                 <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">
-                                    <span class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
+                                    <span
+                                        class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
                                 </li>
                             @endforeach
                         </ul>
@@ -59,7 +70,8 @@
                         <ul class="p-2 list-group">
                             @foreach ($order->items as $orderItem)
                                 <li class="list-group-item @if($orderItem->product->stock<20) list-group-item-danger @elseif($orderItem->product->price*$orderItem->quantity > 10) list-group-item-warning @endif">
-                                    <span class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
+                                    <span
+                                        class="badge badge-secondary">{{ $orderItem->quantity }}</span> {{ $orderItem->product->name }}
                                 </li>
                             @endforeach
                         </ul>

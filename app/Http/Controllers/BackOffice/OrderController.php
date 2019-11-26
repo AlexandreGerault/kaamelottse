@@ -124,9 +124,4 @@ class OrderController extends Controller
 
         return response()->json($users, 200);
     }
-
-    public function statistics(Order $order)
-    {
-        $deliveredOrders = Order::validated();
-    }
 }

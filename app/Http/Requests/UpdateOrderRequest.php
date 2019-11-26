@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,19 +15,6 @@ class UpdateOrderRequest extends FormRequest
      */
     private $order;
 
-    public function __construct(array $query = [],
-                                array $request = [],
-                                array $attributes = [],
-                                array $cookies = [],
-                                array $files = [],
-                                array $server = [],
-                                $content = null)
-    {
-        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
-
-        $this->order = $this->route('order');
-    }
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,7 +22,7 @@ class UpdateOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->can('update', $this->order);
+        return Auth::user()->can('update', $this->route('order'));
     }
 
     /**
@@ -61,6 +49,8 @@ class UpdateOrderRequest extends FormRequest
      */
     public function withValidator(Validator $validator)
     {
+
+        $this->order = $this->route('order');
         $request = $this;
         $products = array();
 

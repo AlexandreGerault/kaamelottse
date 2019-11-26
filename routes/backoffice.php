@@ -17,12 +17,15 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::get('username_autocomplete', 'OrderController@usernameAutocomplete')
     ->name('order.username_autocomplete');
 
+Route::get('product/resume', 'ProductController@resume')->name('product.resume');
+
 Route::resource('order', 'OrderController');
 Route::resource('article', 'ArticleController');
 Route::resource('message', 'MessagesController');
 Route::resource('product', 'ProductController');
 Route::resource('quote', 'QuoteController');
 Route::resource('user', 'UserController');
+
 
 //Delivery
 Route::get('/deliver', 'DeliveryController@index')->name('deliver.index');
@@ -41,3 +44,5 @@ Route::post('message/respond/{message}', 'MessagesController@postRespond')->name
 */
 Route::post('user/{user}/roles/attach', 'UserController@attachRoles')->name('user.roles.attach');
 Route::post('user/{user}/roles/detach', 'UserController@detachRoles')->name('user.roles.detach');
+
+

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 
 use App\Http\Requests\ProductRequest;
@@ -141,5 +143,23 @@ class ProductController extends Controller
             //TODO : Handle the delete exception
         }
         return $this->index();
+    }
+
+    public function resume()
+    {
+        $outgoing = array();
+        Order::where('status', config('ordering.status.IN_DELIVERY'))
+            ->orWhere('status', config('ordering.status.PENDING'))
+            ->each(function (Order $order) use (&$outgoing) {
+                $order->items->each(function (OrderItem $orderItem) use (&$outgoing) {
+                    if(isset($outgoing[$orderItem->product->name]))
+                        $outgoing[$orderItem->product->name] += $orderItem->quantity;
+                    else
+                        $outgoing[$orderItem->product->name] = $orderItem->quantity;
+                });
+            });
+
+
+        dd($outgoing);
     }
 }
