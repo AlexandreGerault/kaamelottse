@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontOffice;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -74,26 +75,14 @@ class OrderController extends Controller
             $orderItem->save();
         }
 
-        // TODO : Update total price
         $order->selfUpdateTotals();
 
         return redirect()->route('order.show', $order);
     }
 
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        $rules = [];
-
-        if ($order->phone === null)
-            $rules['phone'] = 'required|string';
-        if ($order->shipping_address === null)
-            $rules['shipping_address'] = 'required|string';
-
-        \Validator::make($request->all(), $rules);
-
-        foreach ($request->except('_token', '_method') as $key => $value) {
-            $order->$key = $value;
-        }
+        $order->update($request->validated());
         $order->status = config('ordering.status.PENDING');
         $order->save();
 

@@ -54,6 +54,15 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order byDriver(User $user)
  * @method static Builder|Order noDriver()
  * @method static Builder|Order byCustomer(User $user)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order validated()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order delivered()
  */
 class Order extends Model
 {
@@ -105,6 +114,11 @@ class Order extends Model
         return $query->whereHas('deliveryDriver', function (Builder $query) use ($user) {
             return $query->where('customer_id', $user->id);
         });
+    }
+
+    public function scopeDelivered(Builder $query)
+    {
+        return $query->where('status', config('ordering.status.DELIVERED'));
     }
 
     public function selfUpdateTotals()

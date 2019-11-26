@@ -34,6 +34,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Message whereUpdatedAt($value)
  * @mixin Eloquent
  * @method static Builder|Message notResponded()
+ * @property int|null $author_id
+ * @property-read \App\User|null $author
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereAuthorId($value)
  */
 class Message extends Model
 {

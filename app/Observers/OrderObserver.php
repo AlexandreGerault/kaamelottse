@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Validation\ValidationException;
+use mysql_xdevapi\Exception;
 
 class OrderObserver
 {
@@ -39,16 +41,20 @@ class OrderObserver
          * If the status field of the command has changed & is now equals to PENDING then
          */
         if ($order->isDirty('status') && $order->getDirty()['status'] == config('ordering.status.PENDING')) {
-
+            $errors = array();
             /*
              * We return false if one of the product isn't available (stopping the event's propagation)
              */
             $order->items()->each(function (OrderItem $item) {
                 $product = $item->product;
                 if ($product->stock - $item->quantity < 0) {
-                    return false;
+                    $errors[$product->id] = 'Le produit ' . $product->name . ' n\'est plus disponible en assez grande quantité';
                 }
             });
+
+            if (!empty($errors)) {
+                return false;
+            }
 
             /*
              * Then we update the stocks

@@ -50,6 +50,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User noPendingOrder()
  * @property-read Collection|Order[] $orders
  * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read int|null $messages_count
  */
 class User extends Authenticatable
 {
