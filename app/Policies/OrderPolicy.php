@@ -13,7 +13,7 @@ class OrderPolicy
 
     public function before(User $user, $string)
     {
-        if ($user->hasPermission('order')) return true;
+        if ($user->hasPermission('order') || $user->hasRole('administrateur')) return true;
     }
 
     /**

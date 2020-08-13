@@ -12,7 +12,7 @@ class MessagePolicy
 
     public function before(User $user, $ability)
     {
-        return $user->hasPermission('message');
+        return $user->hasPermission('message') || $user->hasRole('administrateur');
     }
 
     /**

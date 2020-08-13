@@ -12,7 +12,7 @@ class ProductPolicy
 
     public function before(User $user, $ability)
     {
-        if ($user->hasPermission('product')) return true;
+        if ($user->hasPermission('product') || $user->hasRole('administrateur')) return true;
     }
 
     /**

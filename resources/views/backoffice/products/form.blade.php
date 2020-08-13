@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <label for="name">Nom</label>
                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                           name="name" value="{{ old('nom', $product->name) }}" required
+                           name="name" value="{{ old('name', $product->name) }}" required
                            maxlength="150" autofocus>
 
                     @error('name')
@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="content">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="5"
+                    <textarea id="content" class="form-control" id="description" name="description" rows="5"
                               maxlength="5000">{{ old('description', $product->description) }}</textarea>
 
                     @error('description')
@@ -129,16 +129,20 @@
                         <a href="{{ route('backoffice.product.index') }}" class="btn btn-secondary">
                             {{ __('Annuler') }}
                         </a>
+                        @if($product->id !== null)
                         <a class="btn btn-danger" href="{{ route('backoffice.product.destroy', $product) }}"
                            onclick="event.preventDefault();
                                          document.getElementById('destroy-form').submit();">Supprimer</a>
+                        @endif
                     </div>
                 </div>
             </form>
+            @if($product->id !== null)
             <form id="destroy-form" action="{{ route('backoffice.product.destroy', $product) }}" method="POST">
                 @method('DELETE')
                 @csrf
             </form>
+            @endif
         </div>
     </div>
 @endsection

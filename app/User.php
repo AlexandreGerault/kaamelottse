@@ -6,7 +6,7 @@ use App\Models\Message;
 use App\Models\Order;
 use App\Models\Permission;
 use App\Models\Role;
-use Eloquent;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -50,7 +50,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|User noPendingOrder()
  * @property-read Collection|Order[] $orders
  * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Message[] $messages
+ * @property-read Collection|Message[] $messages
  * @property-read int|null $messages_count
  */
 class User extends Authenticatable

@@ -10,7 +10,10 @@ use App\Models\Product;
 use App\Http\Requests\ProductRequest;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
@@ -22,7 +25,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function index()
     {
@@ -34,7 +37,7 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|Response|View
      * @throws AuthorizationException
      */
     public function create()
@@ -85,7 +88,7 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Product $product
-     * @return Response
+     * @return Application|Factory|Response|View
      */
     public function edit(Product $product)
     {
