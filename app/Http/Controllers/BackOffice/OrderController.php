@@ -32,7 +32,7 @@ class OrderController extends Controller
             return view('backoffice.orders.index')
                 ->with('orders', $orders);
         } catch (AuthorizationException $e) {
-            abort(403);
+            abort(403, $e->getMessage());
         }
     }
 
@@ -44,6 +44,7 @@ class OrderController extends Controller
             return view('backoffice.orders.create')
                 ->with('action', route('backoffice.order.store'));
         } catch (AuthorizationException $e) {
+            abort(403, $e->getMessage());
         }
     }
 
@@ -61,7 +62,7 @@ class OrderController extends Controller
             $this->authorize('view', $order);
             return view('backoffice.orders.show')->with('order', $order);
         } catch (AuthorizationException $e) {
-            return back()->with('error', 'Vous n\'avez pas le droit d\'accéder à cette commande');
+            abort(403, $e->getMessage());
         }
     }
 
