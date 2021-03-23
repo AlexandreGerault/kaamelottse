@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -40,6 +42,7 @@ class ProductsTableSeeder extends Seeder
                 'points' => 25
             ]
         ]);
-        $products = factory(App\Models\Product::class, 10)->create();
+
+        Product::factory()->count(10)->create();
     }
 }
