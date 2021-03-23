@@ -15,30 +15,28 @@ class OrdersTableSeeder extends Seeder
      */
     public function run()
     {
-        if (env('APP_ENV' === 'local')) {
-            Order::factory()->count(10)->create()->each(
-                function (Order $order) {
-                    $order->customer_id        = User::all()->random()->id;
-                    $order->delivery_driver_id = User::all()->random()->id;
-                    $order->save();
+        Order::factory()->count(10)->create()->each(
+            function (Order $order) {
+                $order->customer_id        = User::all()->random()->id;
+                $order->delivery_driver_id = User::all()->random()->id;
+                $order->save();
 
-                    OrderItem::factory()->count(3)->create(
-                        [
-                            'order_id'   => $order->id,
-                            'product_id' => 1,
-                        ]
-                    )->each(
-                        function (OrderItem $orderItem) use ($order) {
-                            $orderItem->product_id = Product::all()->random()->id;
-                            $orderItem->order()->associate($order);
-                            $orderItem->save();
-                        }
-                    );
+                OrderItem::factory()->count(3)->create(
+                    [
+                        'order_id'   => $order->id,
+                        'product_id' => 1,
+                    ]
+                )->each(
+                    function (OrderItem $orderItem) use ($order) {
+                        $orderItem->product_id = Product::all()->random()->id;
+                        $orderItem->order()->associate($order);
+                        $orderItem->save();
+                    }
+                );
 
-                    $order->save();
-                    $order->selfUpdateTotals();
-                }
-            );
-        }
+                $order->save();
+                $order->selfUpdateTotals();
+            }
+        );
     }
 }
