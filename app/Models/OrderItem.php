@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\HasProduct;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -34,7 +35,7 @@ use Illuminate\Support\Carbon;
  */
 class OrderItem extends Model
 {
-    use HasProduct;
+    use HasProduct, HasFactory;
 
     protected $fillable = ['quantity'];
 
