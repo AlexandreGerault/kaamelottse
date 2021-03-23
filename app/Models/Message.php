@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\User;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +35,7 @@ use Illuminate\Support\Carbon;
  * @mixin Eloquent
  * @method static Builder|Message notResponded()
  * @property int|null $author_id
- * @property-read \App\User|null $author
+ * @property-read \App\Models\User|null $author
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Message whereAuthorId($value)
  */
 class Message extends Model

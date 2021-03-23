@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Message;
 use App\Models\Order;
@@ -18,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 
 /**
- * App\User
+ * App\Models\User
  *
  * @property int $id
  * @property string $name

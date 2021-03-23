@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\MessageDelivery;
-use App\User;
+use App\Models\User;
 
 class OrderController extends Controller
 {

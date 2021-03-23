@@ -3,7 +3,7 @@
 namespace App\Factories;
 
 use App\Models\Order;
-use App\User;
+use App\Models\User;
 
 class OrderFactory
 {
