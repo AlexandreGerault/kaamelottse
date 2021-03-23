@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
-use App\User;
-use Eloquent;
+use App\Models\User;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as DatabaseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder as DatabaseQueryBuilder;
 use Illuminate\Support\Carbon;
 
 /**
@@ -54,19 +59,19 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order byDriver(User $user)
  * @method static Builder|Order noDriver()
  * @method static Builder|Order byCustomer(User $user)
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $deleted_at
  * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Order onlyTrashed()
+ * @method static DatabaseQueryBuilder|Order onlyTrashed()
  * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order validated()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeletedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Order withoutTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order delivered()
+ * @method static DatabaseEloquentBuilder|Order validated()
+ * @method static DatabaseEloquentBuilder|Order whereDeletedAt($value)
+ * @method static DatabaseQueryBuilder|Order withTrashed()
+ * @method static DatabaseQueryBuilder|Order withoutTrashed()
+ * @method static DatabaseEloquentBuilder|Order delivered()
  */
 class Order extends Model
 {
-	use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $dates = [
         'shipped_at',
@@ -82,17 +87,26 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function messages()
+    /**
+     * @return HasMany<MessageDelivery>
+     */
+    public function messages(): HasMany
     {
         return $this->hasMany(MessageDelivery::class);
     }
 
-    public function customer()
+    /**
+     * @return BelongsTo<User>
+     */
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function deliveryDriver()
+    /**
+     * @return BelongsTo<User>
+     */
+    public function deliveryDriver(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -104,16 +118,22 @@ class Order extends Model
 
     public function scopeByDriver(Builder $query, User $user)
     {
-        return $query->whereHas('deliveryDriver', function (Builder $query) use ($user) {
-            return $query->where('id', $user->id);
-        })->where('status', config('ordering.status.IN_DELIVERY'));
+        return $query->whereHas(
+            'deliveryDriver',
+            function (Builder $query) use ($user) {
+                return $query->where('id', $user->id);
+            }
+        )->where('status', config('ordering.status.IN_DELIVERY'));
     }
 
     public function scopeByCustomer(Builder $query, User $user)
     {
-        return $query->whereHas('deliveryDriver', function (Builder $query) use ($user) {
-            return $query->where('customer_id', $user->id);
-        });
+        return $query->whereHas(
+            'deliveryDriver',
+            function (Builder $query) use ($user) {
+                return $query->where('customer_id', $user->id);
+            }
+        );
     }
 
     public function scopeDelivered(Builder $query)
@@ -126,12 +146,14 @@ class Order extends Model
         $dispatcher = Order::getEventDispatcher();
         Order::unsetEventDispatcher();
         $this->total_points = 0;
-        $this->total_price = 0;
-        $order = $this;
-        $this->items()->each(function (OrderItem $orderItem) use (&$order) {
-            $order->total_price += $orderItem->quantity * $orderItem->product->price;
-            $order->total_points += $orderItem->quantity * $orderItem->product->points;
-        });
+        $this->total_price  = 0;
+        $order              = $this;
+        $this->items()->each(
+            function (OrderItem $orderItem) use (&$order) {
+                $order->total_price  += $orderItem->quantity * $orderItem->product->price;
+                $order->total_points += $orderItem->quantity * $orderItem->product->points;
+            }
+        );
         $this->save();
         Order::setEventDispatcher($dispatcher);
     }

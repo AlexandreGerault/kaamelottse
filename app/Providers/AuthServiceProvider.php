@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Policies\MessagePolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\ProductPolicy;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

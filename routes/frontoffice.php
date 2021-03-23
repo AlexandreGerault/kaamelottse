@@ -11,15 +11,22 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
-Route::get('/index', 'IndexController@index')->name('home');
-Route::get('/contact', 'IndexController@get_contact');
-Route::post('/contact', 'IndexController@post_contact');
-Route::get('/tableRonde', 'IndexController@tableRonde')->name('round-table');
+use App\Http\Controllers\FrontOffice\HomeController;
+use App\Http\Controllers\FrontOffice\IndexController;
+use App\Http\Controllers\FrontOffice\MessagesController;
+use App\Http\Controllers\FrontOffice\OrderController;
+use App\Http\Controllers\FrontOffice\ProductController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/tableau-de-bord', 'HomeController@index')->name('dashboard')->middleware('auth');
+Route::get('/', [IndexController::class, 'index']);
+Route::get('/index', [IndexController::class, 'index'])->name('home');
+Route::get('/contact', [IndexController::class, 'get_contact']);
+Route::post('/contact', [IndexController::class, 'post_contact']);
+Route::get('/tableRonde', [IndexController::class, 'tableRonde'])->name('round-table');
 
-Route::resource('order', 'OrderController');
-Route::post('order/{order}/sendMessage', 'OrderController@sendMessage')->name('frontoffice.order.message');
-Route::resource('message', 'MessagesController');
-Route::resource('produits', 'ProductController');
+Route::get('/tableau-de-bord', [HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+
+Route::resource('order', OrderController::class);
+Route::post('order/{order}/sendMessage', [OrderController::class, 'sendMessage'])->name('frontoffice.order.message');
+Route::resource('message', MessagesController::class);
+Route::resource('produits', ProductController::class);

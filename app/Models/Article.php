@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\User;
+use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -62,7 +62,7 @@ class Article extends Model
 	protected $attributes = [
         'priority' => 0,
     ];
-	
+
 	/**
      * Obtenir l'utilisateur qui a créé l'article
      */
